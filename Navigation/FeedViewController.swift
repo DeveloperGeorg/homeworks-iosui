@@ -25,7 +25,10 @@ class FeedViewController: UIViewController {
     override func loadView() {
         let post = self.getPost()
         let view = FeedView(post: post, frame: CGRect())
-        view.button.addTarget(self, action: #selector(openPost), for: .touchUpInside)
+        let buttons: [UIButton] = view.postsStackView.arrangedSubviews.compactMap{$0 as? UIButton}
+        buttons.forEach { (button) in
+            button.addTarget(self, action: #selector(openPost), for: .touchUpInside)
+        }
         self.view = view
     }
     
