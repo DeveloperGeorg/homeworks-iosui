@@ -10,7 +10,43 @@ import UIKit
 class ProfileHeaderView: UIView {
     fileprivate let NavBarPadding = 91;
     var profile: Profile
-    var showStatusButton: UIButton = UIButton()
+    var setStatusButton: UIButton = {
+        let showStatusButton = UIButton()
+        showStatusButton.layer.cornerRadius = 4
+        showStatusButton.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
+        showStatusButton.setTitleColor(.white, for: .normal)
+        showStatusButton.setTitle("Set status", for: .normal)
+        showStatusButton.layer.shadowOpacity = 0.7
+        showStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
+        showStatusButton.layer.shadowColor = UIColor.black.cgColor
+        showStatusButton.layer.shadowRadius = CGFloat(4)
+        
+        return showStatusButton
+    }()
+    var stateTextField: UITextField = {
+        let stateTextField = UITextField()
+        stateTextField.backgroundColor = .white
+        stateTextField.layer.cornerRadius = 12
+        stateTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        stateTextField.textColor = .black
+        stateTextField.layer.borderColor = UIColor.black.cgColor
+        stateTextField.layer.borderWidth = 1
+        
+        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        stateTextField.leftView = paddingView
+        stateTextField.leftViewMode = .always
+        
+        return stateTextField
+    }()
+    
+    var profileStateLabel: UILabel = {
+        let profileStateLabel = UILabel()
+        profileStateLabel.textColor = .gray
+        
+        return profileStateLabel
+    }()
+    
+    
     
     public init(profile: Profile, frame: CGRect) {
         self.profile = profile
@@ -38,24 +74,17 @@ class ProfileHeaderView: UIView {
         profileTitle.text = profile.name
         addSubview(profileTitle)
         
-        showStatusButton.frame = CGRect(origin: CGPoint(x: 16, y: Int(profileImage.frame.maxY) + 16), size: CGSize(width: frame.width - 32, height: 50))
-        showStatusButton.layer.cornerRadius = 4
-        showStatusButton.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
-        showStatusButton.setTitleColor(.white, for: .normal)
-        showStatusButton.setTitle("Show status", for: .normal)
-        showStatusButton.layer.shadowOpacity = 0.7
-        showStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        showStatusButton.layer.shadowColor = UIColor.black.cgColor
-        showStatusButton.layer.shadowRadius = CGFloat(4)
-        addSubview(showStatusButton)
-        
-        let profileStateLabel = UILabel()
         let profileTextFieldFontSize = 14
-        profileStateLabel.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: Int(showStatusButton.frame.minY) - (34 + profileTextFieldFontSize)), size: CGSize(width: Int(textWidth), height: profileTextFieldFontSize))
-        profileStateLabel.text = profile.state
-        profileStateLabel.textColor = .gray
+        profileStateLabel.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: Int(profileImage.frame.maxY) - (18 + profileTextFieldFontSize)), size: CGSize(width: Int(textWidth), height: profileTextFieldFontSize))
         profileStateLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
+        profileStateLabel.text = profile.state
         addSubview(profileStateLabel)
+        
+        stateTextField.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: Int(profileStateLabel.frame.maxY) + 16), size: CGSize(width: Int(textWidth), height: 40))
+        addSubview(stateTextField)
+        
+        setStatusButton.frame = CGRect(origin: CGPoint(x: 16, y: Int(stateTextField.frame.maxY) + 16), size: CGSize(width: frame.width - 32, height: 50))
+        addSubview(setStatusButton)
     }
     
     required init?(coder: NSCoder) {

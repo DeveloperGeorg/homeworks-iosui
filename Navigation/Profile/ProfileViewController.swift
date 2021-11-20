@@ -8,10 +8,10 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    let profile: Profile = {
+    var profileHeaderView: ProfileHeaderView?
+    var profile: Profile = {
         return Profile(name: "Hipster cat", imageSrc: "cat-avatar.png", state: "some state")
     }()
-    
     
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -19,8 +19,10 @@ class ProfileViewController: UIViewController {
             profile: self.profile,
             frame: view.frame
         )
-        profileHeaderView.showStatusButton.addTarget(self, action: #selector(printProfileState), for: .touchUpInside)
+        profileHeaderView.setStatusButton.addTarget(self, action: #selector(printProfileState), for: .touchUpInside)
+        profileHeaderView.stateTextField.addTarget(self, action: #selector(changeProfileState), for: .editingChanged)
         view.addSubview(profileHeaderView)
+        self.profileHeaderView = profileHeaderView
     }
 
     override func viewDidLoad() {
@@ -31,6 +33,13 @@ class ProfileViewController: UIViewController {
     
     @objc private func printProfileState()
     {
+        self.profileHeaderView?.profileStateLabel.text = profile.state
+        self.profileHeaderView?.profileStateLabel.setNeedsDisplay()
+    }
+    
+    @objc private func changeProfileState(_ textField: UITextField)
+    {
+        profile.state = String(textField.text ?? profile.state)
         print(profile.state)
     }
 }
