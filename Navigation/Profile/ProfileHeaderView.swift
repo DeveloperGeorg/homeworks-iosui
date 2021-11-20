@@ -10,8 +10,48 @@ import UIKit
 class ProfileHeaderView: UIView {
     fileprivate let NavBarPadding = 91;
     var profile: Profile
+    
+    var avatarImageView: UIImageView = {
+        let avatarImageView = UIImageView()
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        return avatarImageView
+    }()
+    
+    var fullNameLabel: UILabel = {
+        let fullNameLabel = UILabel()
+        fullNameLabel.textColor = .black
+        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        return fullNameLabel
+    }()
+    
+    var statusLabel: UILabel = {
+        let statusLabel = UILabel()
+        statusLabel.textColor = .gray
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        return statusLabel
+    }()
+    
+    var statusTextField: UITextField = {
+        let statusTextField = UITextField()
+        statusTextField.translatesAutoresizingMaskIntoConstraints = false
+        statusTextField.backgroundColor = .white
+        statusTextField.layer.cornerRadius = 12
+        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        statusTextField.textColor = .black
+        statusTextField.layer.borderColor = UIColor.black.cgColor
+        statusTextField.layer.borderWidth = 1
+        
+        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        statusTextField.leftView = paddingView
+        statusTextField.leftViewMode = .always
+        
+        return statusTextField
+    }()
+    
     var setStatusButton: UIButton = {
         let showStatusButton = UIButton()
+        showStatusButton.translatesAutoresizingMaskIntoConstraints = false
         showStatusButton.layer.cornerRadius = 4
         showStatusButton.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
         showStatusButton.setTitleColor(.white, for: .normal)
@@ -23,28 +63,6 @@ class ProfileHeaderView: UIView {
         
         return showStatusButton
     }()
-    var stateTextField: UITextField = {
-        let stateTextField = UITextField()
-        stateTextField.backgroundColor = .white
-        stateTextField.layer.cornerRadius = 12
-        stateTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        stateTextField.textColor = .black
-        stateTextField.layer.borderColor = UIColor.black.cgColor
-        stateTextField.layer.borderWidth = 1
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        stateTextField.leftView = paddingView
-        stateTextField.leftViewMode = .always
-        
-        return stateTextField
-    }()
-    
-    var profileStateLabel: UILabel = {
-        let profileStateLabel = UILabel()
-        profileStateLabel.textColor = .gray
-        
-        return profileStateLabel
-    }()
     
     
     
@@ -52,39 +70,49 @@ class ProfileHeaderView: UIView {
         self.profile = profile
         super.init(frame: frame)
         print("Profile: \(self.profile.name), \(self.profile.state), \(self.profile.imageSrc)")
+        
         let image = UIImage(named: profile.imageSrc)
-        let profileImage = UIImageView()
-        profileImage.image = image
+        avatarImageView.image = image
         let imageSize = 100
-        profileImage.frame = CGRect(origin: CGPoint(x: 16, y: NavBarPadding + 16), size: CGSize(width: imageSize, height: imageSize))
-        profileImage.layer.masksToBounds = true
-        profileImage.layer.cornerRadius = profileImage.bounds.height / 2
-        profileImage.layer.borderWidth = 3
-        profileImage.layer.borderColor = UIColor.white.cgColor
-        addSubview(profileImage)
-
-        let textWidth = frame.width - profileImage.frame.maxX - 32
+        avatarImageView.layer.masksToBounds = true
+        avatarImageView.layer.cornerRadius = CGFloat(imageSize / 2)
+        avatarImageView.layer.borderWidth = 3
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        addSubview(avatarImageView)
+        avatarImageView.widthAnchor.constraint(equalToConstant: CGFloat(imageSize)).isActive = true
+        avatarImageView.heightAnchor.constraint(equalToConstant: CGFloat(imageSize)).isActive = true
+        avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
+        avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
         
-        
-        let profileTitle = UILabel()
         let profileTitleFontSize = 18
-        profileTitle.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: NavBarPadding + 27), size: CGSize(width: Int(textWidth), height: profileTitleFontSize))
-        profileTitle.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
-        profileTitle.textColor = .black
-        profileTitle.text = profile.name
-        addSubview(profileTitle)
-        
+        fullNameLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
+        fullNameLabel.text = profile.name
+        addSubview(fullNameLabel)
+        fullNameLabel.heightAnchor.constraint(equalToConstant: CGFloat(profileTitleFontSize)).isActive = true
+        fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
+        fullNameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16).isActive = true
+        fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
+//
         let profileTextFieldFontSize = 14
-        profileStateLabel.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: Int(profileImage.frame.maxY) - (18 + profileTextFieldFontSize)), size: CGSize(width: Int(textWidth), height: profileTextFieldFontSize))
-        profileStateLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
-        profileStateLabel.text = profile.state
-        addSubview(profileStateLabel)
+        statusLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
+        statusLabel.text = profile.state
+        addSubview(statusLabel)
+        statusLabel.heightAnchor.constraint(equalToConstant: CGFloat(profileTextFieldFontSize)).isActive = true
+        statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
+        statusLabel.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: -18).isActive = true
+        statusLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
         
-        stateTextField.frame = CGRect(origin: CGPoint(x: Int(profileImage.frame.maxX) + 16, y: Int(profileStateLabel.frame.maxY) + 16), size: CGSize(width: Int(textWidth), height: 40))
-        addSubview(stateTextField)
-        
-        setStatusButton.frame = CGRect(origin: CGPoint(x: 16, y: Int(stateTextField.frame.maxY) + 16), size: CGSize(width: frame.width - 32, height: 50))
+        addSubview(statusTextField)
+        statusTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
+        statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 16).isActive = true
+        statusTextField.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16).isActive = true
+
         addSubview(setStatusButton)
+        setStatusButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16).isActive = true
+        setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16).isActive = true
+        setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
     }
     
     required init?(coder: NSCoder) {
