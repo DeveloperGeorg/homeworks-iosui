@@ -13,6 +13,8 @@
 		4135194327252072009739D1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194227252071009739D1 /* InfoViewController.swift */; };
 		4135194627252C6B009739D1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194527252C6B009739D1 /* InfoView.swift */; };
 		4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194C272673A7009739D1 /* ProfileHeaderView.swift */; };
+		41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E1273B938600B2B76C /* LogInViewController.swift */; };
+		41A384E5273B95B300B2B76C /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E4273B95B300B2B76C /* LogInView.swift */; };
 		41E28911272679C400DFDF59 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E28910272679C400DFDF59 /* Profile.swift */; };
 		41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0D272075F60030EF9A /* AppDelegate.swift */; };
 		41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0F272075F60030EF9A /* SceneDelegate.swift */; };
@@ -29,6 +31,8 @@
 		4135194227252071009739D1 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4135194527252C6B009739D1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		4135194C272673A7009739D1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		41A384E1273B938600B2B76C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		41A384E4273B95B300B2B76C /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		41E28910272679C400DFDF59 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		41E6CD0A272075F60030EF9A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6CD0D272075F60030EF9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +61,8 @@
 				41E6CD2827213DF00030EF9A /* ProfileViewController.swift */,
 				4135194C272673A7009739D1 /* ProfileHeaderView.swift */,
 				41E28910272679C400DFDF59 /* Profile.swift */,
+				41A384E1273B938600B2B76C /* LogInViewController.swift */,
+				41A384E4273B95B300B2B76C /* LogInView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -173,9 +179,11 @@
 				41E6CD2627213DCF0030EF9A /* FeedViewController.swift in Sources */,
 				4135193D2721C798009739D1 /* Post.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
+				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
 				41E28911272679C400DFDF59 /* Profile.swift in Sources */,
 				4135194627252C6B009739D1 /* InfoView.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
+				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

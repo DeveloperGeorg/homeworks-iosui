@@ -69,7 +69,6 @@ class ProfileHeaderView: UIView {
     public init(profile: Profile, frame: CGRect) {
         self.profile = profile
         super.init(frame: frame)
-        print("Profile: \(self.profile.name), \(self.profile.state), \(self.profile.imageSrc)")
         
         let image = UIImage(named: profile.imageSrc)
         avatarImageView.image = image
