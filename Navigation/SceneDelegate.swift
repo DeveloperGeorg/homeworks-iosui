@@ -19,11 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedNavigationController = UINavigationController()
         feedNavigationController.pushViewController(FeedViewController(parentNavigationController: feedNavigationController), animated: false)
         feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), selectedImage: nil)
-        let profileNavigationController = UINavigationController(rootViewController: ProfileViewController())
-        profileNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
+        let loginNavigationController = UINavigationController(rootViewController: LogInViewController())
+        loginNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
+        loginNavigationController.navigationBar.isHidden = true
         tabBarController.setViewControllers([
             feedNavigationController,
-            profileNavigationController
+            loginNavigationController
         ], animated: false)
         
         window.rootViewController = tabBarController
