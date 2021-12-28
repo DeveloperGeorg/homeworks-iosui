@@ -1,13 +1,7 @@
-//
-//  FeedViewController.swift
-//  Navigation
-//
-//  Created by Георгий Бондаренко on 21.10.2021.
-//
-
 import UIKit
 
 class FeedViewController: UIViewController {
+    fileprivate let postTitle = "Post title"
     weak var parentNavigationController: UINavigationController?
     
     public init(parentNavigationController: UINavigationController?) {
@@ -23,8 +17,7 @@ class FeedViewController: UIViewController {
     }
     
     override func loadView() {
-        let post = self.getPost()
-        let view = FeedView(post: post, frame: CGRect())
+        let view = FeedView(postTitle: postTitle, frame: CGRect())
         let buttons: [UIButton] = view.postsStackView.arrangedSubviews.compactMap{$0 as? UIButton}
         buttons.forEach { (button) in
             button.addTarget(self, action: #selector(openPost), for: .touchUpInside)
@@ -33,10 +26,6 @@ class FeedViewController: UIViewController {
     }
     
     @objc private func openPost() {
-        parentNavigationController?.pushViewController(PostViewController(post: self.getPost()), animated: true)
-    }
-    
-    private func getPost()->Post {
-        return Post(title: "Post title")
+        parentNavigationController?.pushViewController(PostViewController(postTitle: postTitle), animated: true)
     }
 }

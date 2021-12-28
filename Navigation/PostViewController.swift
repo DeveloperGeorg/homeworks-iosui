@@ -8,10 +8,10 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    let post: Post
+    let postTitle: String
     
-    public init(post: Post) {
-        self.post = post
+    public init(postTitle: String) {
+        self.postTitle = postTitle
         super.init(nibName: nil, bundle: nil)
         let infoButtonItem = UIBarButtonItem(
             title: "Info",
@@ -28,7 +28,7 @@ class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = post.title
+        self.title = postTitle
         view.backgroundColor = .white
     }
     

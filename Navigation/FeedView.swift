@@ -8,7 +8,6 @@
 import UIKit
 
 class FeedView: UIView {
-    
     var postsStackView: UIStackView = {
         let postsStackView = UIStackView()
         postsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +16,7 @@ class FeedView: UIView {
         return postsStackView
     }()
     
-    public init(post: Post, frame: CGRect) {
+    public init(postTitle: String, frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .red
         
@@ -25,8 +24,8 @@ class FeedView: UIView {
         postsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         postsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
-        postsStackView.addArrangedSubview(self.getButtonWithText(post.title))
-        postsStackView.addArrangedSubview(self.getButtonWithText("New one \(post.title)"))
+        postsStackView.addArrangedSubview(self.getButtonWithText(postTitle))
+        postsStackView.addArrangedSubview(self.getButtonWithText("New one \(postTitle)"))
     }
     
     private func getButtonWithText(_ text: String) -> UIButton
