@@ -1,7 +1,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-    
+    private let loginView = LogInView()
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -9,13 +9,18 @@ class LogInViewController: UIViewController {
     }
     
     override func loadView() {
-        let loginView = LogInView()
         loginView.logInButton.addTarget(self, action: #selector(openProfile), for: .touchUpInside)
         view = loginView
     }
     
     @objc private func openProfile(sender:UIButton) {
-        self.show(ProfileViewController(), sender: sender)
+        let userService = CurrentUserService()
+        #if DEBUG
+        let userService = TestUserService()
+        #endif
+        self.show(ProfileViewController(
+            userService: userService, fullName: loginView.loginInput.text ?? ""
+        ), sender: sender)
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {

@@ -2,9 +2,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     fileprivate let forCellReuseIdentifier = "test"
-    var profile: Profile = {
-        return Profile(name: "Hipster cat", imageSrc: "cat-avatar.png", state: "some state")
-    }()
+    private var userService: UserService
+    var user: User
     let posts: [Post] = [
         {
             return Post(author: "Test1", description: "Amaizing description 1", image: "post1.jpg", likes: 10, views: 25)
@@ -35,6 +34,21 @@ class ProfileViewController: UIViewController {
         return postsTableView
     }()
     
+    init(userService: UserService, fullName: String) {
+        self.userService = userService
+        if let user = self.userService.getUserByFullName(fullName) {
+            self.user = user
+        } else {
+            user = User(fullName: "Debug User", avatarImageSrc: "cat-avatar.png", status: "debug status")
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func activateConstraints() {
         NSLayoutConstraint.activate([
             postsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -63,7 +77,7 @@ class ProfileViewController: UIViewController {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-            let headerView = ProfileTableHederView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 250))
+        let headerView = ProfileTableHederView.init(profile: self.user, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 250))
             
             return headerView
         }

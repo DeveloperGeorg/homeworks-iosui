@@ -6,7 +6,7 @@ class ProfileHeaderView: UIView {
     fileprivate let profileTextFieldFontSize = 14
     fileprivate let imageSize = 100
 
-    var profile: Profile
+    var profile: User
     
     var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
@@ -61,18 +61,18 @@ class ProfileHeaderView: UIView {
         return showStatusButton
     }()
     
-    public init(profile: Profile, frame: CGRect) {
+    public init(profile: User, frame: CGRect) {
         self.profile = profile
         super.init(frame: frame)
         
-        let image = UIImage(named: profile.imageSrc)
+        let image = UIImage(named: profile.avatarImageSrc)
         avatarImageView.image = image
         
         fullNameLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
-        fullNameLabel.text = profile.name
+        fullNameLabel.text = profile.fullName
         
         statusLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
-        statusLabel.text = profile.state
+        statusLabel.text = profile.status
         
         addSubviews()
         drawLayer()
@@ -136,12 +136,12 @@ class ProfileHeaderView: UIView {
     
     @objc private func printProfileState()
     {
-        statusLabel.text = profile.state
+        statusLabel.text = profile.status
         statusLabel.setNeedsDisplay()
     }
     
     @objc private func changeProfileState(_ textField: UITextField)
     {
-        profile.state = String(textField.text ?? profile.state)
+        profile.status = String(textField.text ?? profile.status)
     }
 }
