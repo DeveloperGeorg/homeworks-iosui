@@ -18,9 +18,21 @@ class LogInViewController: UIViewController {
         #if DEBUG
         let userService = TestUserService()
         #endif
-        self.show(ProfileViewController(
-            userService: userService, fullName: loginView.loginInput.text ?? ""
-        ), sender: sender)
+        do {
+            try self.show(ProfileViewController(
+                userService: userService, fullName: loginView.loginInput.text ?? ""
+            ), sender: sender)
+        } catch ProfileViewController.ValidationError.notFound {
+            let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {
+                UIAlertAction in
+                print("Pressed OK action")
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        } catch {
+            print("Something went wrong")
+        }
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {

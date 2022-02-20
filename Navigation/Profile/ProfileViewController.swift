@@ -1,6 +1,10 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    enum ValidationError: Error {
+            case notFound
+        }
+
     fileprivate let forCellReuseIdentifier = "test"
     private var userService: UserService
     var user: User
@@ -34,12 +38,12 @@ class ProfileViewController: UIViewController {
         return postsTableView
     }()
     
-    init(userService: UserService, fullName: String) {
+    init(userService: UserService, fullName: String) throws {
         self.userService = userService
         if let user = self.userService.getUserByFullName(fullName) {
             self.user = user
         } else {
-            user = User(fullName: "Debug User", avatarImageSrc: "cat-avatar.png", status: "debug status")
+            throw ValidationError.notFound
         }
         
         super.init(nibName: nil, bundle: nil)
