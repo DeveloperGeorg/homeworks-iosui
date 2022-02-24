@@ -1,4 +1,5 @@
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     fileprivate let forCellReuseIdentifier = "test"
@@ -47,6 +48,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
+        view.backgroundColor = .systemGray
+        #if DEBUG
+        view.backgroundColor = .systemPurple
+        #endif
         
         view.addSubview(postsTableView)
         
