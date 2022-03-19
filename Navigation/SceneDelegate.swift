@@ -12,8 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedNavigationController = UINavigationController()
         feedNavigationController.pushViewController(FeedViewController(parentNavigationController: feedNavigationController), animated: false)
         feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), selectedImage: nil)
-        let loginInspector = LoginInspector()
-        let loginNavigationController = UINavigationController(rootViewController: LogInViewController(loginViewControllerDelegate: loginInspector))
+        let loginFactory = LoginFactory()
+        let loginNavigationController = UINavigationController(rootViewController: LogInViewController(loginViewControllerDelegate: loginFactory.getLognCredentialsValidator()))
         loginNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
         loginNavigationController.navigationBar.isHidden = true
         tabBarController.setViewControllers([
