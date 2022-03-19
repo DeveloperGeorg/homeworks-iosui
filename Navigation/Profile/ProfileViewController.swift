@@ -1,4 +1,6 @@
 import UIKit
+import iOSIntPackage
+import StorageService
 
 class ProfileViewController: UIViewController {
     enum ValidationError: Error {
@@ -32,12 +34,22 @@ class ProfileViewController: UIViewController {
         }(),
     ]
     
+    fileprivate let postsFilters: [ColorFilter] = [
+        .sepia(intensity: 0.5),
+        .monochrome(color: CIColor.init(red: 0/255, green: 0/255, blue: 0/255),
+                    intensity: 0.8),
+        .noir,
+        .posterize,
+        .bloom(intensity: 0.7)
+    ]
+    
     let postsTableView: UITableView = {
         let postsTableView = UITableView.init(frame: .zero, style: .plain)
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
         return postsTableView
     }()
     
+
     init(userService: UserService, fullName: String) throws {
         self.userService = userService
         if let user = self.userService.getUserByFullName(fullName) {
@@ -52,6 +64,9 @@ class ProfileViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+  
+    let imageProcessor: ImageProcessor = ImageProcessor()
+    
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
@@ -65,6 +80,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
+        view.backgroundColor = .systemGray
+        #if DEBUG
+        view.backgroundColor = .systemPurple
+        #endif
         
         view.addSubview(postsTableView)
         
@@ -99,9 +118,14 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostTableViewCell
         
-        let post = self.posts[indexPath.row] as Post
+        let index = Int(indexPath.row)
+        let post = self.posts[index] as Post
         cell.titleView.text = post.author
-        let image = UIImage(named: post.image)
+        var image = UIImage(named: post.image)
+        let filter = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
+        imageProcessor.processImage(sourceImage: image!, filter: filter, completion: {(imageWithFilter) -> Void in
+            image = imageWithFilter
+        })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
         cell.viewsCounterView.text = "Views: \(post.views)"
