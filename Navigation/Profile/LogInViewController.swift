@@ -1,7 +1,7 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-    
+    private let loginView = LogInView()
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -9,13 +9,30 @@ class LogInViewController: UIViewController {
     }
     
     override func loadView() {
-        let loginView = LogInView()
         loginView.logInButton.addTarget(self, action: #selector(openProfile), for: .touchUpInside)
         view = loginView
     }
     
     @objc private func openProfile(sender:UIButton) {
-        self.show(ProfileViewController(), sender: sender)
+        let userService = CurrentUserService()
+        #if DEBUG
+        let userService = TestUserService()
+        #endif
+        do {
+            try self.show(ProfileViewController(
+                userService: userService, fullName: loginView.loginInput.text ?? ""
+            ), sender: sender)
+        } catch ProfileViewController.ValidationError.notFound {
+            let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) {
+                UIAlertAction in
+                print("Pressed OK action")
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        } catch {
+            print("Something went wrong")
+        }
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {

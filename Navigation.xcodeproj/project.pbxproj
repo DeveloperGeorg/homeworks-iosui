@@ -14,6 +14,10 @@
 		4135194627252C6B009739D1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194527252C6B009739D1 /* InfoView.swift */; };
 		4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194C272673A7009739D1 /* ProfileHeaderView.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
+		415598D627C24B5800406125 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415598D527C24B5800406125 /* User.swift */; };
+		415598D927C24CB100406125 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415598D827C24CB100406125 /* UserService.swift */; };
+		415598DC27C24D3B00406125 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415598DB27C24D3B00406125 /* CurrentUserService.swift */; };
+		415598E027C2546A00406125 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415598DF27C2546A00406125 /* TestUserService.swift */; };
 		41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E1273B938600B2B76C /* LogInViewController.swift */; };
 		41A384E5273B95B300B2B76C /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E4273B95B300B2B76C /* LogInView.swift */; };
 		41B9053A27BABC830020A8DD /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B9053827BABC830020A8DD /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +69,10 @@
 		4135194527252C6B009739D1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		4135194C272673A7009739D1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		415598D527C24B5800406125 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		415598D827C24CB100406125 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		415598DB27C24D3B00406125 /* CurrentUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
+		415598DF27C2546A00406125 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		41A384E1273B938600B2B76C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		41A384E4273B95B300B2B76C /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,7 +125,6 @@
 			children = (
 				41E6CD2827213DF00030EF9A /* ProfileViewController.swift */,
 				4135194C272673A7009739D1 /* ProfileHeaderView.swift */,
-				41E28910272679C400DFDF59 /* Profile.swift */,
 				41A384E1273B938600B2B76C /* LogInViewController.swift */,
 				41A384E4273B95B300B2B76C /* LogInView.swift */,
 				411C845A274A6E670083FD12 /* ProfileTableHederView.swift */,
@@ -170,6 +177,10 @@
 				4135193F2721CA4D009739D1 /* FeedView.swift */,
 				4135194227252071009739D1 /* InfoViewController.swift */,
 				4135194527252C6B009739D1 /* InfoView.swift */,
+				415598D527C24B5800406125 /* User.swift */,
+				415598D827C24CB100406125 /* UserService.swift */,
+				415598DB27C24D3B00406125 /* CurrentUserService.swift */,
+				415598DF27C2546A00406125 /* TestUserService.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -356,13 +367,17 @@
 				4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
+				415598D627C24B5800406125 /* User.swift in Sources */,
 				4135194327252072009739D1 /* InfoViewController.swift in Sources */,
+				415598D927C24CB100406125 /* UserService.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
+				415598E027C2546A00406125 /* TestUserService.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
 				41E6CD2627213DCF0030EF9A /* FeedViewController.swift in Sources */,
+				415598DC27C24D3B00406125 /* CurrentUserService.swift in Sources */,
+				4135193D2721C798009739D1 /* Post.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
-				41E28911272679C400DFDF59 /* Profile.swift in Sources */,
 				4135194627252C6B009739D1 /* InfoView.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,

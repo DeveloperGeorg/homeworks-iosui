@@ -1,12 +1,9 @@
 import UIKit
 
 class ProfileTableHederView: UIView {
-    var profile: Profile = {
-        return Profile(name: "Hipster cat", imageSrc: "cat-avatar.png", state: "some state")
-    }()
     let profileHeaderView: ProfileHeaderView
 
-    public override init(frame: CGRect) {
+    public init(profile: User, frame: CGRect) {
         profileHeaderView = ProfileHeaderView(
             profile: profile,
             frame: .zero
