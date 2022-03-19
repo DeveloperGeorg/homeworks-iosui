@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
 		4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413519392721C6EE009739D1 /* PostViewController.swift */; };
-		4135193D2721C798009739D1 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
 		413519402721CA4D009739D1 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193F2721CA4D009739D1 /* FeedView.swift */; };
 		4135194327252072009739D1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194227252071009739D1 /* InfoViewController.swift */; };
 		4135194627252C6B009739D1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194527252C6B009739D1 /* InfoView.swift */; };
@@ -17,6 +16,10 @@
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E1273B938600B2B76C /* LogInViewController.swift */; };
 		41A384E5273B95B300B2B76C /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E4273B95B300B2B76C /* LogInView.swift */; };
+		41B9053A27BABC830020A8DD /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B9053827BABC830020A8DD /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; };
+		41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		41B9054427BABCD50020A8DD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
 		41E28911272679C400DFDF59 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E28910272679C400DFDF59 /* Profile.swift */; };
 		41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0D272075F60030EF9A /* AppDelegate.swift */; };
 		41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0F272075F60030EF9A /* SceneDelegate.swift */; };
@@ -27,6 +30,30 @@
 		41FEC57627BEB4F800B92E40 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 41FEC57527BEB4F800B92E40 /* iOSIntPackage */; };
 		92EE84003CF65A457F6A62D8 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4707456AEBC2D93E85EEF195 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		41B9053B27BABC830020A8DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 41E6CD02272075F50030EF9A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41B9053527BABC830020A8DD;
+			remoteInfo = StorageService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		41B9053F27BABC830020A8DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
@@ -40,6 +67,9 @@
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		41A384E1273B938600B2B76C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		41A384E4273B95B300B2B76C /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E28910272679C400DFDF59 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		41E6CD0A272075F60030EF9A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6CD0D272075F60030EF9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,12 +84,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		41B9053327BABC830020A8DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41E6CD07272075F50030EF9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				92EE84003CF65A457F6A62D8 /* Pods_Navigation.framework in Frameworks */,
 				41FEC57627BEB4F800B92E40 /* iOSIntPackage in Frameworks */,
+				41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,10 +126,21 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		41B9053727BABC830020A8DD /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				4135193C2721C798009739D1 /* Post.swift */,
+				41B9053827BABC830020A8DD /* StorageService.h */,
+				41B9053927BABC830020A8DD /* Info.plist */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
 		41E6CD01272075F50030EF9A = {
 			isa = PBXGroup;
 			children = (
 				41E6CD0C272075F60030EF9A /* Navigation */,
+				41B9053727BABC830020A8DD /* StorageService */,
 				41E6CD0B272075F60030EF9A /* Products */,
 				E46FE82746DAB04AB35FB1DC /* Pods */,
 				07716614BC270F4AACC7FB3D /* Frameworks */,
@@ -102,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				41E6CD0A272075F60030EF9A /* Navigation.app */,
+				41B9053627BABC830020A8DD /* StorageService.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,7 +167,6 @@
 				41E6CD1B272075F90030EF9A /* Info.plist */,
 				41E6CD2527213DCF0030EF9A /* FeedViewController.swift */,
 				413519392721C6EE009739D1 /* PostViewController.swift */,
-				4135193C2721C798009739D1 /* Post.swift */,
 				4135193F2721CA4D009739D1 /* FeedView.swift */,
 				4135194227252071009739D1 /* InfoViewController.swift */,
 				4135194527252C6B009739D1 /* InfoView.swift */,
@@ -136,7 +185,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		41B9053127BABC830020A8DD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41B9053A27BABC830020A8DD /* StorageService.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		41B9053527BABC830020A8DD /* StorageService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41B9054227BABC830020A8DD /* Build configuration list for PBXNativeTarget "StorageService" */;
+			buildPhases = (
+				41B9053127BABC830020A8DD /* Headers */,
+				41B9053227BABC830020A8DD /* Sources */,
+				41B9053327BABC830020A8DD /* Frameworks */,
+				41B9053427BABC830020A8DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StorageService;
+			productName = StorageService;
+			productReference = 41B9053627BABC830020A8DD /* StorageService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		41E6CD09272075F50030EF9A /* Navigation */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 41E6CD1E272075F90030EF9A /* Build configuration list for PBXNativeTarget "Navigation" */;
@@ -146,10 +224,12 @@
 				41E6CD07272075F50030EF9A /* Frameworks */,
 				41E6CD08272075F50030EF9A /* Resources */,
 				24682A712EEFD39B4E39D0FD /* [CP] Embed Pods Frameworks */,
+				41B9053F27BABC830020A8DD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				41B9053C27BABC830020A8DD /* PBXTargetDependency */,
 			);
 			name = Navigation;
 			packageProductDependencies = (
@@ -168,6 +248,9 @@
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					41B9053527BABC830020A8DD = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					41E6CD09272075F50030EF9A = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -190,11 +273,19 @@
 			projectRoot = "";
 			targets = (
 				41E6CD09272075F50030EF9A /* Navigation */,
+				41B9053527BABC830020A8DD /* StorageService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		41B9053427BABC830020A8DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41E6CD08272075F50030EF9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -249,6 +340,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		41B9053227BABC830020A8DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41B9054427BABCD50020A8DD /* Post.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		41E6CD06272075F50030EF9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -261,7 +360,6 @@
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
 				41E6CD2627213DCF0030EF9A /* FeedViewController.swift in Sources */,
-				4135193D2721C798009739D1 /* Post.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
 				41E28911272679C400DFDF59 /* Profile.swift in Sources */,
@@ -272,6 +370,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		41B9053C27BABC830020A8DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41B9053527BABC830020A8DD /* StorageService */;
+			targetProxy = 41B9053B27BABC830020A8DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		41E6CD18272075F90030EF9A /* LaunchScreen.storyboard */ = {
@@ -285,6 +391,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		41B9054027BABC830020A8DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorageService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.developergeorg.helloworld.StorageService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		41B9054127BABC830020A8DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StorageService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.developergeorg.helloworld.StorageService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		41E6CD1C272075F90030EF9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,6 +563,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6F26C2E66181ED9A30F8C8B /* Pods-Navigation.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -424,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -442,6 +602,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		41B9054227BABC830020A8DD /* Build configuration list for PBXNativeTarget "StorageService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B9054027BABC830020A8DD /* Debug */,
+				41B9054127BABC830020A8DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		41E6CD05272075F50030EF9A /* Build configuration list for PBXProject "Navigation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
