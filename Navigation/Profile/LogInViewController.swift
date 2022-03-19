@@ -1,7 +1,12 @@
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol {
+    enum ValidationError: Error {
+            case invalidCredentials
+        }
+
     private let loginView = LogInView()
+    private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -13,16 +18,32 @@ class LogInViewController: UIViewController {
         view = loginView
     }
     
+    init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol) {
+        self.loginViewControllerDelegate = loginViewControllerDelegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func checkCredentials(login: String, password: String) -> Bool {
+        return loginViewControllerDelegate.checkCredentials(login: login, password: password)
+    }
+    
     @objc private func openProfile(sender:UIButton) {
         let userService = CurrentUserService()
         #if DEBUG
         let userService = TestUserService()
         #endif
         do {
+            if !self.checkCredentials(login: loginView.loginInput.text ?? "", password: loginView.passwordInput.text ?? "") {
+                throw ValidationError.invalidCredentials
+            }
             try self.show(ProfileViewController(
                 userService: userService, fullName: loginView.loginInput.text ?? ""
             ), sender: sender)
-        } catch ProfileViewController.ValidationError.notFound {
+        } catch ProfileViewController.ValidationError.notFound, ValidationError.invalidCredentials {
             let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default) {
                 UIAlertAction in

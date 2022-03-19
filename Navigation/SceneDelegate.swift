@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Navigation
-//
-//  Created by Георгий Бондаренко on 20.10.2021.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -19,7 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let feedNavigationController = UINavigationController()
         feedNavigationController.pushViewController(FeedViewController(parentNavigationController: feedNavigationController), animated: false)
         feedNavigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), selectedImage: nil)
-        let loginNavigationController = UINavigationController(rootViewController: LogInViewController())
+        let loginInspector = LoginInspector()
+        let loginNavigationController = UINavigationController(rootViewController: LogInViewController(loginViewControllerDelegate: loginInspector))
         loginNavigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
         loginNavigationController.navigationBar.isHidden = true
         tabBarController.setViewControllers([
