@@ -1,4 +1,5 @@
 import UIKit
+import iOSIntPackage
 import StorageService
 
 class ProfileViewController: UIViewController {
@@ -30,11 +31,23 @@ class ProfileViewController: UIViewController {
         }(),
     ]
     
+    fileprivate let postsFilters: [ColorFilter] = [
+        .sepia(intensity: 0.5),
+        .monochrome(color: CIColor.init(red: 0/255, green: 0/255, blue: 0/255),
+                    intensity: 0.8),
+        .noir,
+        .posterize,
+        .bloom(intensity: 0.7)
+    ]
+    
     let postsTableView: UITableView = {
         let postsTableView = UITableView.init(frame: .zero, style: .plain)
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
         return postsTableView
     }()
+    
+    let imageProcessor: ImageProcessor = ImageProcessor()
+    
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
@@ -86,9 +99,14 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostTableViewCell
         
-        let post = self.posts[indexPath.row] as Post
+        let index = Int(indexPath.row)
+        let post = self.posts[index] as Post
         cell.titleView.text = post.author
-        let image = UIImage(named: post.image)
+        var image = UIImage(named: post.image)
+        let filter = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
+        imageProcessor.processImage(sourceImage: image!, filter: filter, completion: {(imageWithFilter) -> Void in
+            image = imageWithFilter
+        })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
         cell.viewsCounterView.text = "Views: \(post.views)"
