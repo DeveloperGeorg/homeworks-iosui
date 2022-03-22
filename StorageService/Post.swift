@@ -1,7 +1,7 @@
-import Foundation
+import UIKit
 
 public struct Post {
-    public init(author: String, description: String, image: String, likes: Int, views: Int) {
+    public init(author: String, description: String, image: UIImage, likes: Int, views: Int) {
         self.author = author
         self.description = description
         self.image = image
@@ -11,7 +11,7 @@ public struct Post {
     
     public var author: String
     public var description: String
-    public var image: String
+    public var image: UIImage
     public var likes: Int
     public var views: Int
 }
