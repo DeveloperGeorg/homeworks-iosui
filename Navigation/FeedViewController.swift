@@ -18,14 +18,12 @@ class FeedViewController: UIViewController {
     
     override func loadView() {
         let view = FeedView(postTitle: postTitle, frame: CGRect())
-        let buttons: [UIButton] = view.postsStackView.arrangedSubviews.compactMap{$0 as? UIButton}
+        let buttons: [CustomButton] = view.postsStackView.arrangedSubviews.compactMap{$0 as? CustomButton}
         buttons.forEach { (button) in
-            button.addTarget(self, action: #selector(openPost), for: .touchUpInside)
+            button.setButtonTappedCallback({ sender in
+                self.parentNavigationController?.pushViewController(PostViewController(postTitle: self.postTitle), animated: true)
+            })
         }
         self.view = view
-    }
-    
-    @objc private func openPost() {
-        parentNavigationController?.pushViewController(PostViewController(postTitle: postTitle), animated: true)
     }
 }

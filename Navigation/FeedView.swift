@@ -28,12 +28,10 @@ class FeedView: UIView {
         postsStackView.addArrangedSubview(self.getButtonWithText("New one \(postTitle)"))
     }
     
-    private func getButtonWithText(_ text: String) -> UIButton
+    private func getButtonWithText(_ text: String) -> CustomButton
     {
-        let button = UIButton(frame: .zero)
+        let button = CustomButton(title: text, titleColor: .red, titleFor: .normal, buttonTappedCallback: nil)
         button.backgroundColor = .white
-        button.setTitle(text, for: .normal)
-        button.setTitleColor(.red, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return button

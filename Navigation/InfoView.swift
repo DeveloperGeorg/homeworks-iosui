@@ -8,10 +8,9 @@
 import UIKit
 
 class InfoView: UIView {
-    var button: UIButton = {
-        let button = UIButton(frame: .zero)
+    var button: CustomButton = {
+        let button = CustomButton(title: "", titleColor: .red, titleFor: .normal, buttonTappedCallback: nil)
         button.backgroundColor = .white
-        button.setTitleColor(.red, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
