@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
 		411F73F127EEE99400555D97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F027EEE99400555D97 /* CustomButton.swift */; };
+		411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F527F03CB200555D97 /* NewPostValidator.swift */; };
 		4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413519392721C6EE009739D1 /* PostViewController.swift */; };
 		413519402721CA4D009739D1 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193F2721CA4D009739D1 /* FeedView.swift */; };
 		4135194327252072009739D1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194227252071009739D1 /* InfoViewController.swift */; };
@@ -63,6 +64,7 @@
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
 		411F73F027EEE99400555D97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		411F73F527F03CB200555D97 /* NewPostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostValidator.swift; sourceTree = "<group>"; };
 		413519392721C6EE009739D1 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		4135193C2721C798009739D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4135193F2721CA4D009739D1 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				415598D827C24CB100406125 /* UserService.swift */,
 				415598DB27C24D3B00406125 /* CurrentUserService.swift */,
 				415598DF27C2546A00406125 /* TestUserService.swift */,
+				411F73F527F03CB200555D97 /* NewPostValidator.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
 				4135194627252C6B009739D1 /* InfoView.swift in Sources */,
+				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 			);
