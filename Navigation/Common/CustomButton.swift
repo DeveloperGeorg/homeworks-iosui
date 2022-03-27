@@ -1,9 +1,7 @@
 import UIKit
 
 class CustomButton: UIButton {
-    private var buttonTappedCallback: (_ sender:UIButton) -> Void = { sender in
-        print("Button was tapped")
-    }
+    private var buttonTappedCallback: ((_ sender:UIButton) -> Void)?
     init(title: String, titleColor: UIColor, titleFor: UIControl.State, buttonTappedCallback: ( (_ sender:UIButton) -> Void)?) {
         if let buttonTappedClouseres = buttonTappedCallback {
             self.buttonTappedCallback = buttonTappedClouseres
@@ -19,7 +17,7 @@ class CustomButton: UIButton {
     }
     
     @objc private func buttonTapped(sender:UIButton) {
-        self.buttonTappedCallback(sender)
+        self.buttonTappedCallback?(sender)
     }
     
     required init?(coder: NSCoder) {
