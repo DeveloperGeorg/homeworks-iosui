@@ -2,6 +2,16 @@ import UIKit
 
 class LogInViewController: UIViewController {
     private let loginView = LogInView()
+    weak var coordinator: ProfileCoordinator?
+    public init(coordinator: ProfileCoordinator?) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -14,25 +24,7 @@ class LogInViewController: UIViewController {
     }
     
     @objc private func openProfile(sender:UIButton) {
-        let userService = CurrentUserService()
-        #if DEBUG
-        let userService = TestUserService()
-        #endif
-        do {
-            try self.show(ProfileViewController(
-                userService: userService, fullName: loginView.loginInput.text ?? ""
-            ), sender: sender)
-        } catch ProfileViewController.ValidationError.notFound {
-            let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) {
-                UIAlertAction in
-                print("Pressed OK action")
-            }
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-        } catch {
-            print("Something went wrong")
-        }
+        coordinator?.openProfile(sender: sender, loginInput: loginView.loginInput.text ?? "")
     }
     
     @objc func keyboardWillShow(notification:NSNotification) {
