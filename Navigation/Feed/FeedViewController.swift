@@ -9,6 +9,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.feedPresenter = feedPresenter
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
     }
     
     required init?(coder: NSCoder) {

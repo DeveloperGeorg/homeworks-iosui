@@ -33,16 +33,19 @@ final class ProfileCoordinator: Coordinatable {
                 userService: userService, fullName: loginInput
             ), sender: sender)
         } catch ProfileViewController.ValidationError.notFound {
-            let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) {
-                UIAlertAction in
-                print("Pressed OK action")
-            }
-            alert.addAction(okAction)
-            navigationController.present(alert, animated: true, completion: nil)
+            showLoginError(title: "Error", message: "Invalid login or password.")
         } catch {
-            print("Something went wrong")
+            showLoginError(title: "Something went wrong", message: "Try again later.")
         }
     }
     
+    func showLoginError(title: String, message: String) {
+        let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) {
+            UIAlertAction in
+            print("Pressed OK action")
+        }
+        alert.addAction(okAction)
+        navigationController.present(alert, animated: true, completion: nil)
+    }
 }
