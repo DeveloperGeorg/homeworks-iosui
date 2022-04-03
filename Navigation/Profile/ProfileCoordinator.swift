@@ -7,11 +7,19 @@ final class ProfileCoordinator: Coordinatable {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.setViewControllers([LogInViewController(coordinator: self)], animated: false)
+        let loginFactory = LoginFactory()
+        self.navigationController.setViewControllers([LogInViewController(
+                                                        loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
+                                                        coordinator: self
+        )], animated: false)
     }
     
     func start() {
-        let logInViewController = LogInViewController(coordinator: self)
+        let loginFactory = LoginFactory()
+        let logInViewController = LogInViewController(
+            loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
+            coordinator: self
+        )
         navigationController.pushViewController(logInViewController, animated: false)
     }
     

@@ -22,8 +22,8 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         feedView = FeedView(frame: CGRect())
         self.feedPresenter.render()
         
-        feedView.validatePostButton.setButtonTappedCallback({ sender in
-            self.newPostValidator.title = self.feedView.newPostTitleField.text ?? ""
+        feedView?.validatePostButton.setButtonTappedCallback({ sender in
+            self.newPostValidator.title = self.feedView?.newPostTitleField.text ?? ""
         })
         self.view = feedView
     }
@@ -45,9 +45,9 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     @objc func validateNewPost(notification: NSNotification) {
         if let newPostData = notification.userInfo?["newPostData"] as? NewPostValidator {
             if newPostData.check(title: newPostData.title) {
-                self.feedView.setNewPostTitleLabelIsValid()
+                self.feedView?.setNewPostTitleLabelIsValid()
             } else {
-                self.feedView.setNewPostTitleLabelIsNotValid()
+                self.feedView?.setNewPostTitleLabelIsNotValid()
             }
           }
     }

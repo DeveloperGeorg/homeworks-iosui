@@ -9,7 +9,8 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
 
-    public init(coordinator: ProfileCoordinator?) {
+    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
+        self.loginViewControllerDelegate = loginViewControllerDelegate
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,7 +27,7 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     
     override func loadView() {
         loginView.logInButton.setButtonTappedCallback({ sender in
-            coordinator?.openProfile(sender: sender, loginInput: loginView.loginInput.text ?? "")
+            self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
             /*
                 let userService = CurrentUserService()
                 #if DEBUG
@@ -60,10 +61,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func checkCredentials(login: String, password: String) -> Bool {
