@@ -43,18 +43,16 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    var setStatusButton: UIButton = {
-        let showStatusButton = UIButton()
-        showStatusButton.layer.cornerRadius = 4
-        showStatusButton.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
-        showStatusButton.setTitleColor(.white, for: .normal)
-        showStatusButton.setTitle("Set status", for: .normal)
-        showStatusButton.layer.shadowOpacity = 0.7
-        showStatusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
-        showStatusButton.layer.shadowColor = UIColor.black.cgColor
-        showStatusButton.layer.shadowRadius = CGFloat(4)
+    var setStatusButton: CustomButton = {
+        let button = CustomButton(title: "Set status", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = CGFloat(4)
         
-        return showStatusButton
+        return button
     }()
     
     public init(profile: User, frame: CGRect) {
@@ -124,18 +122,15 @@ class ProfileHeaderView: UIView {
     }
     
     private func addTargets() {
-        setStatusButton.addTarget(self, action: #selector(printProfileState), for: .touchUpInside)
+        setStatusButton.setButtonTappedCallback({ sender in
+            self.statusLabel.text = self.profile.status
+            self.statusLabel.setNeedsDisplay()
+        })
         statusTextField.addTarget(self, action: #selector(changeProfileState), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func printProfileState()
-    {
-        statusLabel.text = profile.status
-        statusLabel.setNeedsDisplay()
     }
     
     @objc private func changeProfileState(_ textField: UITextField)

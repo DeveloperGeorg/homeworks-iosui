@@ -14,9 +14,28 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     }
     
     override func loadView() {
-        loginView.logInButton.addTarget(self, action: #selector(openProfile), for: .touchUpInside)
+        loginView.logInButton.setButtonTappedCallback({ sender in
+            let userService = CurrentUserService()
+            #if DEBUG
+            let userService = TestUserService()
+            #endif
+            do {
+                if !self.checkCredentials(login: loginView.loginInput.text ?? "", password: loginView.passwordInput.text ?? "") {
+                    throw ValidationError.invalidCredentials
+                }
+                try self.show(ProfileViewController(
+                    userService: userService, fullName: loginView.loginInput.text ?? ""
+                ), sender: sender)
+            } catch ProfileViewController.ValidationError.notFound, ValidationError.invalidCredentials {
+                let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) {
+                    UIAlertAction in
+                    print("Pressed OK action")
+            }
+        })
         view = loginView
     }
+    
     
     init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
@@ -30,32 +49,7 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     func checkCredentials(login: String, password: String) -> Bool {
         return loginViewControllerDelegate.checkCredentials(login: login, password: password)
     }
-    
-    @objc private func openProfile(sender:UIButton) {
-        let userService = CurrentUserService()
-        #if DEBUG
-        let userService = TestUserService()
-        #endif
-        do {
-            if !self.checkCredentials(login: loginView.loginInput.text ?? "", password: loginView.passwordInput.text ?? "") {
-                throw ValidationError.invalidCredentials
-            }
-            try self.show(ProfileViewController(
-                userService: userService, fullName: loginView.loginInput.text ?? ""
-            ), sender: sender)
-        } catch ProfileViewController.ValidationError.notFound, ValidationError.invalidCredentials {
-            let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) {
-                UIAlertAction in
-                print("Pressed OK action")
-            }
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
-        } catch {
-            print("Something went wrong")
-        }
-    }
-    
+                                                      
     @objc func keyboardWillShow(notification:NSNotification) {
 
         guard let userInfo = notification.userInfo else { return }
