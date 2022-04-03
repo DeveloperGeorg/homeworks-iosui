@@ -20,18 +20,24 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
             let userService = TestUserService()
             #endif
             do {
-                if !self.checkCredentials(login: loginView.loginInput.text ?? "", password: loginView.passwordInput.text ?? "") {
+                if !self.checkCredentials(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "") {
                     throw ValidationError.invalidCredentials
                 }
                 try self.show(ProfileViewController(
-                    userService: userService, fullName: loginView.loginInput.text ?? ""
+                    userService: userService, fullName: self.loginView.loginInput.text ?? ""
                 ), sender: sender)
             } catch ProfileViewController.ValidationError.notFound, ValidationError.invalidCredentials {
                 let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default) {
                     UIAlertAction in
                     print("Pressed OK action")
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
             }
+            catch {
+                   print("JSONSerialization error:", error)
+               }
         })
         view = loginView
     }
