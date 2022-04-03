@@ -10,6 +10,11 @@
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
 		411F73F127EEE99400555D97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F027EEE99400555D97 /* CustomButton.swift */; };
 		411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F527F03CB200555D97 /* NewPostValidator.swift */; };
+		411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */; };
+		411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */; };
+		411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E427E5C12F00555D97 /* LoginInspector.swift */; };
+		411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */; };
+		411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73EB27E616DE00555D97 /* LoginFactory.swift */; };
 		4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413519392721C6EE009739D1 /* PostViewController.swift */; };
 		413519402721CA4D009739D1 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193F2721CA4D009739D1 /* FeedView.swift */; };
 		4135194327252072009739D1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194227252071009739D1 /* InfoViewController.swift */; };
@@ -65,6 +70,11 @@
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
 		411F73F027EEE99400555D97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		411F73F527F03CB200555D97 /* NewPostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostValidator.swift; sourceTree = "<group>"; };
+		411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsCheckerService.swift; sourceTree = "<group>"; };
+		411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
+		411F73E427E5C12F00555D97 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactoryProtocol.swift; sourceTree = "<group>"; };
+		411F73EB27E616DE00555D97 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		413519392721C6EE009739D1 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		4135193C2721C798009739D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4135193F2721CA4D009739D1 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -139,6 +149,10 @@
 				41A384E4273B95B300B2B76C /* LogInView.swift */,
 				411C845A274A6E670083FD12 /* ProfileTableHederView.swift */,
 				415012BE275B98D900FF62BB /* PostTableViewCell.swift */,
+				411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */,
+				411F73E427E5C12F00555D97 /* LoginInspector.swift */,
+				411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */,
+				411F73EB27E616DE00555D97 /* LoginFactory.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -193,6 +207,7 @@
 				415598DB27C24D3B00406125 /* CurrentUserService.swift */,
 				415598DF27C2546A00406125 /* TestUserService.swift */,
 				411F73F527F03CB200555D97 /* NewPostValidator.swift */,
+				411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -380,12 +395,17 @@
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
+				411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */,
+				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				415598D627C24B5800406125 /* User.swift in Sources */,
+				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
+				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				4135194327252072009739D1 /* InfoViewController.swift in Sources */,
 				415598D927C24CB100406125 /* UserService.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				415598E027C2546A00406125 /* TestUserService.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
+				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41E6CD2627213DCF0030EF9A /* FeedViewController.swift in Sources */,
 				415598DC27C24D3B00406125 /* CurrentUserService.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,

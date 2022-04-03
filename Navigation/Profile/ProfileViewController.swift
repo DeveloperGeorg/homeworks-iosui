@@ -9,28 +9,31 @@ class ProfileViewController: UIViewController {
 
     fileprivate let forCellReuseIdentifier = "test"
     private var userService: UserService
+    private var imagePublisherFacade: ImagePublisherFacade
+    private var updatingImagesCounter = 0
+    private let updatingImagesMaxCounter = 10
     var user: User
-    let posts: [Post] = [
+    var posts: [Post] = [
         {
-            return Post(author: "Test1", description: "Amaizing description 1", image: "post1.jpg", likes: 10, views: 25)
+            return Post(author: "Test1", description: "Amaizing description 1", image: UIImage(named: "post1.jpg")!, likes: 10, views: 25)
         }(),
         {
             return Post(
                 author: "Test2. Changing you mind. You will never forget! I'll promise. This is extraordinarily long author name",
                 description: "Amaizing description 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                image: "post2.jpg",
+                image: UIImage(named: "post2.jpg")!,
                 likes: 201,
                 views: 235
             )
         }(),
         {
-            return Post(author: "Test3", description: "Amaizing description 3", image: "post3.jpg", likes: 30, views: 75)
+            return Post(author: "Test3", description: "Amaizing description 3", image: UIImage(named: "post3.jpg")!, likes: 30, views: 75)
         }(),
         {
-            return Post(author: "Test1", description: "Amaizing description 4", image: "post1.jpg", likes: 25, views: 59)
+            return Post(author: "Test1", description: "Amaizing description 4", image: UIImage(named: "post1.jpg")!, likes: 25, views: 59)
         }(),
         {
-            return Post(author: "Test2", description: "Amaizing description 5", image: "post1.jpg", likes: 35, views: 338)
+            return Post(author: "Test2", description: "Amaizing description 5", image: UIImage(named: "post1.jpg")!, likes: 35, views: 338)
         }(),
     ]
     
@@ -52,13 +55,17 @@ class ProfileViewController: UIViewController {
 
     init(userService: UserService, fullName: String) throws {
         self.userService = userService
+        /* @todo check password */
         if let user = self.userService.getUserByFullName(fullName) {
             self.user = user
         } else {
             throw ValidationError.notFound
         }
+        self.imagePublisherFacade = ImagePublisherFacade()
         
         super.init(nibName: nil, bundle: nil)
+        
+        self.imagePublisherFacade.subscribe(self)
     }
     
     required init?(coder: NSCoder) {
@@ -97,6 +104,7 @@ class ProfileViewController: UIViewController {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 20)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -121,10 +129,10 @@ extension ProfileViewController: UITableViewDataSource {
         let index = Int(indexPath.row)
         let post = self.posts[index] as Post
         cell.titleView.text = post.author
-        var image = UIImage(named: post.image)
+        var image = post.image
         let filter = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
-        imageProcessor.processImage(sourceImage: image!, filter: filter, completion: {(imageWithFilter) -> Void in
-            image = imageWithFilter
+        imageProcessor.processImage(sourceImage: image, filter: filter, completion: {(imageWithFilter) -> Void in
+            image = imageWithFilter!
         })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
@@ -150,5 +158,20 @@ extension ProfileViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
+    }
+}
+
+extension ProfileViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        updatingImagesCounter += 1
+        print("Image was received. Counter \(updatingImagesCounter)")
+        if updatingImagesCounter == updatingImagesMaxCounter {
+            imagePublisherFacade.removeSubscription(for: self)
+        }
+        for image in images {
+            let index = Int(arc4random_uniform(UInt32(posts.count)))
+            posts[index].image = image
+        }
+        self.postsTableView.reloadData()
     }
 }
