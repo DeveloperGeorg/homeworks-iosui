@@ -52,6 +52,7 @@ class ProfileViewController: UIViewController {
 
     init(userService: UserService, fullName: String) throws {
         self.userService = userService
+        /* @todo check password */
         if let user = self.userService.getUserByFullName(fullName) {
             self.user = user
         } else {

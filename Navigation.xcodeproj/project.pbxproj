@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
+		411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */; };
+		411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */; };
+		411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E427E5C12F00555D97 /* LoginInspector.swift */; };
+		411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */; };
+		411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73EB27E616DE00555D97 /* LoginFactory.swift */; };
 		4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413519392721C6EE009739D1 /* PostViewController.swift */; };
 		413519402721CA4D009739D1 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193F2721CA4D009739D1 /* FeedView.swift */; };
 		4135194327252072009739D1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194227252071009739D1 /* InfoViewController.swift */; };
@@ -24,7 +29,6 @@
 		41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; };
 		41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41B9054427BABCD50020A8DD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
-		41E28911272679C400DFDF59 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E28910272679C400DFDF59 /* Profile.swift */; };
 		41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0D272075F60030EF9A /* AppDelegate.swift */; };
 		41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0F272075F60030EF9A /* SceneDelegate.swift */; };
 		41E6CD17272075F90030EF9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD16272075F90030EF9A /* Assets.xcassets */; };
@@ -62,6 +66,11 @@
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
+		411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsCheckerService.swift; sourceTree = "<group>"; };
+		411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
+		411F73E427E5C12F00555D97 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
+		411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactoryProtocol.swift; sourceTree = "<group>"; };
+		411F73EB27E616DE00555D97 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		413519392721C6EE009739D1 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		4135193C2721C798009739D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4135193F2721CA4D009739D1 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -78,7 +87,6 @@
 		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41E28910272679C400DFDF59 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		41E6CD0A272075F60030EF9A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6CD0D272075F60030EF9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E6CD0F272075F60030EF9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +137,10 @@
 				41A384E4273B95B300B2B76C /* LogInView.swift */,
 				411C845A274A6E670083FD12 /* ProfileTableHederView.swift */,
 				415012BE275B98D900FF62BB /* PostTableViewCell.swift */,
+				411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */,
+				411F73E427E5C12F00555D97 /* LoginInspector.swift */,
+				411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */,
+				411F73EB27E616DE00555D97 /* LoginFactory.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -181,6 +193,7 @@
 				415598D827C24CB100406125 /* UserService.swift */,
 				415598DB27C24D3B00406125 /* CurrentUserService.swift */,
 				415598DF27C2546A00406125 /* TestUserService.swift */,
+				411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -367,15 +380,19 @@
 				4135193A2721C6EE009739D1 /* PostViewController.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
+				411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */,
+				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				415598D627C24B5800406125 /* User.swift in Sources */,
+				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
+				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				4135194327252072009739D1 /* InfoViewController.swift in Sources */,
 				415598D927C24CB100406125 /* UserService.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				415598E027C2546A00406125 /* TestUserService.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
+				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41E6CD2627213DCF0030EF9A /* FeedViewController.swift in Sources */,
 				415598DC27C24D3B00406125 /* CurrentUserService.swift in Sources */,
-				4135193D2721C798009739D1 /* Post.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
 				4135194627252C6B009739D1 /* InfoView.swift in Sources */,
