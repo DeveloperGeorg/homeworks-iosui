@@ -3,6 +3,7 @@ import UIKit
 class FeedViewController: UIViewController, FeedViewDelegate {
     var feedPresenter: FeedPresenter
     var feedView: FeedView?
+    var newPostValidator: NewPostValidator = NewPostValidator()
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
@@ -20,6 +21,10 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     override func loadView() {
         feedView = FeedView(frame: CGRect())
         self.feedPresenter.render()
+        
+        feedView.validatePostButton.setButtonTappedCallback({ sender in
+            self.newPostValidator.title = self.feedView.newPostTitleField.text ?? ""
+        })
         self.view = feedView
     }
     
@@ -35,5 +40,15 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         }
         postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
         feedView?.postsStackView.addArrangedSubview(postButton)
+    }
+
+    @objc func validateNewPost(notification: NSNotification) {
+        if let newPostData = notification.userInfo?["newPostData"] as? NewPostValidator {
+            if newPostData.check(title: newPostData.title) {
+                self.feedView.setNewPostTitleLabelIsValid()
+            } else {
+                self.feedView.setNewPostTitleLabelIsNotValid()
+            }
+          }
     }
 }

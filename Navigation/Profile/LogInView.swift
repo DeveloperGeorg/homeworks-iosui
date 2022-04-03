@@ -57,13 +57,11 @@ class LogInView: UIView {
     }()
     
     
-    let logInButton: UIButton = {
-        let button = UIButton()
+    let logInButton: CustomButton = {
+        let button = CustomButton(title: "Log In", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(named: "VkBlue") 
-        button.setTitleColor(.white, for: .normal)
-        button.setTitle("Log In", for: .normal)
+        button.backgroundColor = UIColor(named: "VkBlue")
 
         return button
     }()
