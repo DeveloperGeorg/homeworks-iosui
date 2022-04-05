@@ -78,11 +78,14 @@ class LogInView: UIView {
     var bruteForceActivityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
     
     let bruteForceActivityIndicatorView: UIView = {
-        return UIView()
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     fileprivate enum CellReuseID: String {
@@ -108,6 +111,7 @@ class LogInView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(loginInput)
+        bruteForceActivityIndicator.center = bruteForceActivityIndicatorView.center
         bruteForceActivityIndicatorView.addSubview(bruteForceActivityIndicator)
         passwordInput.addSubview(bruteForceActivityIndicatorView)
         contentView.addSubview(passwordInput)
@@ -146,6 +150,11 @@ class LogInView: UIView {
             passwordInput.heightAnchor.constraint(equalToConstant: 50),
             passwordInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             passwordInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            bruteForceActivityIndicatorView.topAnchor.constraint(equalTo: passwordInput.topAnchor),
+            bruteForceActivityIndicatorView.heightAnchor.constraint(equalToConstant: 50),
+            bruteForceActivityIndicatorView.centerYAnchor.constraint(equalTo: passwordInput.centerYAnchor),
+            bruteForceActivityIndicatorView.centerXAnchor.constraint(equalTo: passwordInput.centerXAnchor),
             
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 16),
