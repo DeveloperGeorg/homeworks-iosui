@@ -8,11 +8,13 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     private let loginView = LogInView()
     weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
+    private var bruteForcer = BruteForcer()
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
+        bruteForcer.setLoginViewControllerDelegate(self)
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +41,21 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
             }
             
             self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
+        })
+        loginView.bruteForceForgottenPasswordButton.setButtonTappedCallback({sender in
+            self.loginView.startBruteForcing()
+            let login: String = self.loginView.loginInput.text ?? ""
+            guard login != "" else {
+                self.loginView.stopBruteForcing()
+                return
+            }
+            self.bruteForcer.bruteForce(login: self.loginView.loginInput.text!, completion: { password in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.loginView.passwordInput.text = password
+                    self.loginView.passwordInput.isSecureTextEntry = false
+                    self.loginView.stopBruteForcing()
+                }
+            })
         })
         view = loginView
     }
