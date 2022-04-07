@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         coordinator = ApplicationCoordinator(window: window)
         coordinator?.start()
+        OverworkAlertTimer.shared.setApplicationCoordinator(coordinator!)
+        OverworkAlertTimer.shared.startTimer(withInterval: 5)
     }
 }
 

@@ -47,6 +47,17 @@ class FeedView: UIView {
         return label
     }()
     
+    var overworkAlertTimerCounterLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.backgroundColor = .purple
+        label.text = "До следующего уведомления осталось"
+        label.textAlignment = .center
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+        return label
+    }()
+    
     required init?(coder: NSCoder) {
         fatalError("init?(coder) has not been implemented")
     }
@@ -83,6 +94,13 @@ class FeedView: UIView {
             make.top.equalTo(validatePostButton.snp.bottom).offset(16)
         }
         
+        addSubview(overworkAlertTimerCounterLabel)
+        overworkAlertTimerCounterLabel.snp.makeConstraints({ (make) -> Void in
+            make.height.equalTo(100)
+            make.centerX.equalTo(self)
+            make.trailing.equalTo(self).inset(32)
+            make.top.equalTo(isNewPostTitleValid.snp.bottom).offset(8)
+        })
     }
     
     public func getButtonWithText(_ text: String) -> CustomButton {
@@ -101,5 +119,9 @@ class FeedView: UIView {
     public func setNewPostTitleLabelIsNotValid() {
         isNewPostTitleValid.text = "Title is not valid"
         isNewPostTitleValid.textColor = .red
+    }
+    
+    public func setOverworkAlertTimerCounter(_ seconds: Int) {
+        overworkAlertTimerCounterLabel.text = "До следующего уведомления осталось \(seconds) секунд"
     }
 }
