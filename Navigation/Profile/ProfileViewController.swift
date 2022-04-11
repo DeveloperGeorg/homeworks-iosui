@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     private var userService: UserService
     private var imagePublisherFacade: ImagePublisherFacade
     private var updatingImagesCounter = 0
-    private let updatingImagesMaxCounter = 10
+    private let updatingImagesMaxCounter = 4
     var user: User
     var posts: [Post] = [
         {
@@ -129,10 +129,56 @@ extension ProfileViewController: UITableViewDataSource {
         let index = Int(indexPath.row)
         let post = self.posts[index] as Post
         cell.titleView.text = post.author
-        var image = post.image
-        let filter = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
-        imageProcessor.processImage(sourceImage: image, filter: filter, completion: {(imageWithFilter) -> Void in
-            image = imageWithFilter!
+        let image = post.image
+        let filterUserInitiated = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
+        let start = DispatchTime.now()
+        imageProcessor.processImagesOnThread(
+            sourceImages: [image],
+            filter: filterUserInitiated,
+            qos: QualityOfService.userInitiated,
+            completion: {(imagesWithFilter) -> Void in
+                guard let cgImage = imagesWithFilter.first! else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    cell.postImageView.image = UIImage(cgImage: cgImage)
+                }
+                let end = DispatchTime.now()
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                print("initiated filter has been executed in \(timeInterval) seconds")
+        })
+        imageProcessor.processImagesOnThread(
+            sourceImages: [image],
+            filter: .colorInvert,
+            qos: QualityOfService.userInteractive,
+            completion: {(imagesWithFilter) -> Void in
+                guard let cgImage = imagesWithFilter.first! else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    cell.postImageView.image = UIImage(cgImage: cgImage)
+                }
+                let end = DispatchTime.now()
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                print("interactive filter has been executed in \(timeInterval) seconds")
+        })
+        imageProcessor.processImagesOnThread(
+            sourceImages: [image],
+            filter: .noir,
+            qos: QualityOfService.utility,
+            completion: {(imagesWithFilter) -> Void in
+                guard let cgImage = imagesWithFilter.first! else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    cell.postImageView.image = UIImage(cgImage: cgImage)
+                }
+                let end = DispatchTime.now()
+                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+                let timeInterval = Double(nanoTime) / 1_000_000_000
+                print("utility filter has been executed in \(timeInterval) seconds")
         })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
