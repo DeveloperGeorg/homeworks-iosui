@@ -47,17 +47,18 @@ class FeedView: UIView {
         return label
     }()
     
-    public init(postTitle: String, frame: CGRect) {
+    required init?(coder: NSCoder) {
+        fatalError("init?(coder) has not been implemented")
+    }
+
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .red
         
         addSubview(postsStackView)
         postsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         postsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        
-        postsStackView.addArrangedSubview(self.getButtonWithText(postTitle))
-        postsStackView.addArrangedSubview(self.getButtonWithText("New one \(postTitle)"))
-        
+
         addSubview(newPostTitleField)
         newPostTitleField.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
@@ -65,7 +66,7 @@ class FeedView: UIView {
             make.trailing.equalTo(self).inset(32)
             make.top.equalTo(postsStackView.snp.bottom).offset(64)
         }
-        
+
         addSubview(validatePostButton)
         validatePostButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
@@ -73,7 +74,7 @@ class FeedView: UIView {
             make.trailing.equalTo(self).inset(32)
             make.top.equalTo(newPostTitleField.snp.bottom).offset(16)
         }
-        
+
         addSubview(isNewPostTitleValid)
         isNewPostTitleValid.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
@@ -81,10 +82,10 @@ class FeedView: UIView {
             make.trailing.equalTo(self).inset(32)
             make.top.equalTo(validatePostButton.snp.bottom).offset(16)
         }
+        
     }
     
-    private func getButtonWithText(_ text: String) -> CustomButton
-    {
+    public func getButtonWithText(_ text: String) -> CustomButton {
         let button = CustomButton(title: text, titleColor: .red, titleFor: .normal, buttonTappedCallback: nil)
         button.backgroundColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,9 +101,5 @@ class FeedView: UIView {
     public func setNewPostTitleLabelIsNotValid() {
         isNewPostTitleValid.text = "Title is not valid"
         isNewPostTitleValid.textColor = .red
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init?(coder) has not been implemented")
     }
 }

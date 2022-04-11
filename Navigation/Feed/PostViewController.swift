@@ -1,17 +1,12 @@
-//
-//  PostViewController.swift
-//  Navigation
-//
-//  Created by Георгий Бондаренко on 21.10.2021.
-//
-
 import UIKit
 
 class PostViewController: UIViewController {
     let postTitle: String
+    weak var coordinator: FeedCoordinator?
     
-    public init(postTitle: String) {
+    public init(postTitle: String, coordinator: FeedCoordinator?) {
         self.postTitle = postTitle
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
         let infoButtonItem = UIBarButtonItem(
             title: "Info",
@@ -33,7 +28,6 @@ class PostViewController: UIViewController {
     }
     
     @objc private func showInfoModal() {
-        let infoModal = InfoViewController()
-        present(infoModal, animated: true, completion: nil)
+        coordinator?.showInfo()
     }
 }

@@ -6,7 +6,19 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
         }
 
     private let loginView = LogInView()
+    weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
+
+    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
+        self.loginViewControllerDelegate = loginViewControllerDelegate
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -15,29 +27,18 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     
     override func loadView() {
         loginView.logInButton.setButtonTappedCallback({ sender in
-            let userService = CurrentUserService()
-            #if DEBUG
-            let userService = TestUserService()
-            #endif
+            
             do {
                 if !self.checkCredentials(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "") {
                     throw ValidationError.invalidCredentials
                 }
-                try self.show(ProfileViewController(
-                    userService: userService, fullName: self.loginView.loginInput.text ?? ""
-                ), sender: sender)
-            } catch ProfileViewController.ValidationError.notFound, ValidationError.invalidCredentials {
-                let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default) {
-                    UIAlertAction in
-                    print("Pressed OK action")
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
+            } catch ValidationError.invalidCredentials {
+                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+            } catch {
+                self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
             }
-            catch {
-                   print("JSONSerialization error:", error)
-               }
+            
+            self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
         })
         view = loginView
     }
@@ -46,10 +47,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func checkCredentials(login: String, password: String) -> Bool {
