@@ -1,12 +1,10 @@
 import Foundation
 
 class BruteForcer {
-    private var counter = 0;
-    private var maxCounter = 20;
     private var loginViewControllerDelegate: LoginViewControllerDelegateProtocol?
     
     public func bruteForce(login: String, completion: @escaping (_ password: String) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        DispatchQueue.global(qos: .utility).async { [weak self] in
             
             let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
             
