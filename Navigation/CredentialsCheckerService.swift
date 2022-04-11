@@ -2,10 +2,10 @@ import Foundation
 class CredentialsCheckerService {
     static let shared: CredentialsCheckerService = CredentialsCheckerService()
     private let login1 = "User"
-    private let pswd1 = "StrongPassword"
+    private let pswd1 = "1aaa"
     
     private let login2 = "Debug User"
-    private let pswd2 = "StrongPassword"
+    private let pswd2 = "1aaa"
     
     private init() {
         

@@ -7,45 +7,38 @@ class BruteForcer {
     
     public func bruteForce(login: String, completion: @escaping (_ password: String) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            var correctPassword: String? = nil
-            while(correctPassword == nil) {
-                let password: String = self?.generatePass() ?? ""
-                let checkResult: Bool = Bool(self?.checkCredentials(login: login, password: password) ?? false)
-                if (checkResult == true) {
-                    correctPassword = password
-                }
-                print("trying password: \(password), check result: \(checkResult), correct password: \(correctPassword)")
-            }
             
-            let passwordForLogIn: String = correctPassword!
+            let ALLOWED_CHARACTERS:   [String] = String().printable.map { String($0) }
+            
+            var password: String = ""
+
+            while !Bool(self?.checkCredentials(login: login, password: password) ?? false) {
+                password = self?.generateBruteForce(password, fromArray: ALLOWED_CHARACTERS) ?? ""
+                print("trying password: \(password)")
+            }
+            let passwordForLogIn: String = password
           DispatchQueue.main.async {
             completion(passwordForLogIn)
           }
         }
     }
     
-    private func generatePass() -> String {
-        print("counter: \(counter)")
-        counter += 1
-        if (counter >= maxCounter) {
-            return "StrongPassword"
+    private func generateBruteForce(_ string: String, fromArray array: [String]) -> String {
+        var str: String = string
+
+        if str.count <= 0 {
+            str.append(characterAt(index: 0, array))
         }
-        return self.generateRandomString(length: Int(arc4random_uniform(20)))
-    }
-    
-    private func generateRandomString(length: Int = 20) -> String {
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let len = UInt32(letters.length)
+        else {
+            str.replace(at: str.count - 1,
+                        with: characterAt(index: (indexOf(character: str.last!, array) + 1) % array.count, array))
 
-        var randomString = ""
-
-        for _ in 0 ..< length {
-            let rand = arc4random_uniform(len)
-            var nextChar = letters.character(at: Int(rand))
-            randomString += NSString(characters: &nextChar, length: 1) as String
+            if indexOf(character: str.last!, array) == 0 {
+                str = String(generateBruteForce(String(str.dropLast()), fromArray: array)) + String(str.last!)
+            }
         }
 
-        return randomString
+        return str
     }
 }
 
@@ -58,4 +51,31 @@ extension BruteForcer: LoginViewControllerDelegateProtocol {
     func checkCredentials(login: String, password: String) -> Bool {
         return loginViewControllerDelegate!.checkCredentials(login: login, password: password)
     }
+}
+
+
+fileprivate extension String {
+    var digits:      String { return "0123456789" }
+    var lowercase:   String { return "abcdefghijklmnopqrstuvwxyz" }
+    var uppercase:   String { return "ABCDEFGHIJKLMNOPQRSTUVWXYZ" }
+    var punctuation: String { return "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~" }
+    var letters:     String { return lowercase + uppercase }
+    var printable:   String { return digits + letters + punctuation }
+
+
+
+    mutating func replace(at index: Int, with character: Character) {
+        var stringArray = Array(self)
+        stringArray[index] = character
+        self = String(stringArray)
+    }
+}
+
+func indexOf(character: Character, _ array: [String]) -> Int {
+    return array.firstIndex(of: String(character))!
+}
+
+func characterAt(index: Int, _ array: [String]) -> Character {
+    return index < array.count ? Character(array[index])
+                               : Character("")
 }
