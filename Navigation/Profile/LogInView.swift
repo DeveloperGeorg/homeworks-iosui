@@ -66,6 +66,28 @@ class LogInView: UIView {
         return button
     }()
     
+    let bruteForceForgottenPasswordButton: CustomButton = {
+        let button = CustomButton(title: "Подобрать пароль", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        button.backgroundColor = UIColor(named: "VkBlue")
+
+        return button
+    }()
+    
+    var bruteForceActivityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+    
+    let bruteForceActivityIndicatorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     fileprivate enum CellReuseID: String {
         case login = "loginReuseID"
         case password = "passwordReuseID"
@@ -89,8 +111,12 @@ class LogInView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(loginInput)
+        bruteForceActivityIndicator.center = bruteForceActivityIndicatorView.center
+        bruteForceActivityIndicatorView.addSubview(bruteForceActivityIndicator)
+        passwordInput.addSubview(bruteForceActivityIndicatorView)
         contentView.addSubview(passwordInput)
         contentView.addSubview(logInButton)
+        contentView.addSubview(bruteForceForgottenPasswordButton)
     }
     
     private func activateConstraints() {
@@ -125,10 +151,21 @@ class LogInView: UIView {
             passwordInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             passwordInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
+            bruteForceActivityIndicatorView.topAnchor.constraint(equalTo: passwordInput.topAnchor),
+            bruteForceActivityIndicatorView.heightAnchor.constraint(equalToConstant: 50),
+            bruteForceActivityIndicatorView.centerYAnchor.constraint(equalTo: passwordInput.centerYAnchor),
+            bruteForceActivityIndicatorView.centerXAnchor.constraint(equalTo: passwordInput.centerXAnchor),
+            
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 16),
             logInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
+            bruteForceForgottenPasswordButton.heightAnchor.constraint(equalToConstant: 50),
+            bruteForceForgottenPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
+            bruteForceForgottenPasswordButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            bruteForceForgottenPasswordButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            
         ])
         
         loginInput.layer.cornerRadius = 20
@@ -137,5 +174,13 @@ class LogInView: UIView {
         passwordInput.layer.cornerRadius = 20
         passwordInput.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
+    }
+    
+    public func startBruteForcing() {
+        bruteForceActivityIndicator.startAnimating()
+    }
+    
+    public func stopBruteForcing() {
+        bruteForceActivityIndicator.stopAnimating()
     }
 }

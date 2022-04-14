@@ -36,6 +36,7 @@
 		4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194722727F9B0F70075A056 /* FeedViewController.swift */; };
 		41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E1273B938600B2B76C /* LogInViewController.swift */; };
 		41A384E5273B95B300B2B76C /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E4273B95B300B2B76C /* LogInView.swift */; };
+		41B78D4E27FC87B000648A5B /* BruteForcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B78D4D27FC87B000648A5B /* BruteForcer.swift */; };
 		41B9053A27BABC830020A8DD /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B9053827BABC830020A8DD /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; };
 		41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -105,6 +106,7 @@
 		4194722727F9B0F70075A056 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		41A384E1273B938600B2B76C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		41A384E4273B95B300B2B76C /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		41B78D4D27FC87B000648A5B /* BruteForcer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForcer.swift; sourceTree = "<group>"; };
 		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				411F73E427E5C12F00555D97 /* LoginInspector.swift */,
 				411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */,
 				411F73EB27E616DE00555D97 /* LoginFactory.swift */,
+				41B78D4D27FC87B000648A5B /* BruteForcer.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				4194721627F9AF010075A056 /* FeedView.swift in Sources */,
 				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
+				41B78D4E27FC87B000648A5B /* BruteForcer.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
 			);
