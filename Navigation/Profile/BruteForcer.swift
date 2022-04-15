@@ -1,6 +1,7 @@
 import Foundation
 
 class BruteForcer {
+
     private var loginViewControllerDelegate: LoginViewControllerDelegateProtocol?
     
     public func bruteForce(login: String, completion: @escaping (_ password: String) -> Void) {
@@ -15,9 +16,9 @@ class BruteForcer {
                 print("trying password: \(password)")
             }
             let passwordForLogIn: String = password
-          DispatchQueue.main.async {
-            completion(passwordForLogIn)
-          }
+            DispatchQueue.main.async {
+              completion(passwordForLogIn)
+            }
         }
     }
     
