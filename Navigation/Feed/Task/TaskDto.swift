@@ -1,6 +1,6 @@
 import Foundation
 
-struct TaskDto: Codable {
+struct TaskDto {
     let userId: Int
     let id: Int
     let title: String

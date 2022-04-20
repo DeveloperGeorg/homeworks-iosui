@@ -30,7 +30,21 @@ class InfoViewController: UIViewController {
                     }
                 }
                 catch let error {
-                    print(error.localizedDescription)
+                    print("[TASK] ERROR: \(error.localizedDescription)")
+                }
+            }
+        }
+        loadPlanet(planetId: 1) { data, response, error in
+            if let unwrappedData = data {
+                do {
+                    let planet = try JSONDecoder().decode(PlanetDto.self, from: unwrappedData)
+                    DispatchQueue.main.async {
+                        view.planetLabel.text = "Период обращения планеты Татуин \nвокруг своей звезды: \(planet.orbitalPeriod)"
+                    }
+                }
+                catch let error {
+                    print("[PLANET] ERROR: \(error.localizedDescription)")
+                    print(error)
                 }
             }
         }
@@ -46,7 +60,21 @@ class InfoViewController: UIViewController {
     }
     
     func loadTask(taskId: Int, clouseres: @escaping (Data?, URLResponse?, Error?) -> Void) -> Void {
-        let url: String = "https://jsonplaceholder.typicode.com/todos/\(taskId)"
+        let url = "https://jsonplaceholder.typicode.com/todos/\(taskId)"
+        let defaultSession = URLSession(configuration: .default)
+        if let urlComponents = URLComponents(string: url) {
+            guard let url = urlComponents.url else {
+                return
+            }
+            let dataTask = defaultSession.dataTask(with: url) { data, response, error in
+                clouseres(data, response, error)
+            }
+            dataTask.resume()
+        }
+    }
+    
+    func loadPlanet(planetId: Int, clouseres: @escaping (Data?, URLResponse?, Error?) -> Void ) -> Void {
+        let url = "https://swapi.dev/api/planets/\(planetId)"
         let defaultSession = URLSession(configuration: .default)
         if let urlComponents = URLComponents(string: url) {
             guard let url = urlComponents.url else {

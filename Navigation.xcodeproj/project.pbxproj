@@ -43,6 +43,7 @@
 		41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41B9054427BABCD50020A8DD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
 		41CDCB89280FD41100DA6891 /* TaskDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CDCB88280FD41100DA6891 /* TaskDto.swift */; };
+		41CDCB8D28105BC300DA6891 /* PlanetDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CDCB8C28105BC300DA6891 /* PlanetDto.swift */; };
 		41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0D272075F60030EF9A /* AppDelegate.swift */; };
 		41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0F272075F60030EF9A /* SceneDelegate.swift */; };
 		41E6CD17272075F90030EF9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD16272075F90030EF9A /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41CDCB88280FD41100DA6891 /* TaskDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDto.swift; sourceTree = "<group>"; };
+		41CDCB8C28105BC300DA6891 /* PlanetDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDto.swift; sourceTree = "<group>"; };
 		41E6CD0A272075F60030EF9A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E6CD0D272075F60030EF9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41E6CD0F272075F60030EF9A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		4149A94827F571CA0030C223 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				41CDCB8B281058FD00DA6891 /* Planet */,
 				41CDCB87280FD30F00DA6891 /* Task */,
 				4194722727F9B0F70075A056 /* FeedViewController.swift */,
 				4194721127F9AF000075A056 /* FeedView.swift */,
@@ -217,6 +220,14 @@
 				41CDCB88280FD41100DA6891 /* TaskDto.swift */,
 			);
 			path = Task;
+			sourceTree = "<group>";
+		};
+		41CDCB8B281058FD00DA6891 /* Planet */ = {
+			isa = PBXGroup;
+			children = (
+				41CDCB8C28105BC300DA6891 /* PlanetDto.swift */,
+			);
+			path = Planet;
 			sourceTree = "<group>";
 		};
 		41E6CD01272075F50030EF9A = {
@@ -472,6 +483,7 @@
 				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
 				41B78D4E27FC87B000648A5B /* BruteForcer.swift in Sources */,
+				41CDCB8D28105BC300DA6891 /* PlanetDto.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
 			);
