@@ -13,11 +13,13 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private var bruteForcer = BruteForcer()
+    private let authUserStorageProtocol: AuthUserStorageProtocol
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
+        self.authUserStorageProtocol = RealmAuthUserStorage()
         super.init(nibName: nil, bundle: nil)
         bruteForcer.setLoginViewControllerDelegate(self)
     }
