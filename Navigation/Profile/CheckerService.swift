@@ -39,4 +39,8 @@ class CheckerService: CheckerServiceProtocol {
             }
         })
     }
+
+    func logout() -> Void {
+        try? FirebaseAuth.Auth.auth().signOut()
+    }
 }

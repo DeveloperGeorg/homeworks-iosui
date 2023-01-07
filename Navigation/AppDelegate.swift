@@ -45,6 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    
+    func applicationWillTerminate(_: UIApplication) {
+        let checkerService = CheckerService()
+        checkerService.logout()
+        print("logged out in applicationWillTerminate")
+    }
 
 }
 

@@ -16,5 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         OverworkAlertTimer.shared.setApplicationCoordinator(coordinator!)
         OverworkAlertTimer.shared.startTimer(withInterval: 5)
     }
+    
+    func sceneDidDisconnect(_ scene: UIScene) {
+        let checkerService = CheckerService()
+        checkerService.logout()
+        print("logged out in sceneDidDisconnect")
+    }
 }
 
