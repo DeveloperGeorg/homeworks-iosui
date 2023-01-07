@@ -50,6 +50,10 @@ extension BruteForcer: LoginViewControllerDelegateProtocol {
     func checkCredentials(login: String, password: String) -> Bool {
         return loginViewControllerDelegate!.checkCredentials(login: login, password: password)
     }
+    
+    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void  {
+        loginViewControllerDelegate!.checkCredentials(login: login, password: password, completion, errorHandler)
+    }
 }
 
 

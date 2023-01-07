@@ -10,6 +10,7 @@ final class ProfileCoordinator: Coordinatable {
         let loginFactory = LoginFactory()
         self.navigationController.setViewControllers([LogInViewController(
                                                         loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
+                                                        signUpViewControllerDelegate: loginFactory.getSignUpDelegate(),
                                                         coordinator: self
         )], animated: false)
     }
@@ -18,6 +19,7 @@ final class ProfileCoordinator: Coordinatable {
         let loginFactory = LoginFactory()
         let logInViewController = LogInViewController(
             loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
+            signUpViewControllerDelegate: loginFactory.getSignUpDelegate(),
             coordinator: self
         )
         navigationController.pushViewController(logInViewController, animated: false)

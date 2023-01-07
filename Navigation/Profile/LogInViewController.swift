@@ -1,6 +1,9 @@
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
-class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol {
+class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol, SignUpViewControllerDelegateProtocol {
+    
     enum ValidationError: Error {
             case invalidCredentials
         }
@@ -8,10 +11,12 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     private let loginView = LogInView()
     weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
+    private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private var bruteForcer = BruteForcer()
 
-    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
+    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
+        self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
         bruteForcer.setLoginViewControllerDelegate(self)
@@ -25,22 +30,24 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+        let view = (self.view as! LogInView)
+        view.loginInput.addTarget(self, action: #selector(enableLoginSignUpButtons), for: .editingChanged)
+        view.passwordInput.addTarget(self, action: #selector(enableLoginSignUpButtons), for: .editingChanged)
     }
     
     override func loadView() {
         loginView.logInButton.setButtonTappedCallback({ sender in
-            
             do {
-                if !self.checkCredentials(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "") {
-                    throw ValidationError.invalidCredentials
-                }
+                self.checkCredentials(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
+                    self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
+                }), ({
+                    self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                }))
             } catch ValidationError.invalidCredentials {
                 self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
             } catch {
                 self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
             }
-            
-            self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
         })
         loginView.bruteForceForgottenPasswordButton.setButtonTappedCallback({sender in
             self.loginView.startBruteForcing()
@@ -57,17 +64,37 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                 }
             })
         })
+        loginView.signUpButton.setButtonTappedCallback({sender in
+            print("SignUp button was tapped")
+            do {
+                self.sugnUp(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
+                    self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
+                }), ({
+                    self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                }))
+            } catch ValidationError.invalidCredentials {
+                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+            } catch {
+                self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
+            }
+        })
         view = loginView
-    }
-    
-    
-    init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol) {
-        self.loginViewControllerDelegate = loginViewControllerDelegate
-        super.init(nibName: nil, bundle: nil)
     }
     
     func checkCredentials(login: String, password: String) -> Bool {
         return loginViewControllerDelegate.checkCredentials(login: login, password: password)
+    }
+    
+    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+        loginViewControllerDelegate.checkCredentials(login: login, password: password, completion, errorHandler)
+    }
+    
+    func sugnUp(login: String, password: String) -> Bool {
+        return signUpViewControllerDelegate.sugnUp(login: login, password: password)
+    }
+    
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+        signUpViewControllerDelegate.sugnUp(login: login, password: password, completionHandler, errorHandler)
     }
                                                       
     @objc func keyboardWillShow(notification:NSNotification) {
@@ -88,5 +115,10 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         view.scrollView.contentInset = contentInset
         self.view = view
+    }
+    
+    @objc func enableLoginSignUpButtons() {
+        let view = (self.view as! LogInView)
+        view.checkAndEnableLoginSignUpButtons()
     }
 }

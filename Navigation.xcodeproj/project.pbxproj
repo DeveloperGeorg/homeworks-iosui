@@ -15,6 +15,8 @@
 		411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73EB27E616DE00555D97 /* LoginFactory.swift */; };
 		411F73F127EEE99400555D97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F027EEE99400555D97 /* CustomButton.swift */; };
 		411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F527F03CB200555D97 /* NewPostValidator.swift */; };
+		413118FB2835518E00582FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 413118FA2835518E00582FCE /* GoogleService-Info.plist */; };
+		413118FC2835518E00582FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 413118FA2835518E00582FCE /* GoogleService-Info.plist */; };
 		4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194C272673A7009739D1 /* ProfileHeaderView.swift */; };
 		4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
 		4149A94027F4AB820030C223 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93F27F4AB820030C223 /* Presentable.swift */; };
@@ -49,6 +51,9 @@
 		41E6CD17272075F90030EF9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD16272075F90030EF9A /* Assets.xcassets */; };
 		41E6CD1A272075F90030EF9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD18272075F90030EF9A /* LaunchScreen.storyboard */; };
 		41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD2827213DF00030EF9A /* ProfileViewController.swift */; };
+		41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */; };
+		41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E3293FA49200B906A6 /* CheckerService.swift */; };
+		41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */; };
 		41FEC57627BEB4F800B92E40 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 41FEC57527BEB4F800B92E40 /* iOSIntPackage */; };
 		92EE84003CF65A457F6A62D8 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4707456AEBC2D93E85EEF195 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
@@ -87,6 +92,7 @@
 		411F73EB27E616DE00555D97 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		411F73F027EEE99400555D97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		411F73F527F03CB200555D97 /* NewPostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostValidator.swift; sourceTree = "<group>"; };
+		413118FA2835518E00582FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4135193C2721C798009739D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4135194C272673A7009739D1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		4149A93C27F4AB1F0030C223 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 		41E6CD19272075F90030EF9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		41E6CD1B272075F90030EF9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E6CD2827213DF00030EF9A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerServiceProtocol.swift; sourceTree = "<group>"; };
+		41F353E3293FA49200B906A6 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
+		41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
 		4707456AEBC2D93E85EEF195 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F26C2E66181ED9A30F8C8B /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +192,9 @@
 				411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */,
 				411F73EB27E616DE00555D97 /* LoginFactory.swift */,
 				41B78D4D27FC87B000648A5B /* BruteForcer.swift */,
+				41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */,
+				41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */,
+				41F353E3293FA49200B906A6 /* CheckerService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -233,6 +245,7 @@
 		41E6CD01272075F50030EF9A = {
 			isa = PBXGroup;
 			children = (
+				413118FA2835518E00582FCE /* GoogleService-Info.plist */,
 				41E6CD0C272075F60030EF9A /* Navigation */,
 				41B9053727BABC830020A8DD /* StorageService */,
 				41E6CD0B272075F60030EF9A /* Products */,
@@ -365,6 +378,7 @@
 			mainGroup = 41E6CD01272075F50030EF9A;
 			packageReferences = (
 				41FEC57427BEB4F800B92E40 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				413118FD283554A500582FCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 41E6CD0B272075F60030EF9A /* Products */;
 			projectDirPath = "";
@@ -381,6 +395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				413118FC2835518E00582FCE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +405,7 @@
 			files = (
 				41E6CD1A272075F90030EF9A /* LaunchScreen.storyboard in Resources */,
 				41E6CD17272075F90030EF9A /* Assets.xcassets in Resources */,
+				413118FB2835518E00582FCE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,7 +475,9 @@
 				4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */,
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
+				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,
 				4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */,
+				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
@@ -470,6 +488,7 @@
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
 				4194722127F9AF170075A056 /* TestUserService.swift in Sources */,
+				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
 				4194721827F9AF010075A056 /* InfoViewController.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
@@ -752,6 +771,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		413118FD283554A500582FCE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		41FEC57427BEB4F800B92E40 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
