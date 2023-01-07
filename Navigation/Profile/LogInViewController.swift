@@ -12,7 +12,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
-    private var bruteForcer = BruteForcer()
     private let authUserStorageProtocol: AuthUserStorageProtocol
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
@@ -21,7 +20,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
         self.coordinator = coordinator
         self.authUserStorageProtocol = RealmAuthUserStorage()
         super.init(nibName: nil, bundle: nil)
-        bruteForcer.setLoginViewControllerDelegate(self)
     }
     
     required init?(coder: NSCoder) {
@@ -51,21 +49,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                 self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
             }
         })
-        loginView.bruteForceForgottenPasswordButton.setButtonTappedCallback({sender in
-            self.loginView.startBruteForcing()
-            let login: String = self.loginView.loginInput.text ?? ""
-            guard login != "" else {
-                self.loginView.stopBruteForcing()
-                return
-            }
-            self.bruteForcer.bruteForce(login: self.loginView.loginInput.text!, completion: { password in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    self.loginView.passwordInput.text = password
-                    self.loginView.passwordInput.isSecureTextEntry = false
-                    self.loginView.stopBruteForcing()
-                }
-            })
-        })
         loginView.signUpButton.setButtonTappedCallback({sender in
             do {
                 self.sugnUp(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
@@ -80,10 +63,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
             }
         })
         view = loginView
-    }
-    
-    func checkCredentials(login: String, password: String) -> Bool {
-        return loginViewControllerDelegate.checkCredentials(login: login, password: password)
     }
     
     func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
