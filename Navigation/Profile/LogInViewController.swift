@@ -65,7 +65,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
             })
         })
         loginView.signUpButton.setButtonTappedCallback({sender in
-            print("SignUp button was tapped")
             do {
                 self.sugnUp(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
                     self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
@@ -87,10 +86,6 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     
     func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         loginViewControllerDelegate.checkCredentials(login: login, password: password, completion, errorHandler)
-    }
-    
-    func sugnUp(login: String, password: String) -> Bool {
-        return signUpViewControllerDelegate.sugnUp(login: login, password: password)
     }
     
     func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
