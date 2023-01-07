@@ -39,6 +39,8 @@
 		4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194722727F9B0F70075A056 /* FeedViewController.swift */; };
 		41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E1273B938600B2B76C /* LogInViewController.swift */; };
 		41A384E5273B95B300B2B76C /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A384E4273B95B300B2B76C /* LogInView.swift */; };
+		41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5EF822807EA3F00A12C07 /* NetworkService.swift */; };
+		41A5EF872809986700A12C07 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A5EF862809986700A12C07 /* AppConfiguration.swift */; };
 		41B78D4E27FC87B000648A5B /* BruteForcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B78D4D27FC87B000648A5B /* BruteForcer.swift */; };
 		41B9053A27BABC830020A8DD /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B9053827BABC830020A8DD /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; };
@@ -116,6 +118,8 @@
 		4194722727F9B0F70075A056 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		41A384E1273B938600B2B76C /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		41A384E4273B95B300B2B76C /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		41A5EF822807EA3F00A12C07 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		41A5EF862809986700A12C07 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		41B78D4D27FC87B000648A5B /* BruteForcer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForcer.swift; sourceTree = "<group>"; };
 		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 		411F73EF27EEE96700555D97 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				41A5EF7D2807EA0B00A12C07 /* Network */,
 				411F73F027EEE99400555D97 /* CustomButton.swift */,
 			);
 			path = Common;
@@ -214,6 +219,15 @@
 				4149A95327F6BA660030C223 /* FeedViewDelegate.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		41A5EF7D2807EA0B00A12C07 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				41A5EF822807EA3F00A12C07 /* NetworkService.swift */,
+				41A5EF862809986700A12C07 /* AppConfiguration.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		41B9053727BABC830020A8DD /* StorageService */ = {
@@ -489,12 +503,14 @@
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
 				4194722127F9AF170075A056 /* TestUserService.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
+				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
 				4194721827F9AF010075A056 /* InfoViewController.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
 				4194722327F9AF170075A056 /* CurrentUserService.swift in Sources */,
 				4149A94027F4AB820030C223 /* Presentable.swift in Sources */,
+				41A5EF872809986700A12C07 /* AppConfiguration.swift in Sources */,
 				4149A94B27F5733B0030C223 /* FeedCoordinator.swift in Sources */,
 				4194722027F9AF170075A056 /* UserService.swift in Sources */,
 				417B5D7B27FF3BD800BB28A6 /* OverworkAlertTimer.swift in Sources */,
