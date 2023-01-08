@@ -21,7 +21,6 @@ class RealmAuthUserStorage: AuthUserStorageProtocol {
     
     func getLastAuthorized() -> StoredAuthUserProtocol? {
         let lastLoggedIn = realm?.objects(RealmStoredAuthUser.self).sorted(byKeyPath: "lastLoggedInAt", ascending: false).first
-        print(lastLoggedIn)
         return lastLoggedIn
     }
     

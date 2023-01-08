@@ -6,8 +6,6 @@ class RealmService {
 
     func getRealm() -> Realm {
         let key = getEncryptionKey()
-        print("encryption key")
-        print(key.map { String(format: "%02x", $0) }.joined())
         var config = Realm.Configuration.defaultConfiguration
         config.encryptionKey = key
         config.deleteRealmIfMigrationNeeded = true
