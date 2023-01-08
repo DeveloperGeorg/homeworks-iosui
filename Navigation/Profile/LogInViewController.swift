@@ -42,7 +42,7 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                 self.authUserStorage.save(lastAuthorizedUser)
                 self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
             }), ({
-                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                self.coordinator?.showLoginError(title: "Auto-login Error", message: "Invalid auto-saved login or password.")
             }))
             
         }
@@ -64,7 +64,10 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
         })
         loginView.signUpButton.setButtonTappedCallback({sender in
             do {
-                self.sugnUp(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
+                let enteredPassword = self.loginView.passwordInput.text ?? "";
+                let enteredLogin = self.loginView.loginInput.text ?? "";
+                self.sugnUp(login: enteredLogin, password: enteredPassword, ({
+                    self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
                     self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
                 }), ({
                     self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")

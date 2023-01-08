@@ -13,19 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.realmMigrate()
         FirebaseApp.configure()
         let url = AppConfiguration.allCases.randomElement()!.description
-        print("About to get info from url = \(url)")
         NetworkService.run(url: url, query: "") { data, response, error in
             if let error = error {
                 print("DataTask error: \(error.localizedDescription)\n")
             } else if
                 let data = data,
                 let response = response as? HTTPURLResponse {
-                print("Status code is \(response.statusCode)")
-                print("All headers are:")
-                print(response.allHeaderFields)
                 if let responseData = String(data: data, encoding: .utf8) {
-                    print("Response data is:")
-                    print(responseData)
                 }
             }
             

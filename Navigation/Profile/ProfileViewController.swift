@@ -147,7 +147,6 @@ extension ProfileViewController: UITableViewDataSource {
                 let end = DispatchTime.now()
                 let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
                 let timeInterval = Double(nanoTime) / 1_000_000_000
-                print("initiated filter has been executed in \(timeInterval) seconds")
         })
         imageProcessor.processImagesOnThread(
             sourceImages: [image],
@@ -163,7 +162,6 @@ extension ProfileViewController: UITableViewDataSource {
                 let end = DispatchTime.now()
                 let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
                 let timeInterval = Double(nanoTime) / 1_000_000_000
-                print("interactive filter has been executed in \(timeInterval) seconds")
         })
         imageProcessor.processImagesOnThread(
             sourceImages: [image],
@@ -179,7 +177,6 @@ extension ProfileViewController: UITableViewDataSource {
                 let end = DispatchTime.now()
                 let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
                 let timeInterval = Double(nanoTime) / 1_000_000_000
-                print("utility filter has been executed in \(timeInterval) seconds")
         })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
@@ -211,7 +208,6 @@ extension ProfileViewController: UITableViewDelegate {
 extension ProfileViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         updatingImagesCounter += 1
-        print("Image was received. Counter \(updatingImagesCounter)")
         if updatingImagesCounter == updatingImagesMaxCounter {
             imagePublisherFacade.removeSubscription(for: self)
         }
