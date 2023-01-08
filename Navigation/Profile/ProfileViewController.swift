@@ -59,7 +59,8 @@ class ProfileViewController: UIViewController {
         if let user = self.userService.getUserByFullName(fullName) {
             self.user = user
         } else {
-            throw ValidationError.notFound
+            self.user = User(
+            fullName: fullName, avatarImageSrc: "cat-avatar.png", status: "some state")
         }
         self.imagePublisherFacade = ImagePublisherFacade()
         

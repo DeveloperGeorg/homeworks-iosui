@@ -61,31 +61,18 @@ class LogInView: UIView {
         let button = CustomButton(title: "Log In", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(named: "VkBlue")
+        button.backgroundColor = UIColor(ciColor: .gray)
 
         return button
     }()
     
-    let bruteForceForgottenPasswordButton: CustomButton = {
-        let button = CustomButton(title: "Подобрать пароль", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+    let signUpButton: CustomButton = {
+        let button = CustomButton(title: "Sign up", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(named: "VkBlue")
+        button.backgroundColor = UIColor(ciColor: .gray)
 
         return button
-    }()
-    
-    var bruteForceActivityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        return activityIndicator
-    }()
-    
-    let bruteForceActivityIndicatorView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     fileprivate enum CellReuseID: String {
@@ -100,6 +87,8 @@ class LogInView: UIView {
         self.backgroundColor = .white
         addSubviews()
         activateConstraints()
+        enabledButton(isEnabled: false, button: logInButton)
+        enabledButton(isEnabled: false, button: signUpButton)
     }
     
     required init?(coder: NSCoder) {
@@ -111,12 +100,9 @@ class LogInView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubview(logoImageView)
         contentView.addSubview(loginInput)
-        bruteForceActivityIndicator.center = bruteForceActivityIndicatorView.center
-        bruteForceActivityIndicatorView.addSubview(bruteForceActivityIndicator)
-        passwordInput.addSubview(bruteForceActivityIndicatorView)
         contentView.addSubview(passwordInput)
         contentView.addSubview(logInButton)
-        contentView.addSubview(bruteForceForgottenPasswordButton)
+        contentView.addSubview(signUpButton)
     }
     
     private func activateConstraints() {
@@ -151,20 +137,15 @@ class LogInView: UIView {
             passwordInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             passwordInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            bruteForceActivityIndicatorView.topAnchor.constraint(equalTo: passwordInput.topAnchor),
-            bruteForceActivityIndicatorView.heightAnchor.constraint(equalToConstant: 50),
-            bruteForceActivityIndicatorView.centerYAnchor.constraint(equalTo: passwordInput.centerYAnchor),
-            bruteForceActivityIndicatorView.centerXAnchor.constraint(equalTo: passwordInput.centerXAnchor),
-            
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 16),
             logInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             logInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
-            bruteForceForgottenPasswordButton.heightAnchor.constraint(equalToConstant: 50),
-            bruteForceForgottenPasswordButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
-            bruteForceForgottenPasswordButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            bruteForceForgottenPasswordButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
+            signUpButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            signUpButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             
         ])
         
@@ -176,11 +157,23 @@ class LogInView: UIView {
         
     }
     
-    public func startBruteForcing() {
-        bruteForceActivityIndicator.startAnimating()
+    func checkAndEnableLoginSignUpButtons() {
+        if (loginInput.text ?? "").isEmpty || (passwordInput.text ?? "").isEmpty {
+            enabledButton(isEnabled: false, button: logInButton)
+            enabledButton(isEnabled: false, button: signUpButton)
+
+        } else {
+            enabledButton(isEnabled: true, button: logInButton)
+            enabledButton(isEnabled: true, button: signUpButton)
+        }
     }
     
-    public func stopBruteForcing() {
-        bruteForceActivityIndicator.stopAnimating()
+    func enabledButton(isEnabled: Bool, button: UIButton) -> Void {
+        button.isEnabled = isEnabled
+        if isEnabled == true {
+            button.backgroundColor = UIColor(named: "VkBlue")
+        } else {
+            button.backgroundColor = UIColor(ciColor: .gray)
+        }
     }
 }
