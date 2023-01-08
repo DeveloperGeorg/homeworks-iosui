@@ -1,10 +1,15 @@
 import Foundation
 import RealmSwift
 
-struct RealmStoredAuthUser: StoredAuthUserProtocol {
-    var login: String
+class RealmStoredAuthUser: Object, StoredAuthUserProtocol {
+    @Persisted(primaryKey: true) var login: String
+    @Persisted var password: String
+    @Persisted var lastLoggedInAt: Date
     
-    var password: String
-    
-    
+    convenience init(login: String, password: String) {
+        self.init()
+        self.login = login
+        self.password = password
+        self.lastLoggedInAt = Date()
+    }
 }

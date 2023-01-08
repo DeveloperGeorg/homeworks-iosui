@@ -12,13 +12,13 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     weak var coordinator: ProfileCoordinator?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
-    private let authUserStorageProtocol: AuthUserStorageProtocol
+    private let authUserStorage: AuthUserStorageProtocol
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
-        self.authUserStorageProtocol = RealmAuthUserStorage()
+        self.authUserStorage = RealmAuthUserStorage()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,10 +36,23 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
     }
     
     override func loadView() {
+        let lastAuthorized = self.authUserStorage.getLastAuthorized()
+        if let lastAuthorizedUser = lastAuthorized {
+            self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({
+                self.authUserStorage.save(lastAuthorizedUser)
+                self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
+            }), ({
+                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+            }))
+            
+        }
         loginView.logInButton.setButtonTappedCallback({ sender in
             do {
-                self.checkCredentials(login: self.loginView.loginInput.text ?? "", password: self.loginView.passwordInput.text ?? "", ({
-                    self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
+                let enteredPassword = self.loginView.passwordInput.text ?? "";
+                let enteredLogin = self.loginView.loginInput.text ?? "";
+                self.checkCredentials(login: enteredLogin, password: enteredPassword, ({
+                    self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
+                    self.coordinator?.openProfile(sender: sender, loginInput: enteredLogin)
                 }), ({
                     self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
                 }))

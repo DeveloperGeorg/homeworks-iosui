@@ -25,7 +25,7 @@ final class ProfileCoordinator: Coordinatable {
         navigationController.pushViewController(logInViewController, animated: false)
     }
     
-    func openProfile(sender:UIButton, loginInput: String) {
+    func openProfile(sender:UIButton?, loginInput: String) {
         let userService = CurrentUserService()
         #if DEBUG
         let userService = TestUserService()
