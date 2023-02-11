@@ -29,6 +29,7 @@
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4179EF752997A322007F6296 /* MapsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF742997A322007F6296 /* MapsCoordinator.swift */; };
 		4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF762997A56F007F6296 /* MapsViewController.swift */; };
+		4179EF792997AC00007F6296 /* CapitalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF782997AC00007F6296 /* CapitalAnnotation.swift */; };
 		417B5D7B27FF3BD800BB28A6 /* OverworkAlertTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721727F9AF010075A056 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721227F9AF010075A056 /* InfoView.swift */; };
@@ -113,6 +114,7 @@
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4179EF742997A322007F6296 /* MapsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsCoordinator.swift; sourceTree = "<group>"; };
 		4179EF762997A56F007F6296 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		4179EF782997AC00007F6296 /* CapitalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapitalAnnotation.swift; sourceTree = "<group>"; };
 		417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverworkAlertTimer.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721227F9AF010075A056 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				4179EF742997A322007F6296 /* MapsCoordinator.swift */,
 				4179EF762997A56F007F6296 /* MapsViewController.swift */,
+				4179EF782997AC00007F6296 /* CapitalAnnotation.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				41CDCB8D28105BC300DA6891 /* PlanetDto.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
+				4179EF792997AC00007F6296 /* CapitalAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

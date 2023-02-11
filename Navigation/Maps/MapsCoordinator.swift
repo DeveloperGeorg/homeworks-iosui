@@ -7,6 +7,7 @@ class MapsCoordinator: Coordinatable {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.setViewControllers([MapsViewController()], animated: false)
     }
     
     func start() {
