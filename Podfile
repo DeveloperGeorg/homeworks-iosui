@@ -10,6 +10,7 @@ target 'Navigation' do
   
   pod 'FirebaseAuth'
   pod 'FirebaseAuth'
+  pod 'RealmSwift'
 end
 
 

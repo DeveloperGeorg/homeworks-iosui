@@ -44,7 +44,6 @@ class InfoViewController: UIViewController {
                 }
                 catch let error {
                     print("[PLANET] ERROR: \(error.localizedDescription)")
-                    print(error)
                 }
             }
         }

@@ -25,11 +25,11 @@ final class ProfileCoordinator: Coordinatable {
         navigationController.pushViewController(logInViewController, animated: false)
     }
     
-    func openProfile(sender:UIButton, loginInput: String) {
+    func openProfile(sender:UIButton?, loginInput: String) {
         let userService = CurrentUserService()
-        #if DEBUG
-        let userService = TestUserService()
-        #endif
+//        #if DEBUG
+//        let userService = TestUserService()
+//        #endif
         do {
             try navigationController.show(ProfileViewController(
                 userService: userService, fullName: loginInput
@@ -42,10 +42,17 @@ final class ProfileCoordinator: Coordinatable {
     }
     
     func showLoginError(title: String, message: String) {
-        let alert = UIAlertController(title: "Error", message: "Invalid login or password.", preferredStyle: .alert)
+        var alertMessage = "Invalid login or password."
+        if message != "" {
+            alertMessage = message
+        }
+        var alertTitle = "Error"
+        if title != "" {
+            alertTitle = title
+        }
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) {
             UIAlertAction in
-            print("Pressed OK action")
         }
         alert.addAction(okAction)
         navigationController.present(alert, animated: true, completion: nil)
