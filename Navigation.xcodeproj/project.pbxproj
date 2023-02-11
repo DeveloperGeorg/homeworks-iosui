@@ -28,6 +28,7 @@
 		4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95327F6BA660030C223 /* FeedViewDelegate.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4179EF752997A322007F6296 /* MapsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF742997A322007F6296 /* MapsCoordinator.swift */; };
+		4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF762997A56F007F6296 /* MapsViewController.swift */; };
 		417B5D7B27FF3BD800BB28A6 /* OverworkAlertTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721727F9AF010075A056 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721227F9AF010075A056 /* InfoView.swift */; };
@@ -111,6 +112,7 @@
 		4149A95327F6BA660030C223 /* FeedViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewDelegate.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4179EF742997A322007F6296 /* MapsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsCoordinator.swift; sourceTree = "<group>"; };
+		4179EF762997A56F007F6296 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverworkAlertTimer.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721227F9AF010075A056 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				4179EF742997A322007F6296 /* MapsCoordinator.swift */,
+				4179EF762997A56F007F6296 /* MapsViewController.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */,
+				4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */,
 				41CDCB89280FD41100DA6891 /* TaskDto.swift in Sources */,
 				4149A95127F607650030C223 /* FeedPresenter.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,

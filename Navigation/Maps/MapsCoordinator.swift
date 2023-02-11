@@ -10,6 +10,7 @@ class MapsCoordinator: Coordinatable {
     }
     
     func start() {
-        
+        let mapsViewController = MapsViewController()
+        navigationController.pushViewController(mapsViewController, animated: false)
     }
 }
