@@ -2,8 +2,8 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapsViewController: UIViewController {
-    
+class MapsViewController: UIViewController, MKMapViewDelegate {
+    private var myLastLocation: CLLocation?
     private lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
         return locationManager
@@ -14,11 +14,13 @@ class MapsViewController: UIViewController {
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
         
-        mapView.mapType = .standard
         mapView.showsCompass = true
         mapView.showsScale = true
-        
         mapView.showsUserLocation = true
+        mapView.isZoomEnabled = true
+        let configuration = MKStandardMapConfiguration(elevationStyle: .flat)
+        configuration.showsTraffic = true
+        mapView.preferredConfiguration = configuration
         
         let pointsOfInterestFilter = MKPointOfInterestFilter()
         mapView.pointOfInterestFilter = pointsOfInterestFilter
@@ -32,7 +34,7 @@ class MapsViewController: UIViewController {
             initialLocation,
             animated: false
         )
-        
+
         let region = MKCoordinateRegion(
             center: initialLocation,
             latitudinalMeters: 100_000,
@@ -42,13 +44,12 @@ class MapsViewController: UIViewController {
             region,
             animated: false
         )
-        
+        mapView.delegate = self
         return mapView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load")
         title = "Работа с картой"
         view.backgroundColor = .systemBackground
         
@@ -56,8 +57,21 @@ class MapsViewController: UIViewController {
         setupConstraints()
         
         findUserLocation()
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(addWaypoint(longGesture:)))
+        mapView.addGestureRecognizer(longGesture)
     }
-    
+    @objc func addWaypoint(longGesture: UIGestureRecognizer) {
+
+        let touchPoint = longGesture.location(in: mapView)
+        let wayCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let location = CLLocation(latitude: wayCoords.latitude, longitude: wayCoords.longitude)
+        mapView.addAnnotations([CapitalAnnotation(
+        title: "Go there", coordinate: location.coordinate, info: "")])
+        if let myLocation = myLastLocation {
+            showRouteOnMap(pickupCoordinate: myLocation.coordinate, destinationCoordinate: location.coordinate)
+        }
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -95,7 +109,39 @@ class MapsViewController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
     }
+    
+    func showRouteOnMap(pickupCoordinate: CLLocationCoordinate2D, destinationCoordinate: CLLocationCoordinate2D) {
 
+            let request = MKDirections.Request()
+            request.source = MKMapItem(placemark: MKPlacemark(coordinate: pickupCoordinate, addressDictionary: nil))
+            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil))
+            request.requestsAlternateRoutes = true
+            request.transportType = .automobile
+
+            let directions = MKDirections(request: request)
+
+            directions.calculate { [unowned self] response, error in
+                guard let unwrappedResponse = response else { return }
+                
+                //for getting just one route
+                if let route = unwrappedResponse.routes.first {
+                    //show on map
+                    self.mapView.addOverlay(route.polyline)
+                    //set the map area to show the route
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets.init(top: 80.0, left: 20.0, bottom: 100.0, right: 20.0), animated: true)
+                }
+
+                //if you want to show multiple routes then you can get all routes in a loop in the following statement
+                //for route in unwrappedResponse.routes {}
+            }
+        }
+    //this delegate function is for displaying the route overlay and styling it
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+         let renderer = MKPolylineRenderer(overlay: overlay)
+         renderer.strokeColor = UIColor.red
+         renderer.lineWidth = 5.0
+         return renderer
+    }
 }
 
 extension MapsViewController: CLLocationManagerDelegate {
@@ -126,6 +172,7 @@ extension MapsViewController: CLLocationManagerDelegate {
             )
             mapView.addAnnotations([CapitalAnnotation(
             title: "I'm here", coordinate: location.coordinate, info: "")])
+            myLastLocation = location
         }
     }
     
