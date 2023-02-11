@@ -9,6 +9,7 @@ final class ApplicationCoordinator: Coordinatable {
     
     var feedCoordinator: FeedCoordinator
     var profileCoordinator: ProfileCoordinator
+    var mapsCoordinator: MapsCoordinator
     
     init(window: UIWindow) {
         self.window = window
@@ -18,9 +19,12 @@ final class ApplicationCoordinator: Coordinatable {
         self.profileCoordinator = ProfileCoordinator(navigationController: UINavigationController())
         profileCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
         profileCoordinator.navigationController.navigationBar.isHidden = true
+        self.mapsCoordinator = MapsCoordinator(navigationController: UINavigationController())
+        mapsCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Maps", image: UIImage(systemName: "map"), selectedImage: nil)
         self.rootController.setViewControllers([
             navigationController,
-            profileCoordinator.navigationController
+            profileCoordinator.navigationController,
+            mapsCoordinator.navigationController
         ], animated: false)
     }
     
