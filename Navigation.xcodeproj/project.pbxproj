@@ -49,6 +49,7 @@
 		41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */; };
 		41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */; };
 		41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6F29698C4B009D3920 /* RealmStoredAuthUser.swift */; };
+		41C3FD73296AD196009D3920 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD72296AD196009D3920 /* RealmService.swift */; };
 		41CDCB89280FD41100DA6891 /* TaskDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CDCB88280FD41100DA6891 /* TaskDto.swift */; };
 		41CDCB8D28105BC300DA6891 /* PlanetDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CDCB8C28105BC300DA6891 /* PlanetDto.swift */; };
 		41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD0D272075F60030EF9A /* AppDelegate.swift */; };
@@ -130,6 +131,7 @@
 		41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthUserProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuthUserStorage.swift; sourceTree = "<group>"; };
 		41C3FD6F29698C4B009D3920 /* RealmStoredAuthUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmStoredAuthUser.swift; sourceTree = "<group>"; };
+		41C3FD72296AD196009D3920 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		41CDCB88280FD41100DA6891 /* TaskDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDto.swift; sourceTree = "<group>"; };
 		41CDCB8C28105BC300DA6891 /* PlanetDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetDto.swift; sourceTree = "<group>"; };
 		41E6CD0A272075F60030EF9A /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -304,6 +306,7 @@
 				411F73F527F03CB200555D97 /* NewPostValidator.swift */,
 				411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */,
 				417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */,
+				41C3FD72296AD196009D3920 /* RealmService.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
+				41C3FD73296AD196009D3920 /* RealmService.swift in Sources */,
 				41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */,
 				4194721727F9AF010075A056 /* InfoView.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,

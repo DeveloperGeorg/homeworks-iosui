@@ -10,20 +10,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        self.realmMigrate()
         FirebaseApp.configure()
-        let url = AppConfiguration.allCases.randomElement()!.description
-        NetworkService.run(url: url, query: "") { data, response, error in
-            if let error = error {
-                print("DataTask error: \(error.localizedDescription)\n")
-            } else if
-                let data = data,
-                let response = response as? HTTPURLResponse {
-                if let responseData = String(data: data, encoding: .utf8) {
-                }
-            }
-            
-        }
+//        let url = AppConfiguration.allCases.randomElement()!.description
+//        NetworkService.run(url: url, query: "") { data, response, error in
+//            if let error = error {
+//                print("DataTask error: \(error.localizedDescription)\n")
+//            } else if
+//                let data = data,
+//                let response = response as? HTTPURLResponse {
+//                if let responseData = String(data: data, encoding: .utf8) {
+//                }
+//            }
+//
+//        }
         return true
     }
     
@@ -46,12 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let checkerService = CheckerService()
         checkerService.logout()
         print("logged out in applicationWillTerminate")
-    }
-    
-    private func realmMigrate() -> Void {
-        var config = Realm.Configuration()
-        config.deleteRealmIfMigrationNeeded = true
-        Realm.Configuration.defaultConfiguration = config
     }
 }
 
