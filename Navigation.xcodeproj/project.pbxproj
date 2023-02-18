@@ -27,6 +27,9 @@
 		4149A95127F607650030C223 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95027F607650030C223 /* FeedPresenter.swift */; };
 		4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95327F6BA660030C223 /* FeedViewDelegate.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
+		4179EF752997A322007F6296 /* MapsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF742997A322007F6296 /* MapsCoordinator.swift */; };
+		4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF762997A56F007F6296 /* MapsViewController.swift */; };
+		4179EF792997AC00007F6296 /* CapitalAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179EF782997AC00007F6296 /* CapitalAnnotation.swift */; };
 		417B5D7B27FF3BD800BB28A6 /* OverworkAlertTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721727F9AF010075A056 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721227F9AF010075A056 /* InfoView.swift */; };
@@ -109,6 +112,9 @@
 		4149A95027F607650030C223 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		4149A95327F6BA660030C223 /* FeedViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewDelegate.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		4179EF742997A322007F6296 /* MapsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsCoordinator.swift; sourceTree = "<group>"; };
+		4179EF762997A56F007F6296 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		4179EF782997AC00007F6296 /* CapitalAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapitalAnnotation.swift; sourceTree = "<group>"; };
 		417B5D7A27FF3BD800BB28A6 /* OverworkAlertTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverworkAlertTimer.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721227F9AF010075A056 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -230,6 +236,16 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		4179EF732997A2FE007F6296 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				4179EF742997A322007F6296 /* MapsCoordinator.swift */,
+				4179EF762997A56F007F6296 /* MapsViewController.swift */,
+				4179EF782997AC00007F6296 /* CapitalAnnotation.swift */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
 		41A5EF7D2807EA0B00A12C07 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +305,7 @@
 		41E6CD0C272075F60030EF9A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				4179EF732997A2FE007F6296 /* Maps */,
 				4149A94827F571CA0030C223 /* Feed */,
 				411F73EF27EEE96700555D97 /* Common */,
 				4135194B27267386009739D1 /* Profile */,
@@ -508,6 +525,7 @@
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */,
+				4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */,
 				41CDCB89280FD41100DA6891 /* TaskDto.swift in Sources */,
 				4149A95127F607650030C223 /* FeedPresenter.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
@@ -524,6 +542,7 @@
 				4149A94027F4AB820030C223 /* Presentable.swift in Sources */,
 				41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */,
 				41A5EF872809986700A12C07 /* AppConfiguration.swift in Sources */,
+				4179EF752997A322007F6296 /* MapsCoordinator.swift in Sources */,
 				4149A94B27F5733B0030C223 /* FeedCoordinator.swift in Sources */,
 				4194722027F9AF170075A056 /* UserService.swift in Sources */,
 				417B5D7B27FF3BD800BB28A6 /* OverworkAlertTimer.swift in Sources */,
@@ -533,6 +552,7 @@
 				41CDCB8D28105BC300DA6891 /* PlanetDto.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
+				4179EF792997AC00007F6296 /* CapitalAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +681,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -716,7 +736,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
