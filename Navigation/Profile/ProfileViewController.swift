@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
     var user: User
     var posts: [Post] = [
         {
-            return Post(author: "Test1", description: "Amaizing description 1", image: UIImage(named: "post1.jpg")!, likes: 10, views: 25)
+            return Post(author: String(format: String(localized: "test"), arguments: ["1"]), description: String(format: String(localized: "amaizing_description"), arguments: ["1"]), image: UIImage(named: "post1.jpg")!, likes: 10, views: 25)
         }(),
         {
             return Post(
@@ -27,13 +27,13 @@ class ProfileViewController: UIViewController {
             )
         }(),
         {
-            return Post(author: "Test3", description: "Amaizing description 3", image: UIImage(named: "post3.jpg")!, likes: 30, views: 75)
+            return Post(author: String(format: String(localized: "test"), arguments: ["3"]), description: String(format: String(localized: "amaizing_description"), arguments: ["3"]), image: UIImage(named: "post3.jpg")!, likes: 30, views: 75)
         }(),
         {
-            return Post(author: "Test1", description: "Amaizing description 4", image: UIImage(named: "post1.jpg")!, likes: 25, views: 59)
+            return Post(author: String(format: String(localized: "test"), arguments: ["4"]), description: String(format: String(localized: "amaizing_description"), arguments: ["4"]), image: UIImage(named: "post1.jpg")!, likes: 25, views: 59)
         }(),
         {
-            return Post(author: "Test2", description: "Amaizing description 5", image: UIImage(named: "post1.jpg")!, likes: 35, views: 338)
+            return Post(author: String(format: String(localized: "test"), arguments: ["2"]), description: String(format: String(localized: "amaizing_description"), arguments: ["5"]), image: UIImage(named: "post1.jpg")!, likes: 35, views: 338)
         }(),
     ]
     
@@ -60,7 +60,7 @@ class ProfileViewController: UIViewController {
             self.user = user
         } else {
             self.user = User(
-            fullName: fullName, avatarImageSrc: "cat-avatar.png", status: "some state")
+            fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
         self.imagePublisherFacade = ImagePublisherFacade()
         

@@ -42,7 +42,7 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                 self.authUserStorage.save(lastAuthorizedUser)
                 self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
             }), ({
-                self.coordinator?.showLoginError(title: "Auto-login Error", message: "Invalid auto-saved login or password.")
+                self.coordinator?.showLoginError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
             }))
             
         }
@@ -54,12 +54,12 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                     self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
                     self.coordinator?.openProfile(sender: sender, loginInput: enteredLogin)
                 }), ({
-                    self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                    self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
                 }))
             } catch ValidationError.invalidCredentials {
-                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             } catch {
-                self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
+                self.coordinator?.showLoginError(title: String(localized: "Something went wrong"), message: String(localized: "Try again later."))
             }
         })
         loginView.signUpButton.setButtonTappedCallback({sender in
@@ -70,12 +70,12 @@ class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol
                     self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
                     self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
                 }), ({
-                    self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                    self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
                 }))
             } catch ValidationError.invalidCredentials {
-                self.coordinator?.showLoginError(title: "Error", message: "Invalid login or password.")
+                self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             } catch {
-                self.coordinator?.showLoginError(title: "Something went wrong", message: "Try again later.")
+                self.coordinator?.showLoginError(title: "Something went wrong", message: String(localized: "Try again later."))
             }
         })
         view = loginView

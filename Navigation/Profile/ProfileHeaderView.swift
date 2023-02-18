@@ -44,7 +44,7 @@ class ProfileHeaderView: UIView {
     }()
     
     var setStatusButton: CustomButton = {
-        let button = CustomButton(title: "Set status", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(title: String(localized: "Set status"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.layer.cornerRadius = 4
         button.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
         button.layer.shadowOpacity = 0.7

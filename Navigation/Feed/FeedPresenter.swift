@@ -10,8 +10,8 @@ class FeedPresenter {
     
     public func render() {
         let titles = [
-            "Post title",
-            "New post title"
+            String(localized: "Post title"),
+            String(localized: "New post title")
         ]
         titles.forEach({ title in
             self.feedViewDelegate?.addPostToFeed(title: title)

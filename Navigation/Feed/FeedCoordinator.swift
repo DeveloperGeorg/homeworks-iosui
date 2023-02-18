@@ -24,12 +24,12 @@ final class FeedCoordinator: Coordinatable {
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) {
+        let alert = UIAlertController(title: String(localized: "My Alert"), message: String(localized: "This is an alert."), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
             UIAlertAction in
         }
         alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+        let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {
             UIAlertAction in
         }
         alert.addAction(cancelAction)

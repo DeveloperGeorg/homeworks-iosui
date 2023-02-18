@@ -12,7 +12,7 @@ class InfoView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.backgroundColor = .black
-        label.text = "[Task title]"
+        label.text = String(localized: "[Task title]")
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,7 +22,7 @@ class InfoView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.backgroundColor = .black
-        label.text = "[Planet data]"
+        label.text = String(localized:"[Planet data]")
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -35,7 +35,7 @@ class InfoView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .green
         self.isOpaque = false
-        button.setTitle("Show alert", for: .normal)
+        button.setTitle(String(localized: "Show alert"), for: .normal)
         addSubview(button)
         addSubview(taskLabel)
         addSubview(planetLabel)

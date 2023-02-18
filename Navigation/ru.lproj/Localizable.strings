@@ -1,0 +1,43 @@
+"Validate new post title" = "Валидировать заголовок поста";
+"Enter the value" = "Введите значение";
+"Until next notice" = "До следующего уведомления осталось";
+"Title is valid" = "Заголовок валидный";
+"Title is not valid" = "Заголовок не валидный";
+"till_next_notification" = "До следующего уведомления осталось: %@сек";
+"[Task title]" = "[Заголовок задачи]";
+"[Planet data]" = "[Информация о планете]";
+"Show alert" = "Показать уведомление";
+"tatooine_orbital_period" = "Период обращения планеты Татуин \nвокруг своей звезды: %@";
+"My Alert" = "Моё уведомление";
+"This is an alert." = "Это уведомление.";
+"Cancel" = "Отмена";
+"OK" = "OK";
+"Post title" = "Заголовок поста";
+"New post title" = "Новый заголовок поста";
+
+"User" = "Пользователь";
+"some state" = "некоторый статус";
+"Debug User" = "Дебажный пользователь";
+"debug status" = "дебажный статус";
+"test" = "Тест%@";
+"amaizing_description" = "Восхитительное описание %@";
+"Set status" = "Задать стус";
+"Auto-login Error" = "Ошибка авто-логина";
+"Invalid auto-saved login or password." = "Невалидный авто-сохранённый логин или пароль.";
+"Error" = "Ошибка";
+"Invalid login or password." = "Невалидный логин или пароль.";
+"Something went wrong" = "Что-то пошло не так";
+"Try again later." = "Попробуйте позже.";
+"Email or phone" = "Email илил телефон";
+"Password" = "Пароль";
+"Log In" = "Войти";
+"Sign up" = "Зарегистрироваться";
+
+"Feed" = "Лента";
+"Profile" = "Профиль";
+"Maps" = "Карты";
+"Relax" = "Отдохни";
+"You worked very hard. You need to rest" = "Ты работал очень много. Нужно отдохнуть";
+
+"Go there" = "Идти сюда";
+"I'm here" = "Я тут";

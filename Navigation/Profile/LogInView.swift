@@ -33,7 +33,7 @@ class LogInView: UIView {
         loginInput.leftView = paddingView
         loginInput.leftViewMode = .always
         
-        loginInput.placeholder = "Email or phone"
+        loginInput.placeholder = String(localized: "Email or phone")
         
         return loginInput
     }()
@@ -50,7 +50,7 @@ class LogInView: UIView {
         passwordInput.leftView = paddingView
         passwordInput.leftViewMode = .always
         
-        passwordInput.placeholder = "Password"
+        passwordInput.placeholder = String(localized: "Password")
         passwordInput.isSecureTextEntry = true
         
         return passwordInput
@@ -58,7 +58,7 @@ class LogInView: UIView {
     
     
     let logInButton: CustomButton = {
-        let button = CustomButton(title: "Log In", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(title: String(localized: "Log In"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(ciColor: .gray)
@@ -67,7 +67,7 @@ class LogInView: UIView {
     }()
     
     let signUpButton: CustomButton = {
-        let button = CustomButton(title: "Sign up", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(title: String(localized: "Sign up"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(ciColor: .gray)

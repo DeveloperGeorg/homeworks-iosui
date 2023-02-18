@@ -1,0 +1,43 @@
+"Validate new post title" = "Validate new post title";
+"Enter the value" = "Enter the value";
+"Until next notice" = "Until next notice";
+"Title is valid" = "Title is valid";
+"Title is not valid" = "Title is not valid";
+"till_next_notification" = "Till next notification: %@s";
+"[Task title]" = "[Task title]";
+"[Planet data]" = "[Planet data]";
+"Show alert" = "Show alert";
+"tatooine_orbital_period" = "The orbital period of the planet Tatooine \naround its star: %@";
+"My Alert" = "My Alert";
+"This is an alert." = "This is an alert.";
+"Cancel" = "Cancel";
+"OK" = "OK";
+"Post title" = "Post title";
+"New post title" = "New post title";
+
+"User" = "User";
+"some state" = "some state";
+"Debug User" = "Debug User";
+"debug status" = "debug status";
+"test" = "Test%@";
+"amaizing_description" = "Amaizing description %@";
+"Set status" = "Set status";
+"Auto-login Error" = "Auto-login Error";
+"Invalid auto-saved login or password." = "Invalid auto-saved login or password.";
+"Error" = "Error";
+"Invalid login or password." = "Invalid login or password.";
+"Something went wrong" = "Something went wrong";
+"Try again later." = "Try again later.";
+"Email or phone" = "Email or phone";
+"Password" = "Password";
+"Log In" = "Log In";
+"Sign up" = "Sign up";
+
+"Feed" = "Feed";
+"Profile" = "Profile";
+"Maps" = "Maps";
+"Relax" = "Relax";
+"You worked very hard. You need to rest" = "You worked very hard. You need to rest";
+
+"Go there" = "Go there";
+"I'm here" = "I'm here";
