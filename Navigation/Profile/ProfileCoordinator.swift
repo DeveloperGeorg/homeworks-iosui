@@ -4,41 +4,33 @@ final class ProfileCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
+    let loginFactory: LoginFactory
+    let profileFactory: ProfileFactoryProtocol
+    let userService: CurrentUserService
     
-    init(navigationController: UINavigationController) {
+    init(
+        navigationController: UINavigationController,
+        loginFactory: LoginFactory,
+        profileFactory: ProfileFactoryProtocol,
+        userService: CurrentUserService
+    ) {
         self.navigationController = navigationController
-        let loginFactory = LoginFactory()
-        self.navigationController.setViewControllers([LogInViewController(
-                                                        loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
-                                                        signUpViewControllerDelegate: loginFactory.getSignUpDelegate(),
-                                                        coordinator: self
-        )], animated: false)
+        self.loginFactory = loginFactory
+        self.profileFactory = profileFactory
+        self.userService = userService
+        let logInViewController = loginFactory.createLogInViewController(coordinator: self)
+        self.navigationController.setViewControllers([logInViewController], animated: false)
     }
     
     func start() {
-        let loginFactory = LoginFactory()
-        let logInViewController = LogInViewController(
-            loginViewControllerDelegate: loginFactory.getLognCredentialsValidator(),
-            signUpViewControllerDelegate: loginFactory.getSignUpDelegate(),
-            coordinator: self
-        )
+        let logInViewController = self.loginFactory.createLogInViewController(coordinator: self)
         navigationController.pushViewController(logInViewController, animated: false)
     }
     
     func openProfile(sender:UIButton?, loginInput: String) {
-        let userService = CurrentUserService()
-//        #if DEBUG
-//        let userService = TestUserService()
-//        #endif
-        do {
-            try navigationController.show(ProfileViewController(
-                userService: userService, fullName: loginInput
-            ), sender: sender)
-        } catch ProfileViewController.ValidationError.notFound {
-            showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
-        } catch {
-            showLoginError(title: String(localized: "Something went wrong"), message: String(localized: "Try again later."))
-        }
+        navigationController.show(self.profileFactory.createProfileViewController(
+            userService: self.userService, loginInput: loginInput
+        ), sender: sender)
     }
     
     func showLoginError(title: String, message: String) {

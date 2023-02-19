@@ -16,7 +16,12 @@ final class ApplicationCoordinator: Coordinatable {
         self.navigationController = UINavigationController()
         self.feedCoordinator = FeedCoordinator(navigationController: navigationController)
         self.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Feed"), image: UIImage(systemName: "list.bullet"), selectedImage: nil)
-        self.profileCoordinator = ProfileCoordinator(navigationController: UINavigationController())
+        self.profileCoordinator = ProfileCoordinator(
+            navigationController: UINavigationController(),
+            loginFactory: LoginFactory(),
+            profileFactory: ProfileFactory(),
+            userService: CurrentUserService()
+        )
         profileCoordinator.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Profile"), image: UIImage(systemName: "person"), selectedImage: nil)
         profileCoordinator.navigationController.navigationBar.isHidden = true
         self.mapsCoordinator = MapsCoordinator(navigationController: UINavigationController())

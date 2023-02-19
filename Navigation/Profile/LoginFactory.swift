@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 class LoginFactory: LoginFactoryProtocol {
     func getLognCredentialsValidator() -> LoginViewControllerDelegateProtocol {
@@ -6,5 +6,12 @@ class LoginFactory: LoginFactoryProtocol {
     }
     func getSignUpDelegate() -> SignUpViewControllerDelegateProtocol {
         return LoginInspector()
+    }
+    func createLogInViewController(coordinator: ProfileCoordinator) -> UIViewController {
+        return LogInViewController(
+            loginViewControllerDelegate: self.getLognCredentialsValidator(),
+            signUpViewControllerDelegate: self.getSignUpDelegate(),
+            coordinator: coordinator
+        )
     }
 }

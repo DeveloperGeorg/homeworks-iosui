@@ -21,6 +21,8 @@
 		413CA00A29A0DA3B00005D7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 413CA00C29A0DA3B00005D7F /* Localizable.strings */; };
 		413CA00F29A204A300005D7F /* UIColorLightDarkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */; };
 		413CA01729A2386100005D7F /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01629A2386100005D7F /* NavigationTests.swift */; };
+		413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */; };
+		413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01F29A23FB600005D7F /* ProfileFactory.swift */; };
 		4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
 		4149A94027F4AB820030C223 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93F27F4AB820030C223 /* Presentable.swift */; };
 		4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */; };
@@ -119,6 +121,8 @@
 		413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorLightDarkExtension.swift; sourceTree = "<group>"; };
 		413CA01429A2386100005D7F /* NavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		413CA01629A2386100005D7F /* NavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
+		413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactoryProtocol.swift; sourceTree = "<group>"; };
+		413CA01F29A23FB600005D7F /* ProfileFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactory.swift; sourceTree = "<group>"; };
 		4149A93C27F4AB1F0030C223 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		4149A93F27F4AB820030C223 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorOutputProtocol.swift; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */,
 				41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */,
 				41C3FD6F29698C4B009D3920 /* RealmStoredAuthUser.swift */,
+				413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */,
+				413CA01F29A23FB600005D7F /* ProfileFactory.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -593,11 +599,13 @@
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,
+				413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */,
 				4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */,
 				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
+				413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */,
 				4179EF772997A56F007F6296 /* MapsViewController.swift in Sources */,
