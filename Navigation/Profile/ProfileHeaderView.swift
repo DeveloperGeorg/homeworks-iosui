@@ -44,7 +44,12 @@ class ProfileHeaderView: UIView {
     }()
     
     var setStatusButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Set status"), titleColor: UIColor.createColor(lightMode: .white, darkMode: .black), titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Set status"),
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.layer.cornerRadius = 4
         button.backgroundColor = UIColor.createColor(
             lightMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0)),
@@ -121,7 +126,7 @@ class ProfileHeaderView: UIView {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = CGFloat(imageSize / 2)
         avatarImageView.layer.borderWidth = 3
-        avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .white, darkMode: .black).cgColor
+        avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
     }
     
     private func addTargets() {
