@@ -88,9 +88,9 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
-        view.backgroundColor = .systemGray
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         #if DEBUG
-        view.backgroundColor = .systemPurple
+        view.backgroundColor = UIColor.createColor(lightMode: .systemPurple, darkMode: .systemCyan)
         #endif
         
         view.addSubview(postsTableView)

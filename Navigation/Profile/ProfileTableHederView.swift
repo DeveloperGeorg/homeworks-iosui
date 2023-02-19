@@ -10,7 +10,7 @@ class ProfileTableHederView: UIView {
         )
         super.init(frame: frame)
         
-        self.backgroundColor = .lightGray
+        self.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         
         addSubviews()
         activateConstraints()
