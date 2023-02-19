@@ -27,7 +27,7 @@ class FeedView: UIView {
     }()
     
     var validatePostButton: CustomButton = {
-        let button = CustomButton(title: "Validate new post title", titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(title: String(localized: "Validate new post title"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
         button.layer.cornerRadius = 4
         button.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
         button.layer.shadowOpacity = 0.7
@@ -42,7 +42,7 @@ class FeedView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.backgroundColor = .black
-        label.text = "Enter the value"
+        label.text = String(localized: "Enter the value")
         label.textAlignment = .center
         return label
     }()
@@ -51,7 +51,7 @@ class FeedView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.backgroundColor = .purple
-        label.text = "До следующего уведомления осталось"
+        label.text = String(localized: "Until next notice")
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
@@ -112,16 +112,17 @@ class FeedView: UIView {
     }
     
     public func setNewPostTitleLabelIsValid() {
-        isNewPostTitleValid.text = "Title is valid"
+        isNewPostTitleValid.text = String(localized: "Title is valid")
         isNewPostTitleValid.textColor = .green
     }
     
     public func setNewPostTitleLabelIsNotValid() {
-        isNewPostTitleValid.text = "Title is not valid"
+        isNewPostTitleValid.text = String(localized: "Title is not valid")
         isNewPostTitleValid.textColor = .red
     }
     
     public func setOverworkAlertTimerCounter(_ seconds: Int) {
-        overworkAlertTimerCounterLabel.text = "До следующего уведомления осталось \(seconds) секунд"
+        overworkAlertTimerCounterLabel.text = String(format: String(localized: "till_next_notification"), arguments: [String(seconds)])
+        //"До следующего уведомления осталось: \(seconds) с"
     }
 }

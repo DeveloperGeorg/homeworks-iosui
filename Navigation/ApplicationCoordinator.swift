@@ -15,12 +15,12 @@ final class ApplicationCoordinator: Coordinatable {
         self.window = window
         self.navigationController = UINavigationController()
         self.feedCoordinator = FeedCoordinator(navigationController: navigationController)
-        self.navigationController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), selectedImage: nil)
+        self.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Feed"), image: UIImage(systemName: "list.bullet"), selectedImage: nil)
         self.profileCoordinator = ProfileCoordinator(navigationController: UINavigationController())
-        profileCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), selectedImage: nil)
+        profileCoordinator.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Profile"), image: UIImage(systemName: "person"), selectedImage: nil)
         profileCoordinator.navigationController.navigationBar.isHidden = true
         self.mapsCoordinator = MapsCoordinator(navigationController: UINavigationController())
-        mapsCoordinator.navigationController.tabBarItem = UITabBarItem(title: "Maps", image: UIImage(systemName: "map"), selectedImage: nil)
+        mapsCoordinator.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Maps"), image: UIImage(systemName: "map"), selectedImage: nil)
         self.rootController.setViewControllers([
             navigationController,
             profileCoordinator.navigationController,
@@ -35,13 +35,13 @@ final class ApplicationCoordinator: Coordinatable {
     }
     
     func showOverworkAlertTimer(okClosure: (() -> Void)?, cancelClosure: (() -> Void)?) -> Void {
-        let alert = UIAlertController(title: "Отдохни", message: "Ты работал очень много. Нужно отдохнуть", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) {
+        let alert = UIAlertController(title: String(localized: "Relax"), message: String(localized: "You worked very hard. You need to rest"), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
             UIAlertAction in
             okClosure?()
         }
         alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) {
+        let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {
             UIAlertAction in
             cancelClosure?()
         }

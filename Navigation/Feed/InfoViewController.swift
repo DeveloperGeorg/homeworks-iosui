@@ -39,7 +39,7 @@ class InfoViewController: UIViewController {
                 do {
                     let planet = try JSONDecoder().decode(PlanetDto.self, from: unwrappedData)
                     DispatchQueue.main.async {
-                        view.planetLabel.text = "Период обращения планеты Татуин \nвокруг своей звезды: \(planet.orbitalPeriod)"
+                        view.planetLabel.text = String(format: String(localized: "tatooine_orbital_period"), [String(planet.orbitalPeriod)])
                     }
                 }
                 catch let error {

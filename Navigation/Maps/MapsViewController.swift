@@ -50,7 +50,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Maps"
+        title = String(localized: "Maps")
         view.backgroundColor = .systemBackground
         
         setupSubviews()
@@ -67,7 +67,7 @@ class MapsViewController: UIViewController, MKMapViewDelegate {
         let wayCoords = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let location = CLLocation(latitude: wayCoords.latitude, longitude: wayCoords.longitude)
         mapView.addAnnotations([CapitalAnnotation(
-        title: "Go there", coordinate: location.coordinate, info: "")])
+        title: String(localized: "Go there"), coordinate: location.coordinate, info: "")])
         if let myLocation = myLastLocation {
             showRouteOnMap(pickupCoordinate: myLocation.coordinate, destinationCoordinate: location.coordinate)
         }
@@ -162,7 +162,7 @@ extension MapsViewController: CLLocationManagerDelegate {
                 animated: true
             )
             mapView.addAnnotations([CapitalAnnotation(
-            title: "I'm here", coordinate: location.coordinate, info: "")])
+            title: String(localized: "I'm here"), coordinate: location.coordinate, info: "")])
             myLastLocation = location
         }
     }
