@@ -2,7 +2,7 @@ import UIKit
 import iOSIntPackage
 import StorageService
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     enum ValidationError: Error {
             case notFound
         }

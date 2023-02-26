@@ -74,6 +74,14 @@
 		41F0BF6D29AB6D4500A21B4F /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
 		41F0BF6E29AB6D5500A21B4F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721E27F9AF170075A056 /* User.swift */; };
 		41F0BF6F29AB6D6900A21B4F /* SignUpViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */; };
+		41F0BF7229AB6EE000A21B4F /* UINavigationControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7129AB6EE000A21B4F /* UINavigationControllerSpy.swift */; };
+		41F0BF7929AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7829AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift */; };
+		41F0BF7B29AB723300A21B4F /* ProfileFactoryDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7A29AB723300A21B4F /* ProfileFactoryDummy.swift */; };
+		41F0BF7D29AB728700A21B4F /* UserServiceDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7C29AB728700A21B4F /* UserServiceDummy.swift */; };
+		41F0BF7F29AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */; };
+		41F0BF8029AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */; };
+		41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF8129AB7A5400A21B4F /* ProfileViewControllerProtocol.swift */; };
+		41F0BF8329AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF8129AB7A5400A21B4F /* ProfileViewControllerProtocol.swift */; };
 		41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */; };
 		41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E3293FA49200B906A6 /* CheckerService.swift */; };
 		41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */; };
@@ -176,6 +184,12 @@
 		41E6CD1B272075F90030EF9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E6CD2827213DF00030EF9A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		41F0BF6629AB6AF200A21B4F /* ProfileCoordinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTest.swift; sourceTree = "<group>"; };
+		41F0BF7129AB6EE000A21B4F /* UINavigationControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerSpy.swift; sourceTree = "<group>"; };
+		41F0BF7829AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginFactoryDummy+TestDoubles.swift"; sourceTree = "<group>"; };
+		41F0BF7A29AB723300A21B4F /* ProfileFactoryDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactoryDummy.swift; sourceTree = "<group>"; };
+		41F0BF7C29AB728700A21B4F /* UserServiceDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceDummy.swift; sourceTree = "<group>"; };
+		41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewControllerProtocol.swift; sourceTree = "<group>"; };
+		41F0BF8129AB7A5400A21B4F /* ProfileViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerProtocol.swift; sourceTree = "<group>"; };
 		41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerServiceProtocol.swift; sourceTree = "<group>"; };
 		41F353E3293FA49200B906A6 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -255,6 +269,8 @@
 				41C3FD6F29698C4B009D3920 /* RealmStoredAuthUser.swift */,
 				413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */,
 				413CA01F29A23FB600005D7F /* ProfileFactory.swift */,
+				41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */,
+				41F0BF8129AB7A5400A21B4F /* ProfileViewControllerProtocol.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -262,6 +278,7 @@
 		413CA01529A2386100005D7F /* NavigationTests */ = {
 			isa = PBXGroup;
 			children = (
+				41F0BF7029AB6EC800A21B4F /* Test Doubles */,
 				41F0BF6529AB6ACB00A21B4F /* Profile */,
 				413CA01629A2386100005D7F /* NavigationTests.swift */,
 			);
@@ -384,6 +401,17 @@
 				41F0BF6629AB6AF200A21B4F /* ProfileCoordinatorTest.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		41F0BF7029AB6EC800A21B4F /* Test Doubles */ = {
+			isa = PBXGroup;
+			children = (
+				41F0BF7129AB6EE000A21B4F /* UINavigationControllerSpy.swift */,
+				41F0BF7829AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift */,
+				41F0BF7A29AB723300A21B4F /* ProfileFactoryDummy.swift */,
+				41F0BF7C29AB728700A21B4F /* UserServiceDummy.swift */,
+			);
+			path = "Test Doubles";
 			sourceTree = "<group>";
 		};
 		E46FE82746DAB04AB35FB1DC /* Pods */ = {
@@ -593,13 +621,19 @@
 			files = (
 				41F0BF6A29AB6CF400A21B4F /* ProfileFactoryProtocol.swift in Sources */,
 				41F0BF6429AB6AC100A21B4F /* ProfileCoordinator.swift in Sources */,
+				41F0BF8029AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */,
 				41F0BF6D29AB6D4500A21B4F /* UserService.swift in Sources */,
 				41F0BF6829AB6C9900A21B4F /* Coordinatable.swift in Sources */,
+				41F0BF8329AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
+				41F0BF7929AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift in Sources */,
 				41F0BF6929AB6CC400A21B4F /* LoginFactoryProtocol.swift in Sources */,
 				413CA01729A2386100005D7F /* NavigationTests.swift in Sources */,
+				41F0BF7D29AB728700A21B4F /* UserServiceDummy.swift in Sources */,
 				41F0BF6F29AB6D6900A21B4F /* SignUpViewControllerDelegateProtocol.swift in Sources */,
 				41F0BF6B29AB6D3500A21B4F /* LoginViewControllerDelegateProtocol.swift in Sources */,
+				41F0BF7B29AB723300A21B4F /* ProfileFactoryDummy.swift in Sources */,
 				41F0BF6C29AB6D3D00A21B4F /* CurrentUserService.swift in Sources */,
+				41F0BF7229AB6EE000A21B4F /* UINavigationControllerSpy.swift in Sources */,
 				41F0BF6E29AB6D5500A21B4F /* User.swift in Sources */,
 				41F0BF6729AB6AF200A21B4F /* ProfileCoordinatorTest.swift in Sources */,
 			);
@@ -617,9 +651,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
 				4194721927F9AF010075A056 /* PostViewController.swift in Sources */,
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
+				41F0BF7F29AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */,
 				4194721727F9AF010075A056 /* InfoView.swift in Sources */,
