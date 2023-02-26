@@ -16,24 +16,24 @@ class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
-        fullNameLabel.textColor = .black
+        fullNameLabel.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return fullNameLabel
     }()
     
     var statusLabel: UILabel = {
         let statusLabel = UILabel()
-        statusLabel.textColor = .gray
+        statusLabel.textColor = UIColor.createColor(lightMode: .gray, darkMode: .lightGray)
         
         return statusLabel
     }()
     
     var statusTextField: UITextField = {
         let statusTextField = UITextField()
-        statusTextField.backgroundColor = .white
+        statusTextField.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         statusTextField.layer.cornerRadius = 12
         statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        statusTextField.textColor = .black
-        statusTextField.layer.borderColor = UIColor.black.cgColor
+        statusTextField.textColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        statusTextField.layer.borderColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
         statusTextField.layer.borderWidth = 1
         
         let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
@@ -44,12 +44,20 @@ class ProfileHeaderView: UIView {
     }()
     
     var setStatusButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Set status"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Set status"),
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.layer.cornerRadius = 4
-        button.backgroundColor = UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
+        button.backgroundColor = UIColor.createColor(
+            lightMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0)),
+            darkMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
+        )
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
         button.layer.shadowRadius = CGFloat(4)
         
         return button
@@ -118,7 +126,7 @@ class ProfileHeaderView: UIView {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = CGFloat(imageSize / 2)
         avatarImageView.layer.borderWidth = 3
-        avatarImageView.layer.borderColor = UIColor.white.cgColor
+        avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
     }
     
     private func addTargets() {

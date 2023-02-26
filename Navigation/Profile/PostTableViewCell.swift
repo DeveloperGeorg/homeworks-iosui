@@ -3,7 +3,7 @@ class PostTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
     var titleView: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Custom text"
@@ -21,13 +21,13 @@ class PostTableViewCell: UITableViewCell {
     var postImageBlockView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .white)
        return view
     }()
     
     var likesCounterView: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: CGFloat(12), weight: .regular)
         
@@ -35,7 +35,7 @@ class PostTableViewCell: UITableViewCell {
     }()
     var viewsCounterView: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: CGFloat(12), weight: .regular)
         
@@ -43,7 +43,7 @@ class PostTableViewCell: UITableViewCell {
     }()
     var descriptionView: UITextView = {
         let textView = UITextView()
-        textView.textColor = .gray
+        textView.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .left
         textView.isScrollEnabled = false
@@ -63,8 +63,8 @@ class PostTableViewCell: UITableViewCell {
             viewsCounterView,
             descriptionView
         ])
-        contentView.backgroundColor = .white
-        textLabel?.textColor = .systemYellow
+        contentView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+        textLabel?.textColor = UIColor.createColor(lightMode: .systemYellow, darkMode: .systemMint)
         
         activateConstraints()
         
