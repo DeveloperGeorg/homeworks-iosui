@@ -11,8 +11,21 @@ final class ProfileCoordinatorTest: XCTestCase {
     }
 
     func testExample() throws {
-//        let sut = ProfileCoordinator()
-        
+        var navigationController = UINavigationControllerSpy()
+        let profileFactory = ProfileFactoryDummy()
+        let userService = UserServiceDummy()
+        let sut = ProfileCoordinator(
+            navigationController: navigationController,
+            loginFactory: LoginFactoryDummy(),
+            profileFactory: profileFactory,
+            userService: userService
+        )
+        sut.start()
+        XCTAssert(navigationController.lastShowedUiViewController is LogInViewControllerProtocol, "Expecting last view controller to be a LogInViewControllerProtocol implementation")
+        sut.openProfile(sender: nil, loginInput: "loginInput")
+        XCTAssert(navigationController.lastShowedUiViewController is ProfileViewControllerProtocol, "Expecting last view controller to be a ProfileViewControllerProtocol implementation")
+        sut.showLoginError(title: "Error", message: "Invalid login")
+        XCTAssert(navigationController.lastShowedUiViewController is UIAlertController, "Expecting last view controller to be a UIAlertController")
     }
 
     func testPerformanceExample() throws {

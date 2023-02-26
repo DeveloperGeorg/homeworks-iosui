@@ -9,7 +9,7 @@ class UINavigationControllerSpy: UINavigationController
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        
+        self.lastShowedUiViewController = viewController
     }
     
     override func show(_ vc: UIViewController, sender: Any?) {

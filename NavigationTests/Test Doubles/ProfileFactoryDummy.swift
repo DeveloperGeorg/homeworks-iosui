@@ -1,8 +1,12 @@
-//
-//  ProfileFactoryDummy.swift
-//  NavigationTests
-//
-//  Created by Георгий Бондаренко on 26.02.2023.
-//
+import UIKit
 
-import Foundation
+class ProfileFactoryDummy: ProfileFactoryProtocol {
+    func createProfileViewController(userService: UserService, loginInput: String) -> ProfileViewControllerProtocol {
+        var vc = ProfileViewControllerDummy()
+        return vc
+    }
+}
+
+class ProfileViewControllerDummy: UIViewController, ProfileViewControllerProtocol {
+    
+}
