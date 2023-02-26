@@ -6,13 +6,13 @@ final class ProfileCoordinator: Coordinatable {
     var navigationController: UINavigationController
     let loginFactory: LoginFactoryProtocol
     let profileFactory: ProfileFactoryProtocol
-    let userService: CurrentUserService
+    let userService: UserService
     
     init(
         navigationController: UINavigationController,
         loginFactory: LoginFactoryProtocol,
         profileFactory: ProfileFactoryProtocol,
-        userService: CurrentUserService
+        userService: UserService
     ) {
         self.navigationController = navigationController
         self.loginFactory = loginFactory
