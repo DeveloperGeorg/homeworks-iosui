@@ -4,13 +4,13 @@ final class ProfileCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
-    let loginFactory: LoginFactory
+    let loginFactory: LoginFactoryProtocol
     let profileFactory: ProfileFactoryProtocol
     let userService: CurrentUserService
     
     init(
         navigationController: UINavigationController,
-        loginFactory: LoginFactory,
+        loginFactory: LoginFactoryProtocol,
         profileFactory: ProfileFactoryProtocol,
         userService: CurrentUserService
     ) {

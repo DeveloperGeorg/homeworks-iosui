@@ -64,6 +64,16 @@
 		41E6CD17272075F90030EF9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD16272075F90030EF9A /* Assets.xcassets */; };
 		41E6CD1A272075F90030EF9A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41E6CD18272075F90030EF9A /* LaunchScreen.storyboard */; };
 		41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E6CD2827213DF00030EF9A /* ProfileViewController.swift */; };
+		41F0BF6429AB6AC100A21B4F /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A94D27F577900030C223 /* ProfileCoordinator.swift */; };
+		41F0BF6729AB6AF200A21B4F /* ProfileCoordinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F0BF6629AB6AF200A21B4F /* ProfileCoordinatorTest.swift */; };
+		41F0BF6829AB6C9900A21B4F /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
+		41F0BF6929AB6CC400A21B4F /* LoginFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E727E6162300555D97 /* LoginFactoryProtocol.swift */; };
+		41F0BF6A29AB6CF400A21B4F /* ProfileFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */; };
+		41F0BF6B29AB6D3500A21B4F /* LoginViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */; };
+		41F0BF6C29AB6D3D00A21B4F /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721F27F9AF170075A056 /* CurrentUserService.swift */; };
+		41F0BF6D29AB6D4500A21B4F /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
+		41F0BF6E29AB6D5500A21B4F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721E27F9AF170075A056 /* User.swift */; };
+		41F0BF6F29AB6D6900A21B4F /* SignUpViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */; };
 		41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */; };
 		41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F353E3293FA49200B906A6 /* CheckerService.swift */; };
 		41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */; };
@@ -165,6 +175,7 @@
 		41E6CD19272075F90030EF9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		41E6CD1B272075F90030EF9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41E6CD2827213DF00030EF9A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		41F0BF6629AB6AF200A21B4F /* ProfileCoordinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTest.swift; sourceTree = "<group>"; };
 		41F353E1293FA3CA00B906A6 /* CheckerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerServiceProtocol.swift; sourceTree = "<group>"; };
 		41F353E3293FA49200B906A6 /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		41F37E70283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -251,6 +262,7 @@
 		413CA01529A2386100005D7F /* NavigationTests */ = {
 			isa = PBXGroup;
 			children = (
+				41F0BF6529AB6ACB00A21B4F /* Profile */,
 				413CA01629A2386100005D7F /* NavigationTests.swift */,
 			);
 			path = NavigationTests;
@@ -364,6 +376,14 @@
 				413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		41F0BF6529AB6ACB00A21B4F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				41F0BF6629AB6AF200A21B4F /* ProfileCoordinatorTest.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		E46FE82746DAB04AB35FB1DC /* Pods */ = {
@@ -571,7 +591,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41F0BF6A29AB6CF400A21B4F /* ProfileFactoryProtocol.swift in Sources */,
+				41F0BF6429AB6AC100A21B4F /* ProfileCoordinator.swift in Sources */,
+				41F0BF6D29AB6D4500A21B4F /* UserService.swift in Sources */,
+				41F0BF6829AB6C9900A21B4F /* Coordinatable.swift in Sources */,
+				41F0BF6929AB6CC400A21B4F /* LoginFactoryProtocol.swift in Sources */,
 				413CA01729A2386100005D7F /* NavigationTests.swift in Sources */,
+				41F0BF6F29AB6D6900A21B4F /* SignUpViewControllerDelegateProtocol.swift in Sources */,
+				41F0BF6B29AB6D3500A21B4F /* LoginViewControllerDelegateProtocol.swift in Sources */,
+				41F0BF6C29AB6D3D00A21B4F /* CurrentUserService.swift in Sources */,
+				41F0BF6E29AB6D5500A21B4F /* User.swift in Sources */,
+				41F0BF6729AB6AF200A21B4F /* ProfileCoordinatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
