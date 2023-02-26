@@ -20,7 +20,6 @@
 		4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194C272673A7009739D1 /* ProfileHeaderView.swift */; };
 		413CA00A29A0DA3B00005D7F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 413CA00C29A0DA3B00005D7F /* Localizable.strings */; };
 		413CA00F29A204A300005D7F /* UIColorLightDarkExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */; };
-		413CA01729A2386100005D7F /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01629A2386100005D7F /* NavigationTests.swift */; };
 		413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */; };
 		413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413CA01F29A23FB600005D7F /* ProfileFactory.swift */; };
 		4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
@@ -138,7 +137,6 @@
 		413CA00D29A0DA4100005D7F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorLightDarkExtension.swift; sourceTree = "<group>"; };
 		413CA01429A2386100005D7F /* NavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		413CA01629A2386100005D7F /* NavigationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
 		413CA01D29A23F6000005D7F /* ProfileFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactoryProtocol.swift; sourceTree = "<group>"; };
 		413CA01F29A23FB600005D7F /* ProfileFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactory.swift; sourceTree = "<group>"; };
 		4149A93C27F4AB1F0030C223 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 			children = (
 				41F0BF7029AB6EC800A21B4F /* Test Doubles */,
 				41F0BF6529AB6ACB00A21B4F /* Profile */,
-				413CA01629A2386100005D7F /* NavigationTests.swift */,
 			);
 			path = NavigationTests;
 			sourceTree = "<group>";
@@ -627,7 +624,6 @@
 				41F0BF8329AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
 				41F0BF7929AB718600A21B4F /* LoginFactoryDummy+TestDoubles.swift in Sources */,
 				41F0BF6929AB6CC400A21B4F /* LoginFactoryProtocol.swift in Sources */,
-				413CA01729A2386100005D7F /* NavigationTests.swift in Sources */,
 				41F0BF7D29AB728700A21B4F /* UserServiceDummy.swift in Sources */,
 				41F0BF6F29AB6D6900A21B4F /* SignUpViewControllerDelegateProtocol.swift in Sources */,
 				41F0BF6B29AB6D3500A21B4F /* LoginViewControllerDelegateProtocol.swift in Sources */,

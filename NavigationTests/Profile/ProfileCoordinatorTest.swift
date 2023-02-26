@@ -1,17 +1,9 @@
 import XCTest
 
 final class ProfileCoordinatorTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        var navigationController = UINavigationControllerSpy()
+    func testStart() {
+        // arrange
+        let navigationController = UINavigationControllerSpy()
         let profileFactory = ProfileFactoryDummy()
         let userService = UserServiceDummy()
         let sut = ProfileCoordinator(
@@ -20,11 +12,49 @@ final class ProfileCoordinatorTest: XCTestCase {
             profileFactory: profileFactory,
             userService: userService
         )
+        
+        // act
         sut.start()
+        
+        // assert
         XCTAssert(navigationController.lastShowedUiViewController is LogInViewControllerProtocol, "Expecting last view controller to be a LogInViewControllerProtocol implementation")
+    }
+    
+    func testOpenProfile() {
+        // arrange
+        let navigationController = UINavigationControllerSpy()
+        let profileFactory = ProfileFactoryDummy()
+        let userService = UserServiceDummy()
+        let sut = ProfileCoordinator(
+            navigationController: navigationController,
+            loginFactory: LoginFactoryDummy(),
+            profileFactory: profileFactory,
+            userService: userService
+        )
+        
+        // act
         sut.openProfile(sender: nil, loginInput: "loginInput")
+        
+        // assert
         XCTAssert(navigationController.lastShowedUiViewController is ProfileViewControllerProtocol, "Expecting last view controller to be a ProfileViewControllerProtocol implementation")
+    }
+    
+    func testShowLoginError() throws {
+        // arrange
+        let navigationController = UINavigationControllerSpy()
+        let profileFactory = ProfileFactoryDummy()
+        let userService = UserServiceDummy()
+        let sut = ProfileCoordinator(
+            navigationController: navigationController,
+            loginFactory: LoginFactoryDummy(),
+            profileFactory: profileFactory,
+            userService: userService
+        )
+        
+        // act
         sut.showLoginError(title: "Error", message: "Invalid login")
+        
+        // assert
         XCTAssert(navigationController.lastShowedUiViewController is UIAlertController, "Expecting last view controller to be a UIAlertController")
     }
 
