@@ -2,7 +2,7 @@ import UIKit
 import iOSIntPackage
 import StorageService
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     enum ValidationError: Error {
             case notFound
         }
@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController {
     }()
     
 
-    init(userService: UserService, fullName: String) throws {
+    init(userService: UserService, fullName: String) {
         self.userService = userService
         /* @todo check password */
         if let user = self.userService.getUserByFullName(fullName) {

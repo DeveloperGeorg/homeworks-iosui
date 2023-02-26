@@ -2,7 +2,7 @@ import UIKit
 import FirebaseCore
 import FirebaseAuth
 
-class LogInViewController: UIViewController, LoginViewControllerDelegateProtocol, SignUpViewControllerDelegateProtocol {
+class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginViewControllerDelegateProtocol, SignUpViewControllerDelegateProtocol {
     
     enum ValidationError: Error {
             case invalidCredentials
