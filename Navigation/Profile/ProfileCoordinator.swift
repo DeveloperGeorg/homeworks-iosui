@@ -34,19 +34,7 @@ final class ProfileCoordinator: Coordinatable {
     }
     
     func showLoginError(title: String, message: String) {
-        var alertMessage = String(localized: "Invalid login or password.")
-        if message != "" {
-            alertMessage = message
-        }
-        var alertTitle = String(localized: "Error")
-        if title != "" {
-            alertTitle = title
-        }
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
-            UIAlertAction in
-        }
-        alert.addAction(okAction)
+        let alert = self.loginFactory.createLoginError(title: title, message: message)
         navigationController.present(alert, animated: true, completion: nil)
     }
 }
