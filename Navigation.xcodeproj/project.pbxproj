@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */; };
+		411A848D29AD0ABE002AA549 /* BiometricIDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */; };
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
 		411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */; };
 		411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */; };
@@ -121,6 +123,8 @@
 
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
+		411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
+		411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuth.swift; sourceTree = "<group>"; };
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
 		411F73DE27E5BCC400555D97 /* CredentialsCheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsCheckerService.swift; sourceTree = "<group>"; };
 		411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 				413CA01F29A23FB600005D7F /* ProfileFactory.swift */,
 				41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */,
 				41F0BF8129AB7A5400A21B4F /* ProfileViewControllerProtocol.swift */,
+				411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */,
+				411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,
+				411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */,
 				413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */,
 				4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */,
 				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
@@ -699,6 +706,7 @@
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
 				4179EF792997AC00007F6296 /* CapitalAnnotation.swift in Sources */,
+				411A848D29AD0ABE002AA549 /* BiometricIDAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

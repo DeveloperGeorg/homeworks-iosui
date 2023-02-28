@@ -41,3 +41,5 @@
 
 "Go there" = "Идти сюда";
 "I'm here" = "Я тут";
+"Use Face ID / Touch ID for auth" = "Используйте Face ID / Touch ID для авторизации";
+"Face ID/Touch ID may not be configured" = "Face ID/Touch ID недоступен";

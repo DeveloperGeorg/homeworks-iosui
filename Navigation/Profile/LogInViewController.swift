@@ -13,6 +13,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private let authUserStorage: AuthUserStorageProtocol
+    private let localAuthorizationService = LocalAuthorizationService()
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
@@ -38,12 +39,21 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
     override func loadView() {
         let lastAuthorized = self.authUserStorage.getLastAuthorized()
         if let lastAuthorizedUser = lastAuthorized {
-            self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({
-                self.authUserStorage.save(lastAuthorizedUser)
-                self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
-            }), ({
-                self.coordinator?.showLoginError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
-            }))
+            self.localAuthorizationService.authorizeIfPossible { (success, errorMessage) in
+                guard success else {
+                    self.coordinator?.showLoginError(
+                        title: String(localized: "Auto-login Error"),
+                        message: errorMessage ?? String(localized: "Face ID/Touch ID may not be configured")
+                    )
+                    return
+                }
+                self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({
+                    self.authUserStorage.save(lastAuthorizedUser)
+                    self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
+                }), ({
+                    self.coordinator?.showLoginError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
+                }))
+            }
             
         }
         loginView.logInButton.setButtonTappedCallback({ sender in
