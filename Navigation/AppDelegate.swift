@@ -9,9 +9,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // realm migrations
         self.realmMigrate()
         FirebaseApp.configure()
+        
+        // register user notifications
+        let localNotificationsService = LocalNotificationsService()
+        localNotificationsService.registeForLatestUpdatesIfPossible()
+        
         let url = AppConfiguration.allCases.randomElement()!.description
         NetworkService.run(url: url, query: "") { data, response, error in
             if let error = error {
@@ -22,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let responseData = String(data: data, encoding: .utf8) {
                 }
             }
-            
+
         }
         return true
     }
