@@ -17,6 +17,9 @@
 		411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73EB27E616DE00555D97 /* LoginFactory.swift */; };
 		411F73F127EEE99400555D97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F027EEE99400555D97 /* CustomButton.swift */; };
 		411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411F73F527F03CB200555D97 /* NewPostValidator.swift */; };
+		412D778529C742A200BD23E8 /* LightColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412D778429C742A200BD23E8 /* LightColorPalette.swift */; };
+		412D778729C7601500BD23E8 /* UiKitFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412D778629C7601400BD23E8 /* UiKitFacade.swift */; };
+		412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412D778A29C7648E00BD23E8 /* ColorPaletteProtocol.swift */; };
 		413118FB2835518E00582FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 413118FA2835518E00582FCE /* GoogleService-Info.plist */; };
 		413118FC2835518E00582FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 413118FA2835518E00582FCE /* GoogleService-Info.plist */; };
 		4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135194C272673A7009739D1 /* ProfileHeaderView.swift */; };
@@ -134,6 +137,9 @@
 		411F73EB27E616DE00555D97 /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		411F73F027EEE99400555D97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		411F73F527F03CB200555D97 /* NewPostValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostValidator.swift; sourceTree = "<group>"; };
+		412D778429C742A200BD23E8 /* LightColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightColorPalette.swift; sourceTree = "<group>"; };
+		412D778629C7601400BD23E8 /* UiKitFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiKitFacade.swift; sourceTree = "<group>"; };
+		412D778A29C7648E00BD23E8 /* ColorPaletteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteProtocol.swift; sourceTree = "<group>"; };
 		413118FA2835518E00582FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4135193C2721C798009739D1 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		4135194C272673A7009739D1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -240,10 +246,21 @@
 		411F73EF27EEE96700555D97 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				412D778329C7427700BD23E8 /* UiKit */,
 				41A5EF7D2807EA0B00A12C07 /* Network */,
 				411F73F027EEE99400555D97 /* CustomButton.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		412D778329C7427700BD23E8 /* UiKit */ = {
+			isa = PBXGroup;
+			children = (
+				412D778429C742A200BD23E8 /* LightColorPalette.swift */,
+				412D778629C7601400BD23E8 /* UiKitFacade.swift */,
+				412D778A29C7648E00BD23E8 /* ColorPaletteProtocol.swift */,
+			);
+			path = UiKit;
 			sourceTree = "<group>";
 		};
 		4135194B27267386009739D1 /* Profile */ = {
@@ -687,13 +704,16 @@
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
 				4194722127F9AF170075A056 /* TestUserService.swift in Sources */,
+				412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
 				4194721827F9AF010075A056 /* InfoViewController.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
+				412D778529C742A200BD23E8 /* LightColorPalette.swift in Sources */,
 				413CA00F29A204A300005D7F /* UIColorLightDarkExtension.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,
 				41A384E2273B938600B2B76C /* LogInViewController.swift in Sources */,
+				412D778729C7601500BD23E8 /* UiKitFacade.swift in Sources */,
 				4194722327F9AF170075A056 /* CurrentUserService.swift in Sources */,
 				4149A94027F4AB820030C223 /* Presentable.swift in Sources */,
 				41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */,
