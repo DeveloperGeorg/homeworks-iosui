@@ -1,13 +1,12 @@
 import UIKit
 
 class LightColorPalette: ColorPaletteProtocol {
-    
     func getAccent() -> UIColor
     {
         return UIColor(red: 246, green: 151, blue: 7, alpha: 1)
     }
 
-    func getMainBackground() -> UIColor
+    func getPrimaryBackground() -> UIColor
     {
         return UIColor(red: 255, green: 255, blue: 255, alpha: 1)
     }
@@ -31,7 +30,7 @@ class LightColorPalette: ColorPaletteProtocol {
         return UIColor(red: 255, green: 255, blue: 255, alpha: 1)
     }
     
-    func getMainText() -> UIColor
+    func getPrimaryText() -> UIColor
     {
         return UIColor(red: 38, green: 50, blue: 56, alpha: 1)
     }

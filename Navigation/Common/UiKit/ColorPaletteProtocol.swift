@@ -3,7 +3,7 @@ import UIKit
 protocol ColorPaletteProtocol {
     func getAccent() -> UIColor
 
-    func getMainBackground() -> UIColor
+    func getPrimaryBackground() -> UIColor
 
     func getSecondaryBackground() -> UIColor
 
@@ -13,7 +13,7 @@ protocol ColorPaletteProtocol {
     
     func getTextActionButton() -> UIColor
     
-    func getMainText() -> UIColor
+    func getPrimaryText() -> UIColor
     
     func getSecondaryText() -> UIColor
 }
