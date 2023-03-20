@@ -59,7 +59,7 @@ class FeedView: UIView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .red
+        self.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         
         self.addSubview(postsTableView)
         NSLayoutConstraint.activate([

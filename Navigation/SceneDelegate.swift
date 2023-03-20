@@ -11,6 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         self.window = window
         
+        UITabBar.appearance().tintColor = UiKitFacade.shared.getAccentColor()
+        UITabBar.appearance().unselectedItemTintColor = UiKitFacade.shared.getPrimaryTextColor()
         coordinator = ApplicationCoordinator(window: window)
         coordinator?.start()
     }

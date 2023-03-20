@@ -3,11 +3,11 @@ class PostTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
     var titleView: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        label.textColor = UiKitFacade.shared.getPrimaryTextColor()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.text = "Custom text"
-        label.font = UIFont.systemFont(ofSize: CGFloat(14), weight: .bold)
+        label.font = UiKitFacade.shared.getSecondaryTitleFont()
         
         return label
     }()
@@ -15,35 +15,35 @@ class PostTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        
+        /** @todo corner radius */
         return imageView
     }()
     var postImageBlockView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        
        return view
     }()
     
     var likesCounterView: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        label.textColor = UiKitFacade.shared.getPrimaryTextColor()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: CGFloat(12), weight: .regular)
+        label.font = UiKitFacade.shared.getRegularTextFont()
         
         return label
     }()
     var viewsCounterView: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        label.textColor = UiKitFacade.shared.getPrimaryTextColor()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: CGFloat(12), weight: .regular)
+        label.font = UiKitFacade.shared.getRegularTextFont()
         
         return label
     }()
     var descriptionView: UITextView = {
         let textView = UITextView()
-        textView.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
+        textView.textColor = UiKitFacade.shared.getPrimaryTextColor()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .left
         textView.isScrollEnabled = false
@@ -55,6 +55,7 @@ class PostTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
         postImageBlockView.addSubview(postImageView)
         contentView.addSubviews([
             titleView,

@@ -1,10 +1,13 @@
 import UIKit
 
 class UiKitFacade {
+    /** @todo refactor:this is temporary solusion */
+    static let shared = UiKitFacade(colorPalette: LightColorPalette(), typography: Typography())
+    
     private let colorPalette: ColorPaletteProtocol
     private let typography: TypographyProtocol
 
-    init(colorPalette: LightColorPalette, typography: Typography) {
+    private init(colorPalette: ColorPaletteProtocol, typography: TypographyProtocol) {
         self.colorPalette = colorPalette
         self.typography = typography
     }
