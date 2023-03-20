@@ -4,6 +4,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var feedPresenter: FeedPresenter
     var feedView: FeedView?
     var newPostValidator: NewPostValidator = NewPostValidator()
+    var postListTableViewDataSource = PostListTableViewDataSource()
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
@@ -21,6 +22,11 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     
     override func loadView() {
         feedView = FeedView(frame: CGRect())
+        feedView?.postsTableView.dataSource = postListTableViewDataSource
+        feedView?.postsTableView.delegate = self
+        feedView?.postsTableView.rowHeight = UITableView.automaticDimension
+        feedView?.postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
+        
         self.feedPresenter.render()
         
         feedView?.validatePostButton.setButtonTappedCallback({ sender in
@@ -51,5 +57,24 @@ class FeedViewController: UIViewController, FeedViewDelegate {
                 self.feedView?.setNewPostTitleLabelIsNotValid()
             }
           }
+    }
+}
+
+/** @todo move to the common place */
+extension FeedViewController: UITableViewDelegate {
+    func selectedCell(row: Int) {
+        /** @todo create and use posts coordinator */
+        let viewControllerNext = UIViewController()
+        viewControllerNext.view.backgroundColor = .systemRed
+        
+        navigationController?.pushViewController(viewControllerNext, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedCell(row: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
     }
 }

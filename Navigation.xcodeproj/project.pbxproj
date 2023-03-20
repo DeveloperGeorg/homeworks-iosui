@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41038DE629C8B70500CE8195 /* PostDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */; };
+		41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */; };
+		41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */; };
 		411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */; };
 		411A848D29AD0ABE002AA549 /* BiometricIDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */; };
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
@@ -122,6 +125,9 @@
 
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
+		41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataProviderProtocol.swift; sourceTree = "<group>"; };
+		41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPostDataProvider.swift; sourceTree = "<group>"; };
+		41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewDataSource.swift; sourceTree = "<group>"; };
 		411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuth.swift; sourceTree = "<group>"; };
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
@@ -231,6 +237,16 @@
 				4707456AEBC2D93E85EEF195 /* Pods_Navigation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		41038DE429C8B6DB00CE8195 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */,
+				41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */,
+				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		411F73EF27EEE96700555D97 /* Common */ = {
@@ -358,6 +374,7 @@
 		41E6CD0C272075F60030EF9A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				41038DE429C8B6DB00CE8195 /* Posts */,
 				4149A94827F571CA0030C223 /* Feed */,
 				411F73EF27EEE96700555D97 /* Common */,
 				4135194B27267386009739D1 /* Profile */,
@@ -636,6 +653,7 @@
 			files = (
 				412D778D29C77A9200BD23E8 /* Typography.swift in Sources */,
 				41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
+				41038DE629C8B70500CE8195 /* PostDataProviderProtocol.swift in Sources */,
 				4194721927F9AF010075A056 /* PostViewController.swift in Sources */,
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
@@ -645,6 +663,7 @@
 				4194721727F9AF010075A056 /* InfoView.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
 				411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */,
+				41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */,
 				4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */,
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
@@ -670,6 +689,7 @@
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
 				4194721827F9AF010075A056 /* InfoViewController.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
+				41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */,
 				412D778529C742A200BD23E8 /* LightColorPalette.swift in Sources */,
 				413CA00F29A204A300005D7F /* UIColorLightDarkExtension.swift in Sources */,
 				4135194D272673A7009739D1 /* ProfileHeaderView.swift in Sources */,

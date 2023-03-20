@@ -2,6 +2,12 @@ import UIKit
 import SnapKit
 
 class FeedView: UIView {
+    
+    let postsTableView: UITableView = {
+        let postsTableView = UITableView.init(frame: .zero, style: .plain)
+        postsTableView.translatesAutoresizingMaskIntoConstraints = false
+        return postsTableView
+    }()
     var postsStackView: UIStackView = {
         let postsStackView = UIStackView()
         postsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,33 +61,41 @@ class FeedView: UIView {
         super.init(frame: frame)
         self.backgroundColor = .red
         
-        addSubview(postsStackView)
-        postsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        postsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-
-        addSubview(newPostTitleField)
-        newPostTitleField.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(50)
-            make.centerX.equalTo(self)
-            make.trailing.equalTo(self).inset(32)
-            make.top.equalTo(postsStackView.snp.bottom).offset(64)
-        }
-
-        addSubview(validatePostButton)
-        validatePostButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(50)
-            make.centerX.equalTo(self)
-            make.trailing.equalTo(self).inset(32)
-            make.top.equalTo(newPostTitleField.snp.bottom).offset(16)
-        }
-
-        addSubview(isNewPostTitleValid)
-        isNewPostTitleValid.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(50)
-            make.centerX.equalTo(self)
-            make.trailing.equalTo(self).inset(32)
-            make.top.equalTo(validatePostButton.snp.bottom).offset(16)
-        }
+        self.addSubview(postsTableView)
+        NSLayoutConstraint.activate([
+            postsTableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            postsTableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            postsTableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            postsTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        
+//        addSubview(postsStackView)
+//        postsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+//        postsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+//
+//        addSubview(newPostTitleField)
+//        newPostTitleField.snp.makeConstraints { (make) -> Void in
+//            make.height.equalTo(50)
+//            make.centerX.equalTo(self)
+//            make.trailing.equalTo(self).inset(32)
+//            make.top.equalTo(postsStackView.snp.bottom).offset(64)
+//        }
+//
+//        addSubview(validatePostButton)
+//        validatePostButton.snp.makeConstraints { (make) -> Void in
+//            make.height.equalTo(50)
+//            make.centerX.equalTo(self)
+//            make.trailing.equalTo(self).inset(32)
+//            make.top.equalTo(newPostTitleField.snp.bottom).offset(16)
+//        }
+//
+//        addSubview(isNewPostTitleValid)
+//        isNewPostTitleValid.snp.makeConstraints { (make) -> Void in
+//            make.height.equalTo(50)
+//            make.centerX.equalTo(self)
+//            make.trailing.equalTo(self).inset(32)
+//            make.top.equalTo(validatePostButton.snp.bottom).offset(16)
+//        }
     }
     
     public func getButtonWithText(_ text: String) -> CustomButton {
