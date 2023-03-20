@@ -38,19 +38,4 @@ final class ApplicationCoordinator: Coordinatable {
         window.rootViewController = rootController
         window.makeKeyAndVisible()
     }
-    
-    func showOverworkAlertTimer(okClosure: (() -> Void)?, cancelClosure: (() -> Void)?) -> Void {
-        let alert = UIAlertController(title: String(localized: "Relax"), message: String(localized: "You worked very hard. You need to rest"), preferredStyle: .alert)
-        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
-            UIAlertAction in
-            okClosure?()
-        }
-        alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {
-            UIAlertAction in
-            cancelClosure?()
-        }
-        alert.addAction(cancelAction)
-        self.navigationController.present(alert, animated: true, completion: nil)
-    }
 }

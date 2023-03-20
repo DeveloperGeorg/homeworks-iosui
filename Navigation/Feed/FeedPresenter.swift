@@ -16,25 +16,6 @@ class FeedPresenter {
         titles.forEach({ title in
             self.feedViewDelegate?.addPostToFeed(title: title)
         })
-        Timer.scheduledTimer(
-            timeInterval: 0.5,
-            target: self,
-            selector: #selector(getOverworkAlertTime),
-            userInfo: nil,
-            repeats: true
-        )
-    }
-    
-    @objc func getOverworkAlertTime() {
-        guard let fireDate = OverworkAlertTimer.shared.internalTimer?.fireDate else {
-            return
-        }
-        let nowDate = NSDate()
-        var remainingTimeInterval = nowDate.timeIntervalSince(fireDate) * -1
-        if (remainingTimeInterval < 0) {
-            remainingTimeInterval = 0
-        }
-        self.feedViewDelegate?.setOverworkAlertTimerCounter(Int(remainingTimeInterval))
     }
     
     public func setFeedViewDelegate(_ feedViewDelegate: FeedViewDelegate) {

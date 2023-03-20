@@ -14,6 +14,7 @@ class LocalNotificationsService {
             self.scheduleNotification()
         }
     }
+    /** @todo refactor */
     private func scheduleNotification() {
         let content = UNMutableNotificationContent()
         

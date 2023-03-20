@@ -42,10 +42,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
         feedView?.postsStackView.addArrangedSubview(postButton)
     }
-    
-    func setOverworkAlertTimerCounter(_ seconds: Int) -> Void {
-        feedView?.setOverworkAlertTimerCounter(seconds)
-    }
 
     @objc func validateNewPost(notification: NSNotification) {
         if let newPostData = notification.userInfo?["newPostData"] as? NewPostValidator {

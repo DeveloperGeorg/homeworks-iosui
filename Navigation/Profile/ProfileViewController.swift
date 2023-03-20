@@ -72,9 +72,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-  
-    let imageProcessor: ImageProcessor = ImageProcessor()
-    
     
     private func activateConstraints() {
         NSLayoutConstraint.activate([
@@ -131,53 +128,6 @@ extension ProfileViewController: UITableViewDataSource {
         let post = self.posts[index] as Post
         cell.titleView.text = post.author
         let image = post.image
-        let filterUserInitiated = postsFilters.indices.contains(index) ? postsFilters[index] : .chrome
-        let start = DispatchTime.now()
-        imageProcessor.processImagesOnThread(
-            sourceImages: [image],
-            filter: filterUserInitiated,
-            qos: QualityOfService.userInitiated,
-            completion: {(imagesWithFilter) -> Void in
-                guard let cgImage = imagesWithFilter.first! else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    cell.postImageView.image = UIImage(cgImage: cgImage)
-                }
-                let end = DispatchTime.now()
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-                let timeInterval = Double(nanoTime) / 1_000_000_000
-        })
-        imageProcessor.processImagesOnThread(
-            sourceImages: [image],
-            filter: .colorInvert,
-            qos: QualityOfService.userInteractive,
-            completion: {(imagesWithFilter) -> Void in
-                guard let cgImage = imagesWithFilter.first! else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    cell.postImageView.image = UIImage(cgImage: cgImage)
-                }
-                let end = DispatchTime.now()
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-                let timeInterval = Double(nanoTime) / 1_000_000_000
-        })
-        imageProcessor.processImagesOnThread(
-            sourceImages: [image],
-            filter: .noir,
-            qos: QualityOfService.utility,
-            completion: {(imagesWithFilter) -> Void in
-                guard let cgImage = imagesWithFilter.first! else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    cell.postImageView.image = UIImage(cgImage: cgImage)
-                }
-                let end = DispatchTime.now()
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
-                let timeInterval = Double(nanoTime) / 1_000_000_000
-        })
         cell.postImageView.image = image
         cell.likesCounterView.text = "Likes: \(post.likes)"
         cell.viewsCounterView.text = "Views: \(post.views)"
@@ -205,6 +155,7 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
+/** @todo remove? */
 extension ProfileViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         updatingImagesCounter += 1
