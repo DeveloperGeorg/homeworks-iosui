@@ -2,18 +2,50 @@ import UIKit
 
 class PostItemTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
+    fileprivate let maxAvatarSize = CGFloat(50)
         /** @todo blogger preview block */
-    var postContentView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
-        
-       return view
-    }()
     var authorContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
+        
+       return view
+    }()
+    var authorImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 25 /** @todo dynamic corner radius */
+        
+        return imageView
+    }()
+    var authorImageBlockView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+       return view
+    }()
+    var authorTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UiKitFacade.shared.getPrimaryTextColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UiKitFacade.shared.getSecondaryTitleFont()
+        
+        return label
+    }()
+    var authorSubTitleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UiKitFacade.shared.getSecondaryTextColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UiKitFacade.shared.getTertiaryTitleFont()
+        
+        return label
+    }()
+    
+    var postContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
         
        return view
     }()
@@ -101,6 +133,14 @@ class PostItemTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
+        
+        authorImageBlockView.addSubview(authorImageView)
+        authorContentView.addSubviews([
+            authorImageBlockView,
+            authorTitleLabel,
+            authorSubTitleLabel
+        ])
+        
         mainImageBlockView.addSubview(mainImageView)
         likesCounterView.addSubviews([
             likesCounterIcon,
@@ -132,9 +172,11 @@ class PostItemTableViewCell: UITableViewCell {
     }
     
     func initFromPostItem(_ postItem: PostItem) {
+        authorImageView.image = UIImage(named: postItem.author.imageLink)
+        authorTitleLabel.text = postItem.author.name
+        authorSubTitleLabel.text = postItem.author.shortDescription
         anonsContentView.text = postItem.content
-        let image = UIImage(named: postItem.mainImageLink)
-        mainImageView.image = image
+        mainImageView.image = UIImage(named: postItem.mainImageLink)
         likesCounterLabel.text = "\(postItem.likesAmount)"
         commentsCounterLabel.text = "\(postItem.commentsAmount)"
     }
@@ -145,8 +187,23 @@ class PostItemTableViewCell: UITableViewCell {
             authorContentView.topAnchor.constraint(equalTo: contentView.topAnchor),
             authorContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             authorContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            authorContentView.bottomAnchor.constraint(equalTo: authorImageBlockView.bottomAnchor),
             
-            postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor),
+            authorImageBlockView.topAnchor.constraint(equalTo: authorContentView.topAnchor, constant: 8),
+            authorImageBlockView.leadingAnchor.constraint(equalTo: authorContentView.leadingAnchor, constant: 8),
+            authorImageBlockView.trailingAnchor.constraint(equalTo: authorImageView.trailingAnchor, constant: 8),
+            authorImageView.heightAnchor.constraint(equalToConstant: maxAvatarSize),
+            authorImageView.widthAnchor.constraint(equalToConstant: maxAvatarSize),
+            authorImageView.leadingAnchor.constraint(equalTo: authorImageBlockView.leadingAnchor),
+            authorImageView.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
+            authorImageView.bottomAnchor.constraint(equalTo: authorImageBlockView.bottomAnchor),
+            
+            authorTitleLabel.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
+            authorTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
+            authorSubTitleLabel.topAnchor.constraint(equalTo: authorTitleLabel.bottomAnchor),
+            authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
+            
+            postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant: 8),
             postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             postContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             postContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
