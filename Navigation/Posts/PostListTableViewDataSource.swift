@@ -22,11 +22,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         
         let index = Int(indexPath.row)
         let post = self.posts[index] as PostItem
-        cell.anonsContentView.text = post.content
-        let image = UIImage(named: post.mainImageLink)
-        cell.mainImageView.image = image
-        cell.likesCounterLabel.text = "\(post.likesAmount)"
-        cell.commentsCounterLabel.text = "\(post.commentsAmount)"
+        cell.initFromPostItem(post)
         
         return cell
     }

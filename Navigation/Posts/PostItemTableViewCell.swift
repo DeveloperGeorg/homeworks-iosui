@@ -3,6 +3,21 @@ import UIKit
 class PostItemTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
         /** @todo blogger preview block */
+    var postContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+        
+       return view
+    }()
+    var authorContentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
+        
+       return view
+    }()
+    
     var anonsContentView: UITextView = {
         let textView = UITextView()
         textView.textColor = UiKitFacade.shared.getPrimaryTextColor()
@@ -85,7 +100,7 @@ class PostItemTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+        self.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         mainImageBlockView.addSubview(mainImageView)
         likesCounterView.addSubviews([
             likesCounterIcon,
@@ -95,12 +110,16 @@ class PostItemTableViewCell: UITableViewCell {
             commentsCounterIcon,
             commentsCounterLabel
         ])
-        contentView.addSubviews([
+        postContentView.addSubviews([
             mainImageBlockView,
             anonsContentView,
             likesCounterView,
             commentsCounterView,
             favoriteCounterIcon
+        ])
+        contentView.addSubviews([
+            authorContentView,
+            postContentView
         ])
         contentView.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
         
@@ -112,23 +131,40 @@ class PostItemTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func initFromPostItem(_ postItem: PostItem) {
+        anonsContentView.text = postItem.content
+        let image = UIImage(named: postItem.mainImageLink)
+        mainImageView.image = image
+        likesCounterLabel.text = "\(postItem.likesAmount)"
+        commentsCounterLabel.text = "\(postItem.commentsAmount)"
+    }
+    
     private func activateConstraints() {
+        
         NSLayoutConstraint.activate([
+            authorContentView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            authorContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            authorContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            mainImageBlockView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            mainImageBlockView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            mainImageBlockView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor),
+            postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            postContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            postContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            mainImageBlockView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
+            mainImageBlockView.topAnchor.constraint(equalTo: postContentView.topAnchor, constant: 8),
+            mainImageBlockView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
             mainImageBlockView.heightAnchor.constraint(equalToConstant: maxImageHeight),
             mainImageView.centerXAnchor.constraint(equalTo: mainImageBlockView.centerXAnchor, constant: 0),
             mainImageView.centerYAnchor.constraint(equalTo: mainImageBlockView.centerYAnchor, constant: 0),
             mainImageView.heightAnchor.constraint(equalToConstant: maxImageHeight),
             anonsContentView.topAnchor.constraint(equalTo: mainImageBlockView.bottomAnchor, constant: 8),
-            anonsContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            anonsContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            anonsContentView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
+            anonsContentView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
             
             likesCounterView.topAnchor.constraint(equalTo: anonsContentView.bottomAnchor, constant: 8),
-            likesCounterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            likesCounterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            likesCounterView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
+            likesCounterView.bottomAnchor.constraint(equalTo: postContentView.bottomAnchor, constant: -8),
             likesCounterView.trailingAnchor.constraint(equalTo: likesCounterLabel.trailingAnchor),
             likesCounterIcon.leadingAnchor.constraint(equalTo: likesCounterView.leadingAnchor),
             likesCounterIcon.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
@@ -150,7 +186,7 @@ class PostItemTableViewCell: UITableViewCell {
             
             favoriteCounterIcon.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
             favoriteCounterIcon.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
-            favoriteCounterIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            favoriteCounterIcon.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
         ])
     }
 }
