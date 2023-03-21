@@ -1,6 +1,5 @@
 import UIKit
 import iOSIntPackage
-import StorageService
 
 class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     enum ValidationError: Error {
@@ -9,11 +8,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
 
     fileprivate let forCellReuseIdentifier = "test"
     private var userService: UserService
-    private var imagePublisherFacade: ImagePublisherFacade
     private var updatingImagesCounter = 0
     private let updatingImagesMaxCounter = 4
     var user: User
-    var posts: [Post] = []
+    var posts: [PostItem] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
     
     fileprivate let postsFilters: [ColorFilter] = [
@@ -41,7 +39,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.user = User(
             fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
-        self.imagePublisherFacade = ImagePublisherFacade()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -72,13 +69,12 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         postsTableView.dataSource = postListTableViewDataSource
         postsTableView.delegate = self
         postsTableView.rowHeight = UITableView.automaticDimension
-        postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
+        postsTableView.register(PostItemTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
         
         activateConstraints()
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        imagePublisherFacade.addImagesWithTimer(time: 5, repeat: 20)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

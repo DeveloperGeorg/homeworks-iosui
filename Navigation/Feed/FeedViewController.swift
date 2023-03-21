@@ -25,7 +25,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         feedView?.postsTableView.dataSource = postListTableViewDataSource
         feedView?.postsTableView.delegate = self
         feedView?.postsTableView.rowHeight = UITableView.automaticDimension
-        feedView?.postsTableView.register(PostTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
+        feedView?.postsTableView.register(PostItemTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
         
         self.feedPresenter.render()
         

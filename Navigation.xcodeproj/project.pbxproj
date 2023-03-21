@@ -10,6 +10,9 @@
 		41038DE629C8B70500CE8195 /* PostDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */; };
 		41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */; };
 		41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */; };
+		41038DEC29C970D700CE8195 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DEB29C970D700CE8195 /* PostItem.swift */; };
+		41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DED29C9719600CE8195 /* BloggerPreview.swift */; };
+		41038DF029C9746400CE8195 /* PostItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */; };
 		411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */; };
 		411A848D29AD0ABE002AA549 /* BiometricIDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */; };
 		411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411C845A274A6E670083FD12 /* ProfileTableHederView.swift */; };
@@ -128,6 +131,9 @@
 		41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataProviderProtocol.swift; sourceTree = "<group>"; };
 		41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPostDataProvider.swift; sourceTree = "<group>"; };
 		41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewDataSource.swift; sourceTree = "<group>"; };
+		41038DEB29C970D700CE8195 /* PostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItem.swift; sourceTree = "<group>"; };
+		41038DED29C9719600CE8195 /* BloggerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloggerPreview.swift; sourceTree = "<group>"; };
+		41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItemTableViewCell.swift; sourceTree = "<group>"; };
 		411A848A29AD09C2002AA549 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		411A848C29AD0ABE002AA549 /* BiometricIDAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricIDAuth.swift; sourceTree = "<group>"; };
 		411C845A274A6E670083FD12 /* ProfileTableHederView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableHederView.swift; sourceTree = "<group>"; };
@@ -245,6 +251,9 @@
 				41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */,
 				41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */,
 				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
+				41038DEB29C970D700CE8195 /* PostItem.swift */,
+				41038DED29C9719600CE8195 /* BloggerPreview.swift */,
+				41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -659,6 +668,7 @@
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
 				41F0BF7F29AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */,
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
+				41038DF029C9746400CE8195 /* PostItemTableViewCell.swift in Sources */,
 				41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */,
 				4194721727F9AF010075A056 /* InfoView.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
@@ -673,8 +683,10 @@
 				4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */,
 				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
+				41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
+				41038DEC29C970D700CE8195 /* PostItem.swift in Sources */,
 				413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */,

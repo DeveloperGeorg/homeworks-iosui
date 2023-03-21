@@ -3,7 +3,7 @@ import StorageService
 
 class PostListTableViewDataSource: NSObject {
     let forCellReuseIdentifier = "list_post_cell"
-    var posts: [Post] = []
+    var posts: [PostItem] = []
     let postDataProviderProtocol: PostDataProviderProtocol
     override init() {
         self.postDataProviderProtocol = DebugPostDataProvider()
@@ -18,16 +18,15 @@ extension PostListTableViewDataSource: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostItemTableViewCell
         
         let index = Int(indexPath.row)
-        let post = self.posts[index] as Post
-        cell.titleView.text = post.author
-        let image = post.image
-        cell.postImageView.image = image
-        cell.likesCounterView.text = "Likes: \(post.likes)"
-        cell.viewsCounterView.text = "Views: \(post.views)"
-        cell.descriptionView.text = post.description
+        let post = self.posts[index] as PostItem
+        cell.anonsContentView.text = post.content
+        let image = UIImage(named: post.mainImageLink)
+        cell.mainImageView.image = image
+        cell.likesCounterView.text = "Likes: \(post.likesAmount)"
+        cell.commentsCounterView.text = "Views: \(post.commentsAmount)"
         
         return cell
     }
