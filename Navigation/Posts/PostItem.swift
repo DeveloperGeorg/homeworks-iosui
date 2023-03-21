@@ -6,11 +6,13 @@ class PostItem {
     var content: String = ""
     var likesAmount: Int = 0
     var commentsAmount: Int = 0
-    init(author: BloggerPreview, mainImageLink: String, content: String = "", likesAmount: Int = 0, commentsAmount: Int = 0) {
+    let postedAt: Date
+    init(author: BloggerPreview, mainImageLink: String, content: String = "", likesAmount: Int = 0, commentsAmount: Int = 0, postedAt: Date = Date()) {
         self.author = author
         self.mainImageLink = mainImageLink
         self.content = content
         self.likesAmount = likesAmount
         self.commentsAmount = commentsAmount
+        self.postedAt = postedAt
     }
 }
