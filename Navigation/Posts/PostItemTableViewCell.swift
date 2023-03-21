@@ -82,9 +82,9 @@ class PostItemTableViewCell: UITableViewCell {
             likesCounterView.topAnchor.constraint(equalTo: anonsContentView.bottomAnchor, constant: 8),
             likesCounterView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             likesCounterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            commentsCounterView.topAnchor.constraint(equalTo: anonsContentView.bottomAnchor, constant: 8),
-            commentsCounterView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            commentsCounterView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            commentsCounterView.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
+            commentsCounterView.leadingAnchor.constraint(equalTo: likesCounterView.trailingAnchor, constant: 8),
+            commentsCounterView.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
         ])
     }
 }
