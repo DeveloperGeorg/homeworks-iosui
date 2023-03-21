@@ -25,8 +25,8 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         cell.anonsContentView.text = post.content
         let image = UIImage(named: post.mainImageLink)
         cell.mainImageView.image = image
-        cell.likesCounterView.text = "Likes: \(post.likesAmount)"
-        cell.commentsCounterView.text = "Views: \(post.commentsAmount)"
+        cell.likesCounterLabel.text = "\(post.likesAmount)"
+        cell.commentsCounterLabel.text = "\(post.commentsAmount)"
         
         return cell
     }
