@@ -1,8 +1,8 @@
 import UIKit
 
 class DebugPostDataProvider: PostDataProviderProtocol {
-    func getList() -> [PostItem] {
-        return [
+    func getList(completionHandler: @escaping ([PostItem]) -> Void) {
+        completionHandler([
             {
                 return PostItem(
                     author: BloggerPreview(
@@ -44,7 +44,7 @@ class DebugPostDataProvider: PostDataProviderProtocol {
                     commentsAmount: 1
                 )
             }(),
-        ]
+        ])
     }
     
     

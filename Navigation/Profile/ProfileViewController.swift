@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var user: User
     var posts: [PostItem] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
+    let postDataProviderProtocol: PostDataProviderProtocol
     
     fileprivate let postsFilters: [ColorFilter] = [
         .sepia(intensity: 0.5),
@@ -39,6 +40,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.user = User(
             fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
+        self.postDataProviderProtocol = DebugPostDataProvider()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -75,6 +77,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        postDataProviderProtocol.getList() { posts in
+            self.postListTableViewDataSource.addPosts(posts)
+            self.postsTableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

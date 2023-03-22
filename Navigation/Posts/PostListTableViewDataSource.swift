@@ -4,10 +4,14 @@ import StorageService
 class PostListTableViewDataSource: NSObject {
     let forCellReuseIdentifier = "list_post_cell"
     var posts: [PostItem] = []
-    let postDataProviderProtocol: PostDataProviderProtocol
     override init() {
-        self.postDataProviderProtocol = DebugPostDataProvider()
-        self.posts = postDataProviderProtocol.getList()
+        self.posts = []
+        var postItems: [PostItem] = []
+        self.posts = postItems
+    }
+    
+    func addPosts(_ posts: [PostItem]) {
+        self.posts.append(contentsOf: posts)
     }
 }
 

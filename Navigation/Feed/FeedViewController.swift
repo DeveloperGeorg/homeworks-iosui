@@ -5,9 +5,11 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var feedView: FeedView?
     var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
+    let postDataProviderProtocol: PostDataProviderProtocol
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
+        self.postDataProviderProtocol = FirestorePostDataProvider()
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
@@ -18,6 +20,10 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        postDataProviderProtocol.getList() { posts in
+            self.postListTableViewDataSource.addPosts(posts)
+            self.feedView?.postsTableView.reloadData()
+        }
     }
     
     override func loadView() {
