@@ -6,27 +6,51 @@ import FirebaseFirestoreSwift
 class FirestorePostDataProvider: PostDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getList(completionHandler: @escaping ([PostItem]) -> Void) {
-        var posts: [PostItem] = []
+    func getList(limit: Int, completionHandler: @escaping ([PostAggregate]) -> Void) {
+        var posts: [PostAggregate] = []
         
-        db.collection("posts").getDocuments { (snapshot, error) in
+        db.collection("posts")
+//            .order(by: "postedAt", descending: true)
+//            .limit(to: limit)
+            .getDocuments { (snapshot, error) in
             if let error = error {
-                print("Error getting documents: \(error)")
+                print("Error getting posts: \(error)")
             } else if let snapshot = snapshot {
-                for document in snapshot.documents {
-//                            print("\(document.documentID) => \(document.data())")
-                    if let postItem = try? document.data(as: PostItem.self) {
-                        print(postItem)
-                        posts.append(postItem)
+                let lastPostsIndex = snapshot.documents.count - 1
+                for i in snapshot.documents.indices {
+                    if let post = try? snapshot.documents[i].data(as: PostItem.self) {
+                        print(post)
+                        self.db.collection("bloggers").document(post.author).getDocument { blogger, error in
+                            if let error = error as NSError? {
+                                print("Error getting blogger: \(error)")
+                            }
+                            else {
+                              if let blogger = blogger {
+                                  if let bloggerItem = try? blogger.data(as: BloggerPreview.self) {
+                                      print(bloggerItem)
+                                      let postAggregate = PostAggregate(author: bloggerItem, post: post)
+                                      print(postAggregate)
+                                      posts.append(postAggregate)
+                                      print("posts amount \(posts.count)")
+                                  } else {
+                                      print("something went wrong during blogger decoding")
+                                  }
+                                  /** that's not the best solusion */
+                                  /** @todo refactor */
+                                  if i == lastPostsIndex {
+                                      print("Posts list")
+                                      print(posts)
+                                      completionHandler(posts)
+                                  }
+                              }
+                            }
+                          }
                     } else {
-                        print("something went wrong")
+                        print("something went wrong during post decoding")
                     }
                 }
             }
             
-            print("Posts list")
-            print(posts)
-            completionHandler(posts)
         }
     }
     

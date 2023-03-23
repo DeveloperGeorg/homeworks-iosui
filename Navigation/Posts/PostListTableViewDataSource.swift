@@ -3,14 +3,14 @@ import StorageService
 
 class PostListTableViewDataSource: NSObject {
     let forCellReuseIdentifier = "list_post_cell"
-    var posts: [PostItem] = []
+    var posts: [PostAggregate] = []
     override init() {
         self.posts = []
-        var postItems: [PostItem] = []
+        var postItems: [PostAggregate] = []
         self.posts = postItems
     }
     
-    func addPosts(_ posts: [PostItem]) {
+    func addPosts(_ posts: [PostAggregate]) {
         self.posts.append(contentsOf: posts)
     }
 }
@@ -25,7 +25,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostItemTableViewCell
         
         let index = Int(indexPath.row)
-        let post = self.posts[index] as PostItem
+        let post = self.posts[index] as PostAggregate
         cell.initFromPostItem(post)
         
         return cell

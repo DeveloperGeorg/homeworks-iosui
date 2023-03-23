@@ -1,7 +1,7 @@
 import Foundation
 
 struct PostItem: Codable {
-    let author: BloggerPreview
+    let author: String
     var mainImageLink: String
     var content: String = ""
     var likesAmount: Int = 0
@@ -9,20 +9,12 @@ struct PostItem: Codable {
     let postedAt: Date
     
     enum CodingKeys: String, CodingKey {
+       case author
        case mainImageLink
        case content
        case likesAmount
        case commentsAmount
 //       case postedAt
-    }
-    
-    init(author: BloggerPreview, mainImageLink: String, content: String = "", likesAmount: Int = 0, commentsAmount: Int = 0, postedAt: Date = Date()) {
-        self.author = author
-        self.mainImageLink = mainImageLink
-        self.content = content
-        self.likesAmount = likesAmount
-        self.commentsAmount = commentsAmount
-        self.postedAt = postedAt
     }
     
     init(from decoder:Decoder) throws {
@@ -31,13 +23,9 @@ struct PostItem: Codable {
         content = try values.decode(String.self, forKey: .content)
         likesAmount = try values.decode(Int.self, forKey: .likesAmount)
         commentsAmount = try values.decode(Int.self, forKey: .commentsAmount)
+        author = try values.decode(String.self, forKey: .author)
 //        postedAt = try values.decode(Date.self, forKey: .postedAt)
         postedAt = Date()
-        author = BloggerPreview(
-            id: 1,
-            name: "Blogger Two",
-            imageLink: "cat-avatar.png",
-            shortDescription: "QA"
-        )
     }
+    
 }

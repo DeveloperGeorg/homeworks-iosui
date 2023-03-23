@@ -11,9 +11,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     private var updatingImagesCounter = 0
     private let updatingImagesMaxCounter = 4
     var user: User
-    var posts: [PostItem] = []
+    var posts: [PostAggregate] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostDataProviderProtocol
+    let paginationLimit = 1
     
     fileprivate let postsFilters: [ColorFilter] = [
         .sepia(intensity: 0.5),
@@ -40,7 +41,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.user = User(
             fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
-        self.postDataProviderProtocol = DebugPostDataProvider()
+        self.postDataProviderProtocol = FirestorePostDataProvider()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,7 +78,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        postDataProviderProtocol.getList() { posts in
+        postDataProviderProtocol.getList(limit: paginationLimit) { posts in
             self.postListTableViewDataSource.addPosts(posts)
             self.postsTableView.reloadData()
         }

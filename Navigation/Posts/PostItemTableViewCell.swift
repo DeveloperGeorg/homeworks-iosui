@@ -171,14 +171,14 @@ class PostItemTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initFromPostItem(_ postItem: PostItem) {
-        authorImageView.image = UIImage(named: postItem.author.imageLink)
-        authorTitleLabel.text = postItem.author.name
-        authorSubTitleLabel.text = postItem.author.shortDescription
-        anonsContentView.text = postItem.content
-        mainImageView.image = UIImage(named: postItem.mainImageLink)
-        likesCounterLabel.text = "\(postItem.likesAmount)"
-        commentsCounterLabel.text = "\(postItem.commentsAmount)"
+    func initFromPostItem(_ postAggregate: PostAggregate) {
+        authorImageView.image = UIImage(named: postAggregate.author.imageLink)
+        authorTitleLabel.text = postAggregate.author.name
+        authorSubTitleLabel.text = postAggregate.author.shortDescription
+        anonsContentView.text = postAggregate.post.content
+        mainImageView.image = UIImage(named: postAggregate.post.mainImageLink)
+        likesCounterLabel.text = "\(postAggregate.post.likesAmount)"
+        commentsCounterLabel.text = "\(postAggregate.post.commentsAmount)"
     }
     
     private func activateConstraints() {

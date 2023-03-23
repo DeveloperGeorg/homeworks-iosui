@@ -6,6 +6,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostDataProviderProtocol
+    let paginationLimit = 1;
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
@@ -20,7 +21,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        postDataProviderProtocol.getList() { posts in
+        postDataProviderProtocol.getList(limit: paginationLimit) { posts in
             self.postListTableViewDataSource.addPosts(posts)
             self.feedView?.postsTableView.reloadData()
         }
@@ -82,5 +83,19 @@ extension FeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let index = Int(indexPath.row)
+        print(index)
+        print(postListTableViewDataSource.posts.endIndex)
+        if postListTableViewDataSource.posts.endIndex-1 == index {
+            print("load new data..")
+            postDataProviderProtocol.getList(limit: paginationLimit) { posts in
+                self.postListTableViewDataSource.addPosts(posts)
+                self.feedView?.postsTableView.reloadData()
+            }
+        }
+
     }
 }
