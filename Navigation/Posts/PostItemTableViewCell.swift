@@ -172,11 +172,32 @@ class PostItemTableViewCell: UITableViewCell {
     }
     
     func initFromPostItem(_ postAggregate: PostAggregate) {
-        authorImageView.image = UIImage(named: postAggregate.author.imageLink)
+        DispatchQueue.global().async { [weak self] in
+            if let url = URL(string: postAggregate.author.imageLink) {
+                if let data = try? Data(contentsOf: url) {
+                            if let image = UIImage(data: data) {
+                                DispatchQueue.main.async {
+                                    self?.authorImageView.image = image
+                                }
+                            }
+                        }
+                    }
+            }
+            
         authorTitleLabel.text = postAggregate.author.name
         authorSubTitleLabel.text = postAggregate.author.shortDescription
         anonsContentView.text = postAggregate.post.content
-        mainImageView.image = UIImage(named: postAggregate.post.mainImageLink)
+        DispatchQueue.global().async { [weak self] in
+            if let url = URL(string: postAggregate.post.mainImageLink) {
+                if let data = try? Data(contentsOf: url) {
+                            if let image = UIImage(data: data) {
+                                DispatchQueue.main.async {
+                                    self?.mainImageView.image = image
+                                }
+                            }
+                        }
+                    }
+            }
         likesCounterLabel.text = "\(postAggregate.post.likesAmount)"
         commentsCounterLabel.text = "\(postAggregate.post.commentsAmount)"
     }
