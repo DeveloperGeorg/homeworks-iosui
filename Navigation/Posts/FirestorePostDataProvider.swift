@@ -5,9 +5,10 @@ import FirebaseFirestoreSwift
 
 class FirestorePostDataProvider: PostDataProviderProtocol {
     private let db = Firestore.firestore()
+    private let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
     
     func getList(limit: Int, beforePostedAtFilter: Date? = nil, bloggerIdFilter: String? = nil, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void) {
-        var posts: [PostAggregate] = []
+        var posts: [PostItem] = []
         
         let beforePostedAtFilterTimestamp: Timestamp = Timestamp(date: beforePostedAtFilter ?? Date())
         var query = db.collection("posts")
@@ -24,36 +25,33 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
                 print("Error getting posts: \(error)")
             } else if let snapshot = snapshot {
                 let postDocumentsCount = snapshot.documents.count
-                var completedPostsCounter = 0;
+                var bloggerIds: [String] = []
                 for postDocument in snapshot.documents {
                     if var post = try? postDocument.data(as: PostItem.self) {
                         post.id = String(postDocument.documentID)
-                        self.db.collection("bloggers").document(post.blogger).getDocument { bloggerDocument, error in
-                            if let error = error as NSError? {
-                                print("Error getting blogger: \(error)")
-                            }
-                            else {
-                              if let bloggerDocument = bloggerDocument {
-                                  if var bloggerItem = try? bloggerDocument.data(as: BloggerPreview.self) {
-                                      bloggerItem.id = String(bloggerDocument.documentID)
-                                      let postAggregate = PostAggregate(blogger: bloggerItem, post: post)
-                                      posts.append(postAggregate)
-                                  } else {
-                                      print("something went wrong during blogger decoding")
-                                  }
-                              }
-                            }
-                            completedPostsCounter += 1
-                            /** that's not the best solusion */
-                            /** @todo refactor */
-                            if completedPostsCounter == postDocumentsCount {
-                                posts = posts.sorted(by: { $0.post.postedAt >= $1.post.postedAt })
-                                completionHandler(posts, postDocumentsCount >= limit)
-                                posts = []
-                            }
-                          }
+                        bloggerIds.append(post.blogger)
+                        posts.append(post)
                     } else {
                         print("something went wrong during post decoding")
+                    }
+                }
+                if bloggerIds.count > 0 {
+                    self.bloggerDataProvider.getIds(bloggerIds) {bloggers in
+                        var postsAggregates: [PostAggregate] = []
+                        var bloggerIdToBlogger: [String:BloggerPreview] = [:]
+                        for blogger in bloggers {
+                            if let bloggerId = blogger.id {
+                                bloggerIdToBlogger[bloggerId] = blogger
+                            }
+                        }
+                        for post in posts {
+                            if let bloggerItem = bloggerIdToBlogger[post.blogger] {
+                                postsAggregates.append(PostAggregate(blogger: bloggerItem, post: post))
+                            }
+                        }
+                        
+                        postsAggregates = postsAggregates.sorted(by: { $0.post.postedAt >= $1.post.postedAt })
+                        completionHandler(postsAggregates, postDocumentsCount >= limit)
                     }
                 }
             }
