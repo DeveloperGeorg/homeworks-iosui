@@ -22,7 +22,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil) { posts, hasMore in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
             print("hasMore \(hasMore)")
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
@@ -97,7 +97,7 @@ extension FeedViewController: UITableViewDelegate {
                 if let lastPost = postListTableViewDataSource.posts.last {
                     beforePostedAtFilter = lastPost.post.postedAt
                 }
-                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter) { posts, hasMore in
+                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.feedView?.postsTableView.reloadData()

@@ -6,15 +6,20 @@ import FirebaseFirestoreSwift
 class FirestorePostDataProvider: PostDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getList(limit: Int, beforePostedAtFilter: Date? = nil, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void) {
+    func getList(limit: Int, beforePostedAtFilter: Date? = nil, bloggerIdFilter: String? = nil, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void) {
         var posts: [PostAggregate] = []
         
         let beforePostedAtFilterTimestamp: Timestamp = Timestamp(date: beforePostedAtFilter ?? Date())
-        db.collection("posts")
+        var query = db.collection("posts")
             .whereField("postedAt", isLessThan: beforePostedAtFilterTimestamp)
             .order(by: "postedAt", descending: true)
             .limit(to: limit)
-            .getDocuments { (snapshot, error) in
+        
+        if let bloggerIdFilter = bloggerIdFilter {
+            query = query.whereField("author", isEqualTo: bloggerIdFilter)
+        }
+        
+        query.getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
             } else if let snapshot = snapshot {
