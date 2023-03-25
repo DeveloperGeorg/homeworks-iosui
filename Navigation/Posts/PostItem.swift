@@ -4,7 +4,7 @@ import FirebaseFirestore
 
 struct PostItem: Decodable {
     @DocumentID var id: String?
-    let author: String
+    let blogger: String
     var mainImageLink: String
     var content: String = ""
     var likesAmount: Int = 0
@@ -12,7 +12,7 @@ struct PostItem: Decodable {
     let postedAt: Date
     
     enum CodingKeys: String, CodingKey {
-       case author
+       case blogger
        case mainImageLink
        case content
        case likesAmount
@@ -26,7 +26,7 @@ struct PostItem: Decodable {
         content = try values.decode(String.self, forKey: .content)
         likesAmount = try values.decode(Int.self, forKey: .likesAmount)
         commentsAmount = try values.decode(Int.self, forKey: .commentsAmount)
-        author = try values.decode(String.self, forKey: .author)
+        blogger = try values.decode(String.self, forKey: .blogger)
         postedAt = try values.decode(Timestamp.self, forKey: .postedAt).dateValue()
     }
 }

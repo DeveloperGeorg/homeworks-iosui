@@ -16,7 +16,7 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
             .limit(to: limit)
         
         if let bloggerIdFilter = bloggerIdFilter {
-            query = query.whereField("author", isEqualTo: bloggerIdFilter)
+            query = query.whereField("blogger", isEqualTo: bloggerIdFilter)
         }
         
         query.getDocuments { (snapshot, error) in
@@ -28,15 +28,15 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
                 for postDocument in snapshot.documents {
                     if var post = try? postDocument.data(as: PostItem.self) {
                         post.id = String(postDocument.documentID)
-                        self.db.collection("bloggers").document(post.author).getDocument { blogger, error in
+                        self.db.collection("bloggers").document(post.blogger).getDocument { bloggerDocument, error in
                             if let error = error as NSError? {
                                 print("Error getting blogger: \(error)")
                             }
                             else {
-                              if let blogger = blogger {
-                                  if var bloggerItem = try? blogger.data(as: BloggerPreview.self) {
-                                      bloggerItem.id = String(blogger.documentID)
-                                      let postAggregate = PostAggregate(author: bloggerItem, post: post)
+                              if let bloggerDocument = bloggerDocument {
+                                  if var bloggerItem = try? bloggerDocument.data(as: BloggerPreview.self) {
+                                      bloggerItem.id = String(bloggerDocument.documentID)
+                                      let postAggregate = PostAggregate(blogger: bloggerItem, post: post)
                                       posts.append(postAggregate)
                                   } else {
                                       print("something went wrong during blogger decoding")

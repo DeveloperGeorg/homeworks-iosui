@@ -1,11 +1,11 @@
 import Foundation
 
 struct PostAggregate {
-    let author: BloggerPreview
+    let blogger: BloggerPreview
     let post: PostItem
     
-    init(author: BloggerPreview, post: PostItem) {
-        self.author = author
+    init(blogger: BloggerPreview, post: PostItem) {
+        self.blogger = blogger
         self.post = post
     }
 }

@@ -173,7 +173,7 @@ class PostItemTableViewCell: UITableViewCell {
     
     func initFromPostItem(_ postAggregate: PostAggregate) {
         DispatchQueue.global().async { [weak self] in
-            if let url = URL(string: postAggregate.author.imageLink) {
+            if let url = URL(string: postAggregate.blogger.imageLink) {
                 if let data = try? Data(contentsOf: url) {
                             if let image = UIImage(data: data) {
                                 DispatchQueue.main.async {
@@ -184,8 +184,8 @@ class PostItemTableViewCell: UITableViewCell {
                     }
             }
             
-        authorTitleLabel.text = postAggregate.author.name
-        authorSubTitleLabel.text = postAggregate.author.shortDescription
+        authorTitleLabel.text = postAggregate.blogger.name
+        authorSubTitleLabel.text = postAggregate.blogger.shortDescription
         anonsContentView.text = postAggregate.post.content
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.post.mainImageLink) {

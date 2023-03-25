@@ -5,7 +5,7 @@
 //        completionHandler([
 //            {
 //                return PostAggregate(
-//                    author: BloggerPreview(
+//                    blogger: BloggerPreview(
 //                        id: "id",
 //                        name: "Blogger One",
 //                        imageLink: "cat-avatar.png",
@@ -19,7 +19,7 @@
 //            }(),
 //            {
 //                return PostAggregate(
-//                    author: BloggerPreview(
+//                    blogger: BloggerPreview(
 //                        id: "id",
 //                        name: "Blogger Two",
 //                        imageLink: "cat-avatar.png",
@@ -33,7 +33,7 @@
 //            }(),
 //            {
 //                return PostAggregate(
-//                    author: BloggerPreview(
+//                    blogger: BloggerPreview(
 //                        id: "id",
 //                        name: "Blogger One",
 //                        imageLink: "cat-avatar.png"
