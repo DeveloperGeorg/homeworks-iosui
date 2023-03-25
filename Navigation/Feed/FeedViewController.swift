@@ -6,7 +6,8 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostDataProviderProtocol
-    let paginationLimit = 1;
+    let paginationLimit = 3;
+    var couldGetNextPage = true
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
@@ -21,7 +22,9 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        postDataProviderProtocol.getList(limit: paginationLimit) { posts in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil) { posts, hasMore in
+            print("hasMore \(hasMore)")
+            self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
             self.feedView?.postsTableView.reloadData()
         }
@@ -87,13 +90,18 @@ extension FeedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let index = Int(indexPath.row)
-        print(index)
-        print(postListTableViewDataSource.posts.endIndex)
         if postListTableViewDataSource.posts.endIndex-1 == index {
-            print("load new data..")
-            postDataProviderProtocol.getList(limit: paginationLimit) { posts in
-                self.postListTableViewDataSource.addPosts(posts)
-                self.feedView?.postsTableView.reloadData()
+            if self.couldGetNextPage {
+                print("load new data..")
+                var beforePostedAtFilter: Date? = nil
+                if let lastPost = postListTableViewDataSource.posts.last {
+                    beforePostedAtFilter = lastPost.post.postedAt
+                }
+                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter) { posts, hasMore in
+                    self.couldGetNextPage = hasMore
+                    self.postListTableViewDataSource.addPosts(posts)
+                    self.feedView?.postsTableView.reloadData()
+                }
             }
         }
 

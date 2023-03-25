@@ -1,5 +1,5 @@
 import Foundation
 
 protocol PostDataProviderProtocol {
-    func getList(limit: Int, completionHandler: @escaping ([PostAggregate]) -> Void)
+    func getList(limit: Int, beforePostedAtFilter: Date?, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void)
 }

@@ -6,8 +6,6 @@ class PostListTableViewDataSource: NSObject {
     var posts: [PostAggregate] = []
     override init() {
         self.posts = []
-        var postItems: [PostAggregate] = []
-        self.posts = postItems
     }
     
     func addPosts(_ posts: [PostAggregate]) {

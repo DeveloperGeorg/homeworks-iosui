@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostDataProviderProtocol
     let paginationLimit = 1
+    var couldGetNextPage = true
     
     fileprivate let postsFilters: [ColorFilter] = [
         .sepia(intensity: 0.5),
@@ -78,7 +79,8 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        postDataProviderProtocol.getList(limit: paginationLimit) { posts in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil) { posts, hasMore in
+            self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
             self.postsTableView.reloadData()
         }

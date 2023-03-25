@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseFirestore
 
 struct PostItem: Codable {
     let author: String
@@ -14,7 +15,7 @@ struct PostItem: Codable {
        case content
        case likesAmount
        case commentsAmount
-//       case postedAt
+       case postedAt
     }
     
     init(from decoder:Decoder) throws {
@@ -24,8 +25,9 @@ struct PostItem: Codable {
         likesAmount = try values.decode(Int.self, forKey: .likesAmount)
         commentsAmount = try values.decode(Int.self, forKey: .commentsAmount)
         author = try values.decode(String.self, forKey: .author)
-//        postedAt = try values.decode(Date.self, forKey: .postedAt)
-        postedAt = Date()
+//        let str = values["postedAt"] as? FIRTimestamp ?? FIRTimestamp()
+//        postedAt = str.dateValue()
+        postedAt = try values.decode(Timestamp.self, forKey: .postedAt).dateValue()
     }
     
 }
