@@ -1,7 +1,9 @@
 import Foundation
+import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-struct PostItem: Codable {
+struct PostItem: Decodable {
+    @DocumentID var id: String?
     let author: String
     var mainImageLink: String
     var content: String = ""
@@ -25,9 +27,6 @@ struct PostItem: Codable {
         likesAmount = try values.decode(Int.self, forKey: .likesAmount)
         commentsAmount = try values.decode(Int.self, forKey: .commentsAmount)
         author = try values.decode(String.self, forKey: .author)
-//        let str = values["postedAt"] as? FIRTimestamp ?? FIRTimestamp()
-//        postedAt = str.dateValue()
         postedAt = try values.decode(Timestamp.self, forKey: .postedAt).dateValue()
     }
-    
 }
