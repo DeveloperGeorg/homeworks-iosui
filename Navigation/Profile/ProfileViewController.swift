@@ -5,7 +5,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     enum ValidationError: Error {
             case notFound
         }
-
+    private let bloggerDataProvider: BloggerDataProviderProtocol
     fileprivate let forCellReuseIdentifier = "test"
     private var userService: UserService
     private var updatingImagesCounter = 0
@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     let postDataProviderProtocol: PostDataProviderProtocol
     let paginationLimit = 10
     var couldGetNextPage = true
-    let bloggerFilterId = "bgLrlmlL7WT0ME0ut69S"
+    let tempUserId = "WQpoef1OsQSZALcfZy97puNV9QV2"
     
     fileprivate let postsFilters: [ColorFilter] = [
         .sepia(intensity: 0.5),
@@ -44,6 +44,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
         self.postDataProviderProtocol = FirestorePostDataProvider()
+        self.bloggerDataProvider = FirestoreBloggerDataProvider()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,10 +81,14 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: bloggerFilterId) { posts, hasMore in
-            self.couldGetNextPage = hasMore
-            self.postListTableViewDataSource.addPosts(posts)
-            self.postsTableView.reloadData()
+        bloggerDataProvider.getByUserId(tempUserId) { blogger in
+            if let blogger = blogger {
+                self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                    self.couldGetNextPage = hasMore
+                    self.postListTableViewDataSource.addPosts(posts)
+                    self.postsTableView.reloadData()
+                }
+            }
         }
     }
     

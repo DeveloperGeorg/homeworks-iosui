@@ -63,6 +63,8 @@
 		41B9054427BABCD50020A8DD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
 		41C270B729CACC4A00B40F43 /* FirestorePostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270B629CACC4A00B40F43 /* FirestorePostDataProvider.swift */; };
 		41C270B929CC2A2A00B40F43 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270B829CC2A2A00B40F43 /* PostItem.swift */; };
+		41C270BB29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */; };
+		41C270BD29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */; };
 		41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */; };
 		41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */; };
 		41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */; };
@@ -188,6 +190,8 @@
 		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41C270B629CACC4A00B40F43 /* FirestorePostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostDataProvider.swift; sourceTree = "<group>"; };
 		41C270B829CC2A2A00B40F43 /* PostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItem.swift; sourceTree = "<group>"; };
+		41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloggerDataProviderProtocol.swift; sourceTree = "<group>"; };
+		41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBloggerDataProvider.swift; sourceTree = "<group>"; };
 		41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserStorageProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthUserProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuthUserStorage.swift; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 				41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */,
 				41C270B629CACC4A00B40F43 /* FirestorePostDataProvider.swift */,
 				41C270B829CC2A2A00B40F43 /* PostItem.swift */,
+				41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */,
+				41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -691,6 +697,7 @@
 				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
 				41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */,
+				41C270BB29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				41038DEC29C970D700CE8195 /* PostAggregate.swift in Sources */,
@@ -722,6 +729,7 @@
 				413E71F429B0F78D00723D71 /* LocalNotificationsService.swift in Sources */,
 				4194722027F9AF170075A056 /* UserService.swift in Sources */,
 				4194721627F9AF010075A056 /* FeedView.swift in Sources */,
+				41C270BD29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift in Sources */,
 				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
