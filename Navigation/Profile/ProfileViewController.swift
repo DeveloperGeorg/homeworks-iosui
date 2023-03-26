@@ -98,12 +98,12 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ProfileTableHederView.init(profile: self.user, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 250))
+        let headerView = ProfileTableHederView.init(profile: self.user, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 290), profileCoordinator: self.profileCoordinator)
             
             return headerView
         }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 250
+            return 290
         }
 }
 

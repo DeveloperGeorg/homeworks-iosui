@@ -3,10 +3,11 @@ import UIKit
 class ProfileTableHederView: UIView {
     let profileHeaderView: ProfileHeaderView
 
-    public init(profile: User, frame: CGRect) {
+    public init(profile: User, frame: CGRect, profileCoordinator: ProfileCoordinator) {
         profileHeaderView = ProfileHeaderView(
             profile: profile,
-            frame: .zero
+            frame: .zero,
+            profileCoordinator: profileCoordinator
         )
         super.init(frame: frame)
         
@@ -23,7 +24,7 @@ class ProfileTableHederView: UIView {
     private func activateConstraints() {
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 290),
             profileHeaderView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             profileHeaderView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             profileHeaderView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),

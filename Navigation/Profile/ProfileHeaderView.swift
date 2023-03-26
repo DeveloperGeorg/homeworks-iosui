@@ -6,6 +6,8 @@ class ProfileHeaderView: UIView {
     fileprivate let profileTitleFontSize = 18
     fileprivate let profileTextFieldFontSize = 14
     fileprivate let imageSize = 100
+    
+    private let profileCoordinator: ProfileCoordinator
 
     var profile: User
     
@@ -63,8 +65,29 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    public init(profile: User, frame: CGRect) {
+    var createPostButton: CustomButton = {
+        let button = CustomButton(
+            title: String(localized: "Create post"),
+            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UIColor.createColor(
+            lightMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0)),
+            darkMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
+        )
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
+        button.layer.shadowRadius = CGFloat(4)
+        
+        return button
+    }()
+    
+    public init(profile: User, frame: CGRect, profileCoordinator: ProfileCoordinator) {
         self.profile = profile
+        self.profileCoordinator = profileCoordinator
         super.init(frame: frame)
         
         let image = UIImage(named: profile.avatarImageSrc)
@@ -88,6 +111,7 @@ class ProfileHeaderView: UIView {
         addSubview(statusLabel)
         addSubview(statusTextField)
         addSubview(setStatusButton)
+        addSubview(createPostButton)
         
     }
     
@@ -120,6 +144,12 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(statusTextField.snp.bottom).offset(16)
             make.leading.equalTo(self).inset(16)
         }
+        createPostButton.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(50)
+            make.trailing.equalTo(self).inset(16)
+            make.top.equalTo(setStatusButton.snp.bottom).offset(16)
+            make.leading.equalTo(self).inset(16)
+        }
     }
     
     private func drawLayer() {
@@ -133,6 +163,9 @@ class ProfileHeaderView: UIView {
         setStatusButton.setButtonTappedCallback({ sender in
             self.statusLabel.text = self.profile.status
             self.statusLabel.setNeedsDisplay()
+        })
+        createPostButton.setButtonTappedCallback({ sender in
+            self.profileCoordinator.createPost()
         })
         statusTextField.addTarget(self, action: #selector(changeProfileState), for: .editingChanged)
     }
