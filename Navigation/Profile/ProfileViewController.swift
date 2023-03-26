@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.user = User(
             fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
         }
-        self.postDataProviderProtocol = FirestorePostDataProvider()
+        self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
         self.bloggerDataProvider = FirestoreBloggerDataProvider()
         
         super.init(nibName: nil, bundle: nil)

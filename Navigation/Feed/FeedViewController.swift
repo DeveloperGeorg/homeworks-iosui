@@ -11,7 +11,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
-        self.postDataProviderProtocol = FirestorePostDataProvider()
+        self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)

@@ -27,7 +27,7 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
             }
     }
     
-    func getIds(_ ids: [String], completionHandler: @escaping (_ bloggers: [BloggerPreview]) -> Void) {
+    func getByIds(_ ids: [String], completionHandler: @escaping (_ bloggers: [BloggerPreview]) -> Void) {
         var bloggers: [BloggerPreview] = []
         db.collection("bloggers")
             .whereField(FieldPath.documentID(), in: ids)
@@ -44,9 +44,6 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
                 }
                 completionHandler(bloggers)
             }
-            
         }
-        
     }
-    
 }

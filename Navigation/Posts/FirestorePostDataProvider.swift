@@ -3,11 +3,10 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FirestorePostDataProvider: PostAggregateDataProviderProtocol {
+class FirestorePostDataProvider: PostDataProviderProtocol {
     private let db = Firestore.firestore()
-    private let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
     
-    func getList(limit: Int, beforePostedAtFilter: Date? = nil, bloggerIdFilter: String? = nil, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void) {
+    func getList(limit: Int, beforePostedAtFilter: Date? = nil, bloggerIdFilter: String? = nil, completionHandler: @escaping ([PostItem], _ hasMore: Bool) -> Void) {
         var posts: [PostItem] = []
         
         let beforePostedAtFilterTimestamp: Timestamp = Timestamp(date: beforePostedAtFilter ?? Date())
@@ -25,39 +24,18 @@ class FirestorePostDataProvider: PostAggregateDataProviderProtocol {
                 print("Error getting posts: \(error)")
             } else if let snapshot = snapshot {
                 let postDocumentsCount = snapshot.documents.count
-                var bloggerIds: [String] = []
                 for postDocument in snapshot.documents {
                     if var post = try? postDocument.data(as: PostItem.self) {
                         post.id = String(postDocument.documentID)
-                        bloggerIds.append(post.blogger)
                         posts.append(post)
                     } else {
                         print("something went wrong during post decoding")
                     }
                 }
-                if bloggerIds.count > 0 {
-                    self.bloggerDataProvider.getIds(bloggerIds) {bloggers in
-                        var postsAggregates: [PostAggregate] = []
-                        var bloggerIdToBlogger: [String:BloggerPreview] = [:]
-                        for blogger in bloggers {
-                            if let bloggerId = blogger.id {
-                                bloggerIdToBlogger[bloggerId] = blogger
-                            }
-                        }
-                        for post in posts {
-                            if let bloggerItem = bloggerIdToBlogger[post.blogger] {
-                                postsAggregates.append(PostAggregate(blogger: bloggerItem, post: post))
-                            }
-                        }
-                        
-                        postsAggregates = postsAggregates.sorted(by: { $0.post.postedAt >= $1.post.postedAt })
-                        completionHandler(postsAggregates, postDocumentsCount >= limit)
-                    }
-                }
+                posts = posts.sorted(by: { $0.postedAt >= $1.postedAt })
+                completionHandler(posts, postDocumentsCount >= limit)
             }
-            
         }
     }
-    
     
 }
