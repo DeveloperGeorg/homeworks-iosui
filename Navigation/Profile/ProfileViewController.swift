@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var user: User
     var posts: [PostAggregate] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
-    let postDataProviderProtocol: PostDataProviderProtocol
+    let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let paginationLimit = 10
     var couldGetNextPage = true
     let tempUserId = "WQpoef1OsQSZALcfZy97puNV9QV2"

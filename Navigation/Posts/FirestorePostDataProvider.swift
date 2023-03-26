@@ -3,7 +3,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FirestorePostDataProvider: PostDataProviderProtocol {
+class FirestorePostDataProvider: PostAggregateDataProviderProtocol {
     private let db = Firestore.firestore()
     private let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
     

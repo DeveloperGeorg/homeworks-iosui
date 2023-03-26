@@ -5,7 +5,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var feedView: FeedView?
     var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
-    let postDataProviderProtocol: PostDataProviderProtocol
+    let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let paginationLimit = 3;
     var couldGetNextPage = true
     

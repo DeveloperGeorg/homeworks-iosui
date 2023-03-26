@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41038DE629C8B70500CE8195 /* PostDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */; };
+		41038DE629C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */; };
 		41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */; };
 		41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */; };
 		41038DEC29C970D700CE8195 /* PostAggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DEB29C970D700CE8195 /* PostAggregate.swift */; };
@@ -135,7 +135,7 @@
 
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
-		41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataProviderProtocol.swift; sourceTree = "<group>"; };
+		41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateDataProviderProtocol.swift; sourceTree = "<group>"; };
 		41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPostDataProvider.swift; sourceTree = "<group>"; };
 		41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewDataSource.swift; sourceTree = "<group>"; };
 		41038DEB29C970D700CE8195 /* PostAggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregate.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		41038DE429C8B6DB00CE8195 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
-				41038DE529C8B70500CE8195 /* PostDataProviderProtocol.swift */,
+				41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */,
 				41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */,
 				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
 				41038DEB29C970D700CE8195 /* PostAggregate.swift */,
@@ -683,7 +683,7 @@
 			files = (
 				412D778D29C77A9200BD23E8 /* Typography.swift in Sources */,
 				41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
-				41038DE629C8B70500CE8195 /* PostDataProviderProtocol.swift in Sources */,
+				41038DE629C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift in Sources */,
 				4194721927F9AF010075A056 /* PostViewController.swift in Sources */,
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,

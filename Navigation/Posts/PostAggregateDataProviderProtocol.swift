@@ -1,5 +1,5 @@
 import Foundation
 
-protocol PostDataProviderProtocol {
+protocol PostAggregateDataProviderProtocol {
     func getList(limit: Int, beforePostedAtFilter: Date?, bloggerIdFilter: String?, completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void)
 }
