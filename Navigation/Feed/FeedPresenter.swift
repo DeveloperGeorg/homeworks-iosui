@@ -22,7 +22,7 @@ class FeedPresenter {
         self.feedViewDelegate = feedViewDelegate
     }
     
-    func openPost(postTitle: String) {
-        coordinator.openPost(postTitle: postTitle)
+    func openPost(post: PostAggregate) {
+        coordinator.openPost(post: post)
     }
 }

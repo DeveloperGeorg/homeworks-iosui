@@ -14,8 +14,8 @@ final class FeedCoordinator: Coordinatable {
         navigationController.pushViewController(feedViewController, animated: false)
     }
     
-    func openPost(postTitle: String) {
-        navigationController.pushViewController(PostViewController(postTitle: postTitle, coordinator: self), animated: true)
+    func openPost(post: PostAggregate) {
+        navigationController.pushViewController(PostViewController(post: post, coordinator: self), animated: true)
     }
     
     func showInfo() {

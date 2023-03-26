@@ -23,7 +23,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
-            print("hasMore \(hasMore)")
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
             self.feedView?.postsTableView.reloadData()
@@ -45,17 +44,17 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.view = feedView
     }
     
-    @objc private func openPost(_ sender: UIButton) {
-        let buttonTitle = sender.currentTitle!
-        feedPresenter.openPost(postTitle: buttonTitle)
-    }
+//    @objc private func openPost(_ sender: UIButton) {
+//        let buttonTitle = sender.currentTitle!
+//        feedPresenter.openPost(postTitle: buttonTitle)
+//    }
     
     func addPostToFeed(title: String) -> Void {
         let button = feedView?.getButtonWithText(title)
         guard let postButton = button else {
             return
         }
-        postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
+//        postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
         feedView?.postsStackView.addArrangedSubview(postButton)
     }
 
@@ -74,10 +73,8 @@ class FeedViewController: UIViewController, FeedViewDelegate {
 extension FeedViewController: UITableViewDelegate {
     func selectedCell(row: Int) {
         /** @todo create and use posts coordinator */
-        let viewControllerNext = UIViewController()
-        viewControllerNext.view.backgroundColor = .systemRed
-        
-        navigationController?.pushViewController(viewControllerNext, animated: true)
+        let post = self.postListTableViewDataSource.posts[row]
+        feedPresenter.openPost(post: post)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
