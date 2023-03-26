@@ -46,8 +46,6 @@
 		4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95327F6BA660030C223 /* FeedViewDelegate.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
-		4194721727F9AF010075A056 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721227F9AF010075A056 /* InfoView.swift */; };
-		4194721827F9AF010075A056 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721327F9AF010075A056 /* InfoViewController.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
 		4194722027F9AF170075A056 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
 		4194722127F9AF170075A056 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721D27F9AF170075A056 /* TestUserService.swift */; };
@@ -179,8 +177,6 @@
 		4149A95327F6BA660030C223 /* FeedViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewDelegate.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
-		4194721227F9AF010075A056 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
-		4194721327F9AF010075A056 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
 		4194721C27F9AF170075A056 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		4194721D27F9AF170075A056 /* TestUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
@@ -357,8 +353,6 @@
 			children = (
 				4194722727F9B0F70075A056 /* FeedViewController.swift */,
 				4194721127F9AF000075A056 /* FeedView.swift */,
-				4194721227F9AF010075A056 /* InfoView.swift */,
-				4194721327F9AF010075A056 /* InfoViewController.swift */,
 				4149A94A27F5733B0030C223 /* FeedCoordinator.swift */,
 				4149A95027F607650030C223 /* FeedPresenter.swift */,
 				4149A95327F6BA660030C223 /* FeedViewDelegate.swift */,
@@ -697,7 +691,6 @@
 				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41038DF029C9746400CE8195 /* PostItemTableViewCell.swift in Sources */,
 				41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */,
-				4194721727F9AF010075A056 /* InfoView.swift in Sources */,
 				41E6CD0E272075F60030EF9A /* AppDelegate.swift in Sources */,
 				411F73E227E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift in Sources */,
 				41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */,
@@ -733,7 +726,6 @@
 				412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
-				4194721827F9AF010075A056 /* InfoViewController.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
 				41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */,
 				412D778529C742A200BD23E8 /* LightColorPalette.swift in Sources */,
