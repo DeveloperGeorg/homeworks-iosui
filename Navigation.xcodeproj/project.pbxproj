@@ -48,7 +48,7 @@
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721727F9AF010075A056 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721227F9AF010075A056 /* InfoView.swift */; };
 		4194721827F9AF010075A056 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721327F9AF010075A056 /* InfoViewController.swift */; };
-		4194721927F9AF010075A056 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostViewController.swift */; };
+		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
 		4194722027F9AF170075A056 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
 		4194722127F9AF170075A056 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721D27F9AF170075A056 /* TestUserService.swift */; };
 		4194722227F9AF170075A056 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721E27F9AF170075A056 /* User.swift */; };
@@ -181,7 +181,7 @@
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721227F9AF010075A056 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		4194721327F9AF010075A056 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
-		4194721427F9AF010075A056 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
 		4194721C27F9AF170075A056 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		4194721D27F9AF170075A056 /* TestUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		4194721E27F9AF170075A056 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -274,6 +274,7 @@
 				41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */,
 				41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */,
 				41C270B829CC2A2A00B40F43 /* PostItem.swift */,
+				4194721427F9AF010075A056 /* PostAggregateViewController.swift */,
 				41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */,
 				41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */,
 				41C270BE29D00D0D00B40F43 /* PostComment.swift */,
@@ -358,7 +359,6 @@
 				4194721127F9AF000075A056 /* FeedView.swift */,
 				4194721227F9AF010075A056 /* InfoView.swift */,
 				4194721327F9AF010075A056 /* InfoViewController.swift */,
-				4194721427F9AF010075A056 /* PostViewController.swift */,
 				4149A94A27F5733B0030C223 /* FeedCoordinator.swift */,
 				4149A95027F607650030C223 /* FeedPresenter.swift */,
 				4149A95327F6BA660030C223 /* FeedViewDelegate.swift */,
@@ -690,7 +690,7 @@
 				412D778D29C77A9200BD23E8 /* Typography.swift in Sources */,
 				41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
 				41038DE629C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift in Sources */,
-				4194721927F9AF010075A056 /* PostViewController.swift in Sources */,
+				4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */,
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
 				41F0BF7F29AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */,

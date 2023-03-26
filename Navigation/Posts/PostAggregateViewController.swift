@@ -1,17 +1,16 @@
 import UIKit
 
-class PostViewController: UIViewController {
+class PostAggregateViewController: UIViewController {
     let postCommentDataProvider: PostCommentDataProviderProtocol
     let postTitle: String
     let post: PostAggregate
-    weak var coordinator: FeedCoordinator?
     var tempPostContent: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
-    public init(post: PostAggregate, coordinator: FeedCoordinator?) {
+    public init(post: PostAggregate) {
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postTitle = "Post \(post.post.content.count)"
         self.post = post
@@ -22,15 +21,7 @@ class PostViewController: UIViewController {
         text += "Likes amount: \(post.post.likesAmount)\n"
         text += "Comments amount: \(post.post.commentsAmount)\n"
         tempPostContent.text = text
-        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
-        let infoButtonItem = UIBarButtonItem(
-            title: "Info",
-            style: UIBarButtonItem.Style.plain,
-            target: self,
-            action: #selector(showInfoModal)
-        )
-        navigationItem.rightBarButtonItem = infoButtonItem
     }
     
     required init?(coder: NSCoder) {
@@ -61,9 +52,5 @@ class PostViewController: UIViewController {
                 self.tempPostContent.text += "Comment: \(postComment.comment)\n"
             }
         }
-    }
-    
-    @objc private func showInfoModal() {
-        coordinator?.showInfo()
     }
 }
