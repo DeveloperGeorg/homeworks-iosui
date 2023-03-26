@@ -2,6 +2,7 @@ import UIKit
 import iOSIntPackage
 
 class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
+    private let profileCoordinator: ProfileCoordinator
     enum ValidationError: Error {
             case notFound
         }
@@ -34,8 +35,9 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }()
     
 
-    init(userService: UserService, fullName: String) {
+    init(userService: UserService, fullName: String, profileCoordinator: ProfileCoordinator) {
         self.userService = userService
+        self.profileCoordinator = profileCoordinator
         /* @todo check password */
         if let user = self.userService.getUserByFullName(fullName) {
             self.user = user
@@ -61,7 +63,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             postsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
@@ -104,10 +109,9 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
 
 extension ProfileViewController: UITableViewDelegate {
     func selectedCell(row: Int) {
-        let viewControllerNext = UIViewController()
-        viewControllerNext.view.backgroundColor = .systemRed
-        
-        navigationController?.pushViewController(viewControllerNext, animated: true)
+        /** @todo create and use posts coordinator */
+        let post = self.postListTableViewDataSource.posts[row]
+        self.profileCoordinator.openPost(post: post)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -4,9 +4,11 @@ final class FeedCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
+    var postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
     }
     
     func start() {
@@ -15,6 +17,7 @@ final class FeedCoordinator: Coordinatable {
     }
     
     func openPost(post: PostAggregate) {
-        navigationController.pushViewController(PostAggregateViewController(post: post), animated: true)
+        self.postAggregateDetailViewCoordinator.post = post
+        self.postAggregateDetailViewCoordinator.start()
     }
 }

@@ -68,6 +68,7 @@
 		41C270C329D01E7900B40F43 /* FirestorePostCommentDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */; };
 		41C270C529D03AB500B40F43 /* PostDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270C429D03AB500B40F43 /* PostDataProviderProtocol.swift */; };
 		41C270C729D03B3500B40F43 /* FirestorePostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */; };
+		41C270C929D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */; };
 		41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */; };
 		41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */; };
 		41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */; };
@@ -198,6 +199,7 @@
 		41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostCommentDataProvider.swift; sourceTree = "<group>"; };
 		41C270C429D03AB500B40F43 /* PostDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataProviderProtocol.swift; sourceTree = "<group>"; };
 		41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostDataProvider.swift; sourceTree = "<group>"; };
+		41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateDetailViewCoordinator.swift; sourceTree = "<group>"; };
 		41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserStorageProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthUserProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuthUserStorage.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */,
 				41C270C429D03AB500B40F43 /* PostDataProviderProtocol.swift */,
 				41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */,
+				41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -696,6 +699,7 @@
 				41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */,
 				4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */,
 				41C270C529D03AB500B40F43 /* PostDataProviderProtocol.swift in Sources */,
+				41C270C929D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift in Sources */,
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,

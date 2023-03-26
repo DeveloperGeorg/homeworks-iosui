@@ -7,6 +7,7 @@ final class ProfileCoordinator: Coordinatable {
     let loginFactory: LoginFactoryProtocol
     let profileFactory: ProfileFactoryProtocol
     let userService: UserService
+    var postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
     
     init(
         navigationController: UINavigationController,
@@ -18,6 +19,7 @@ final class ProfileCoordinator: Coordinatable {
         self.loginFactory = loginFactory
         self.profileFactory = profileFactory
         self.userService = userService
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
         let logInViewController = loginFactory.createLogInViewController(coordinator: self)
         self.navigationController.setViewControllers([logInViewController], animated: false)
     }
@@ -29,12 +31,17 @@ final class ProfileCoordinator: Coordinatable {
     
     func openProfile(sender:UIButton?, loginInput: String) {
         navigationController.show(self.profileFactory.createProfileViewController(
-            userService: self.userService, loginInput: loginInput
+            userService: self.userService, loginInput: loginInput, coordinator: self
         ), sender: sender)
     }
     
     func showLoginError(title: String, message: String) {
         let alert = self.loginFactory.createLoginError(title: title, message: message)
         navigationController.present(alert, animated: true, completion: nil)
+    }
+    
+    func openPost(post: PostAggregate) {
+        self.postAggregateDetailViewCoordinator.post = post
+        self.postAggregateDetailViewCoordinator.start()
     }
 }
