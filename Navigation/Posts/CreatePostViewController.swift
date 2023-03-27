@@ -1,10 +1,13 @@
 import UIKit
+import Uploadcare
 
 class CreatePostViewController: UIViewController {
     private let postItemDataStorage: PostItemDataStorageProtocol
+    private let fileUploader: FileUploaderProtocol
 
     init() {
         self.postItemDataStorage = FirestorePostItemDataStorage()
+        self.fileUploader = UploadcareFileUploader()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -15,25 +18,22 @@ class CreatePostViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Create new post"
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
-        let post = PostItem(
-            blogger: "TIQqWZVxbn03MRxsioz6",
-            mainImageLink: "https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png",
-            content: "generated content \(UUID.init().uuidString)"
-        )
-        self.postItemDataStorage.create(post) { posts, hasMore in
-            print("post item")
+        self.fileUploader.uploadFile() {fileName, errorMessage in
+            DispatchQueue.main.async {
+                print("filename: \(fileName)")
+                if let fileName = fileName {
+                    print("start creating post")
+                    let post = PostItem(
+                        blogger: "TIQqWZVxbn03MRxsioz6",
+                        mainImageLink: fileName,
+                        content: "generated content \(UUID.init().uuidString)"
+                    )
+                    self.postItemDataStorage.create(post) { posts, hasMore in
+                        print("post item")
+                    }
+                }
+            }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

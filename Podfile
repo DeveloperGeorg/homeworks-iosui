@@ -14,6 +14,7 @@ target 'Navigation' do
   pod 'FirebaseCore'
   pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'Uploadcare', git: 'https://github.com/uploadcare/uploadcare-swift'
 end
 
 

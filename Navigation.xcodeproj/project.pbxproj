@@ -73,6 +73,8 @@
 		41C270CD29D0614900B40F43 /* PostItemFormCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270CC29D0614900B40F43 /* PostItemFormCoordinator.swift */; };
 		41C270CF29D067C300B40F43 /* PostItemDataStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270CE29D067C300B40F43 /* PostItemDataStorageProtocol.swift */; };
 		41C270D129D0683C00B40F43 /* FirestorePostItemDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */; };
+		41C270D529D15D5400B40F43 /* FileUploaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */; };
+		41C270D729D15DCE00B40F43 /* UploadcareFileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */; };
 		41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */; };
 		41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */; };
 		41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */; };
@@ -208,6 +210,8 @@
 		41C270CC29D0614900B40F43 /* PostItemFormCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItemFormCoordinator.swift; sourceTree = "<group>"; };
 		41C270CE29D067C300B40F43 /* PostItemDataStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItemDataStorageProtocol.swift; sourceTree = "<group>"; };
 		41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostItemDataStorage.swift; sourceTree = "<group>"; };
+		41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderProtocol.swift; sourceTree = "<group>"; };
+		41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadcareFileUploader.swift; sourceTree = "<group>"; };
 		41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserStorageProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthUserProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuthUserStorage.swift; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 				41C270CC29D0614900B40F43 /* PostItemFormCoordinator.swift */,
 				41C270CE29D067C300B40F43 /* PostItemDataStorageProtocol.swift */,
 				41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */,
+				41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */,
+				41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -719,10 +725,12 @@
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,
 				411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */,
 				413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */,
+				41C270D729D15DCE00B40F43 /* UploadcareFileUploader.swift in Sources */,
 				41C270B929CC2A2A00B40F43 /* PostItem.swift in Sources */,
 				4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */,
 				41F353E2293FA3CB00B906A6 /* CheckerServiceProtocol.swift in Sources */,
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
+				41C270D529D15D5400B40F43 /* FileUploaderProtocol.swift in Sources */,
 				41C270C129D00E7C00B40F43 /* PostCommentDataProviderProtocol.swift in Sources */,
 				41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */,
 				41C270CD29D0614900B40F43 /* PostItemFormCoordinator.swift in Sources */,
