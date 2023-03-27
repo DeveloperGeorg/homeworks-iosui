@@ -75,6 +75,7 @@
 		41C270D129D0683C00B40F43 /* FirestorePostItemDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */; };
 		41C270D529D15D5400B40F43 /* FileUploaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */; };
 		41C270D729D15DCE00B40F43 /* UploadcareFileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */; };
+		41C270DA29D16B9900B40F43 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270D929D16B9900B40F43 /* Config.swift */; };
 		41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */; };
 		41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */; };
 		41C3FD6E29698C0E009D3920 /* RealmAuthUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */; };
@@ -212,6 +213,8 @@
 		41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostItemDataStorage.swift; sourceTree = "<group>"; };
 		41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUploaderProtocol.swift; sourceTree = "<group>"; };
 		41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadcareFileUploader.swift; sourceTree = "<group>"; };
+		41C270D829D1690600B40F43 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		41C270D929D16B9900B40F43 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		41C3FD6929698B23009D3920 /* AuthUserStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserStorageProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6B29698B67009D3920 /* StoredAuthUserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredAuthUserProtocol.swift; sourceTree = "<group>"; };
 		41C3FD6D29698C0E009D3920 /* RealmAuthUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuthUserStorage.swift; sourceTree = "<group>"; };
@@ -425,6 +428,7 @@
 		41E6CD0C272075F60030EF9A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				41C270D829D1690600B40F43 /* Config.xcconfig */,
 				41038DE429C8B6DB00CE8195 /* Posts */,
 				4149A94827F571CA0030C223 /* Feed */,
 				411F73EF27EEE96700555D97 /* Common */,
@@ -443,6 +447,7 @@
 				413CA00C29A0DA3B00005D7F /* Localizable.strings */,
 				413CA00E29A204A300005D7F /* UIColorLightDarkExtension.swift */,
 				413E71F329B0F78D00723D71 /* LocalNotificationsService.swift */,
+				41C270D929D16B9900B40F43 /* Config.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -771,6 +776,7 @@
 				41C270BD29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift in Sources */,
 				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,
+				41C270DA29D16B9900B40F43 /* Config.swift in Sources */,
 				41C270C729D03B3500B40F43 /* FirestorePostDataProvider.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
@@ -969,6 +975,7 @@
 		};
 		41E6CD1D272075F90030EF9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41C270D829D1690600B40F43 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;

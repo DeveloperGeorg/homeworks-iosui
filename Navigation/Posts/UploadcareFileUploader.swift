@@ -5,7 +5,7 @@ class UploadcareFileUploader: FileUploaderProtocol {
     let uploadcare: Uploadcare
     
     init(withPublicKey: String, secretKey: String) {
-        self.uploadcare = Uploadcare(withPublicKey: withPublicKey,secretKey: secretKey)
+        self.uploadcare = Uploadcare(withPublicKey: withPublicKey, secretKey: secretKey)
     }
     
     func uploadFile(completionHandler: @escaping (String?, String?) -> Void) {

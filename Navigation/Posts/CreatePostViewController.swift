@@ -7,7 +7,10 @@ class CreatePostViewController: UIViewController {
 
     init() {
         self.postItemDataStorage = FirestorePostItemDataStorage()
-        self.fileUploader = UploadcareFileUploader()
+        self.fileUploader = UploadcareFileUploader(
+            withPublicKey: Config.shared.getValueByKey("UPLOADCARE_PUBLIC_KEY") ?? "",
+            secretKey: Config.shared.getValueByKey("UPLOADCARE_SECRET_KEY") ?? ""
+        )
         super.init(nibName: nil, bundle: nil)
     }
     
