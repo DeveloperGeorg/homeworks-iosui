@@ -44,10 +44,6 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         textField.textColor = UiKitFacade.shared.getPrimaryTextColor()
         textField.layer.borderColor = UiKitFacade.shared.getAccentColor().cgColor
         textField.layer.borderWidth = 1
-        
-//        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-//        textField.leftView = paddingView
-//        textField.leftViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -124,7 +120,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
             choosePictureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             choosePictureButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             choosePictureButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            choosePictureButton.heightAnchor.constraint(equalToConstant: 200),
+            choosePictureButton.heightAnchor.constraint(equalToConstant: 100),
             contentTextField.topAnchor.constraint(equalTo: choosePictureButton.bottomAnchor, constant: 8),
             contentTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             contentTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
@@ -137,17 +133,23 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var increasedMaxSizeError = false
         if let pickedImage = info[.originalImage] as? UIImage {
 
             if let data = pickedImage.pngData() {
-                do {
-                    print("Chose pictire")
+                print("Chose pictire size=\(data.count), max size=\(self.fileUploader.getMaxFileSize())")
+                if (data.count <= self.fileUploader.getMaxFileSize()) {
                     self.fileDataToUpload = data
-                } catch {
-                    print("Unable to Write Image Data to Disk")
+                } else {
+                    self.fileDataToUpload = nil
+                    increasedMaxSizeError = true
                 }
             }
         }
         dismiss(animated: true)
+        if increasedMaxSizeError {
+            print("Error max file size")
+            /** @todo show error */
+        }
     }
 }

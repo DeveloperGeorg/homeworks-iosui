@@ -31,5 +31,8 @@ class UploadcareFileUploader: FileUploaderProtocol {
             })
     }
     
+    func getMaxFileSize() -> Int {
+        return 1_048_576
+    }
     
 }
