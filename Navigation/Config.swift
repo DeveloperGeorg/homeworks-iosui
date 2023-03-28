@@ -11,8 +11,6 @@ class Config {
         } else {
             self.infoDictionary = [:]
         }
-        print("CONFIG:")
-        print(self.infoDictionary)
     }
     
     func getValueByKey(_ key: String) -> String? {
