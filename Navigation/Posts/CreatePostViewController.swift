@@ -2,6 +2,7 @@ import UIKit
 import Uploadcare
 
 class CreatePostViewController: UIViewController {
+    let postItemFormCoordinator: PostItemFormCoordinator
     private let postItemDataStorage: PostItemDataStorageProtocol
     private let fileUploader: FileUploaderProtocol
     
@@ -41,12 +42,13 @@ class CreatePostViewController: UIViewController {
         return button
     }()
 
-    init() {
+    init(postItemFormCoordinator: PostItemFormCoordinator) {
         self.postItemDataStorage = FirestorePostItemDataStorage()
         self.fileUploader = UploadcareFileUploader(
             withPublicKey: Config.shared.getValueByKey("UPLOADCARE_PUBLIC_KEY") ?? "",
             secretKey: Config.shared.getValueByKey("UPLOADCARE_SECRET_KEY") ?? ""
         )
+        self.postItemFormCoordinator = postItemFormCoordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -55,7 +57,7 @@ class CreatePostViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Create new post"
+        self.title = String(localized: "Create new post")
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         view.addSubview(contentTextField)
         view.addSubview(createPostButton)
@@ -70,8 +72,9 @@ class CreatePostViewController: UIViewController {
                             mainImageLink: fileName,
                             content: content
                         )
-                        self.postItemDataStorage.create(post) { posts, hasMore in
+                        self.postItemDataStorage.create(post) { post in
                             print("post item was created")
+                            self.postItemFormCoordinator.goBack()
                         }
                     }
                 }

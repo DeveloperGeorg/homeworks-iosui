@@ -12,8 +12,11 @@ class PostItemFormCoordinator: Coordinatable {
     }
     
     func start() {
-        navigationController.pushViewController(CreatePostViewController(), animated: true)
+        navigationController.pushViewController(CreatePostViewController(postItemFormCoordinator: self), animated: true)
         navigationController.navigationBar.isHidden = false
     }
-    
+ 
+    func goBack() {
+        navigationController.popViewController(animated: true)
+    }
 }

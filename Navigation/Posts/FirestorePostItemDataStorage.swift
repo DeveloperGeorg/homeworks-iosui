@@ -6,14 +6,14 @@ import FirebaseFirestoreSwift
 class FirestorePostItemDataStorage: PostItemDataStorageProtocol {
     private let db = Firestore.firestore()
     
-    func create(_ postItem: PostItem, completionHandler: @escaping ([PostItem], Bool) -> Void) {
+    func create(_ postItem: PostItem, completionHandler: @escaping (PostItem) -> Void) {
         var refDocument = db.collection("posts").addDocument(data: postItem.getDataForFirestore()) { err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
 //                print("Document added with ID: \(refDocument.documentID)")
                 print("Document added:")
-                print(postItem)
+                completionHandler(postItem)
             }
         }
     }
