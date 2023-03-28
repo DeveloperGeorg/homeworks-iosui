@@ -1,10 +1,38 @@
 import UIKit
 import Uploadcare
 
-class CreatePostViewController: UIViewController {
+class CreatePostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let postItemFormCoordinator: PostItemFormCoordinator
     private let postItemDataStorage: PostItemDataStorageProtocol
     private let fileUploader: FileUploaderProtocol
+    
+    let imagePickerController: UIImagePickerController = {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.isEditing = true
+        
+        return imagePickerController
+    }()
+    
+    var fileDataToUpload: Data? = nil
+    
+    var choosePictureButton: CustomButton = {
+        let button = CustomButton(
+            title: String(localized: "Choose picture"),
+            titleColor: UiKitFacade.shared.getPrimaryTextColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UiKitFacade.shared.getAccentColor()
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
+        button.layer.shadowRadius = CGFloat(4)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     var contentTextField: UITextView = {
         let textField = UITextView()
@@ -57,24 +85,33 @@ class CreatePostViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePickerController.delegate = self
+        
         self.title = String(localized: "Create new post")
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
+        view.addSubview(choosePictureButton)
         view.addSubview(contentTextField)
         view.addSubview(createPostButton)
         initConstraints()
+        choosePictureButton.setButtonTappedCallback({ sender in
+            self.present(self.imagePickerController, animated: true)
+        })
         createPostButton.setButtonTappedCallback({sender in
             let content = self.contentTextField.text ?? ""
-            self.fileUploader.uploadFile() {fileName, errorMessage in
-                DispatchQueue.main.async {
-                    if let fileName = fileName {
-                        let post = PostItem(
-                            blogger: "TIQqWZVxbn03MRxsioz6",
-                            mainImageLink: fileName,
-                            content: content
-                        )
-                        self.postItemDataStorage.create(post) { post in
-                            print("post item was created")
-                            self.postItemFormCoordinator.goBack()
+            if let fileDataToUpload = self.fileDataToUpload {
+                self.fileUploader.uploadFile(fileDataToUpload) {fileName, errorMessage in
+                    DispatchQueue.main.async {
+                        if let fileName = fileName {
+                            let post = PostItem(
+                                blogger: "TIQqWZVxbn03MRxsioz6",
+                                mainImageLink: fileName,
+                                content: content
+                            )
+                            self.postItemDataStorage.create(post) { post in
+                                print("post item was created")
+                                self.postItemFormCoordinator.goBack()
+                            }
                         }
                     }
                 }
@@ -84,14 +121,33 @@ class CreatePostViewController: UIViewController {
 
     private func initConstraints() {
         NSLayoutConstraint.activate([
-            contentTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            choosePictureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            choosePictureButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            choosePictureButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            choosePictureButton.heightAnchor.constraint(equalToConstant: 200),
+            contentTextField.topAnchor.constraint(equalTo: choosePictureButton.bottomAnchor, constant: 8),
             contentTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             contentTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            contentTextField.heightAnchor.constraint(equalToConstant: 500),
+            contentTextField.heightAnchor.constraint(equalToConstant: 200),
             createPostButton.topAnchor.constraint(equalTo: contentTextField.bottomAnchor, constant: 8),
             createPostButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             createPostButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             createPostButton.heightAnchor.constraint(equalToConstant: 100)
         ])
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+
+            if let data = pickedImage.pngData() {
+                do {
+                    print("Chose pictire")
+                    self.fileDataToUpload = data
+                } catch {
+                    print("Unable to Write Image Data to Disk")
+                }
+            }
+        }
+        dismiss(animated: true)
     }
 }
