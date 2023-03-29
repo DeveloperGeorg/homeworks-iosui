@@ -57,4 +57,8 @@ final class ProfileCoordinator: Coordinatable {
     func createPost() {
         self.postItemFormCoordinator.start()
     }
+    
+    func setBlogger(_ blogger: BloggerPreview) {
+        self.postItemFormCoordinator.blogger = blogger
+    }
 }

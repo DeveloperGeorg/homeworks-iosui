@@ -5,6 +5,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     let postItemFormCoordinator: PostItemFormCoordinator
     private let postItemDataStorage: PostItemDataStorageProtocol
     private let fileUploader: FileUploaderProtocol
+    private let blogger: BloggerPreview
     
     let imagePickerController: UIImagePickerController = {
         let imagePickerController = UIImagePickerController()
@@ -66,13 +67,14 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         return button
     }()
 
-    init(postItemFormCoordinator: PostItemFormCoordinator) {
+    init(postItemFormCoordinator: PostItemFormCoordinator, blogger: BloggerPreview) {
         self.postItemDataStorage = FirestorePostItemDataStorage()
         self.fileUploader = UploadcareFileUploader(
             withPublicKey: Config.shared.getValueByKey("UPLOADCARE_PUBLIC_KEY") ?? "",
             secretKey: Config.shared.getValueByKey("UPLOADCARE_SECRET_KEY") ?? ""
         )
         self.postItemFormCoordinator = postItemFormCoordinator
+        self.blogger = blogger
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -95,12 +97,12 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         })
         createPostButton.setButtonTappedCallback({sender in
             let content = self.contentTextField.text ?? ""
-            if let fileDataToUpload = self.fileDataToUpload {
+            if let fileDataToUpload = self.fileDataToUpload, let bloggerId = self.blogger.id {
                 self.fileUploader.uploadFile(fileDataToUpload) {fileName, errorMessage in
                     DispatchQueue.main.async {
                         if let fileName = fileName {
                             let post = PostItem(
-                                blogger: "TIQqWZVxbn03MRxsioz6",
+                                blogger: bloggerId,
                                 mainImageLink: fileName,
                                 content: content
                             )

@@ -18,7 +18,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let paginationLimit = 10
     var couldGetNextPage = true
-    let tempUserId = "WQpoef1OsQSZALcfZy97puNV9QV2"
     
     fileprivate let postsFilters: [ColorFilter] = [
         .sepia(intensity: 0.5),
@@ -39,7 +38,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     init(userService: UserService, fullName: String, profileCoordinator: ProfileCoordinator) throws {
         self.userService = userService
         self.profileCoordinator = profileCoordinator
-        print(self.userService.getUserIfAuthorized())
         if let user = self.userService.getUserIfAuthorized() {
             self.user = user
             self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
@@ -87,9 +85,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        bloggerDataProvider.getByUserId(tempUserId) { blogger in
+        bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
                 self.blogger = blogger
+                self.profileCoordinator.setBlogger(blogger)
                 self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)

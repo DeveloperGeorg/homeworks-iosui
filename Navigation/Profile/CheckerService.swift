@@ -8,7 +8,7 @@ class CheckerService: CheckerServiceProtocol {
             
             FirebaseAuth.Auth.auth().signIn(withEmail: login, password: password, completion: { authDataResult, error in
                 if let firebaseUser = authDataResult?.user {
-                    let user = User(fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
+                    let user = User(userId: firebaseUser.uid, fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
                     completion(user)
                 } else {
                     errorHandler()
