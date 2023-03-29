@@ -17,11 +17,12 @@ class CheckerService: CheckerServiceProtocol {
         }
     }
     
-    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         
         FirebaseAuth.Auth.auth().createUser(withEmail: login, password: password, completion: {response, error in
-            if response?.user != nil {
-                completionHandler()
+            if let firebaseUser = response?.user  {
+                let user = User(userId: firebaseUser.uid, fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
+                completionHandler(user)
             } else {
                 errorHandler()
             }

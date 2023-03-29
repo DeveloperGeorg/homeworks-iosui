@@ -73,8 +73,9 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         loginView.signUpButton.setButtonTappedCallback({sender in
             let enteredPassword = self.loginView.passwordInput.text ?? "";
             let enteredLogin = self.loginView.loginInput.text ?? "";
-            self.sugnUp(login: enteredLogin, password: enteredPassword, ({
+            self.sugnUp(login: enteredLogin, password: enteredPassword, ({ user in
                 self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
+                self.userService.storeCurrentUser(user)
                 self.coordinator?.openProfile(sender: sender)
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
@@ -87,8 +88,9 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         loginViewControllerDelegate.checkCredentials(login: login, password: password, completion, errorHandler)
     }
     
-    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         signUpViewControllerDelegate.sugnUp(login: login, password: password, completionHandler, errorHandler)
+        /** @todo create blogger */
     }
                                                       
     @objc func keyboardWillShow(notification:NSNotification) {

@@ -6,7 +6,7 @@ class LoginInspector: LoginViewControllerDelegateProtocol, SignUpViewControllerD
         return checkerService.checkCredentials(login: login, password: password, completion, errorHandler)
     }
     
-    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         checkerService.sugnUp(login: login, password: password, completionHandler, errorHandler)
     }
 }
