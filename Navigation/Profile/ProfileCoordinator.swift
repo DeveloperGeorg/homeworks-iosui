@@ -32,21 +32,13 @@ final class ProfileCoordinator: Coordinatable {
     }
     
     func openProfile(sender:UIButton?, loginInput: String) {
-        navigationController.show(try! self.profileFactory.createProfileViewController(
-            userService: self.userService, loginInput: loginInput, coordinator: self
-        ), sender: sender)
-//        do {
-//            navigationController.show(try self.profileFactory.createProfileViewController(
-//                userService: self.userService, loginInput: loginInput, coordinator: self
-//            ), sender: sender)
-//        } catch {
-//            print("something went wrong")
-//        }
-    }
-    
-    func showLoginError(title: String, message: String) {
-        let alert = self.loginFactory.createLoginError(title: title, message: message)
-        navigationController.present(alert, animated: true, completion: nil)
+        do {
+            navigationController.show(try self.profileFactory.createProfileViewController(
+                userService: self.userService, loginInput: loginInput, coordinator: self
+            ), sender: sender)
+        } catch {
+            self.showError(title: String(localized: "Error occurred"), message: String(localized: "Something went wrong. Try again later"))
+        }
     }
     
     func openPost(post: PostAggregate) {
