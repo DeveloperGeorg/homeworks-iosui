@@ -33,7 +33,7 @@ final class ProfileCoordinatorTest: XCTestCase {
         )
         
         // act
-        sut.openProfile(sender: nil, loginInput: "loginInput")
+        sut.openProfile(sender: nil)
         
         // assert
         XCTAssert(navigationController.lastShowedUiViewController is ProfileViewControllerProtocol, "Expecting last view controller to be a ProfileViewControllerProtocol implementation")
@@ -52,7 +52,7 @@ final class ProfileCoordinatorTest: XCTestCase {
         )
         
         // act
-        sut.showLoginError(title: "Error", message: "Invalid login")
+        sut.showError(title: "Error", message: "Invalid login")
         
         // assert
         XCTAssert(navigationController.lastShowedUiViewController is UIAlertController, "Expecting last view controller to be a UIAlertController")

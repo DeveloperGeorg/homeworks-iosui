@@ -9,6 +9,7 @@ final class ProfileCoordinator: Coordinatable {
     let userService: UserService
     let postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
     let postItemFormCoordinator: PostItemFormCoordinator
+    var isLoggedIn = false
     
     init(
         navigationController: UINavigationController,
@@ -27,15 +28,23 @@ final class ProfileCoordinator: Coordinatable {
     }
     
     func start() {
-        let logInViewController = self.loginFactory.createLogInViewController(coordinator: self)
-        navigationController.pushViewController(logInViewController, animated: false)
+        if isLoggedIn {
+            let logInViewController = self.loginFactory.createLogInViewController(coordinator: self)
+            navigationController.pushViewController(logInViewController, animated: false)
+        } else {
+            self.openProfile(sender: nil)
+        }
     }
     
-    func openProfile(sender:UIButton?, loginInput: String) {
+    func openProfile(sender:UIButton?) {
         do {
-            navigationController.show(try self.profileFactory.createProfileViewController(
-                userService: self.userService, loginInput: loginInput, coordinator: self
-            ), sender: sender)
+            let profileController = try self.profileFactory.createProfileViewController(
+                userService: self.userService, coordinator: self
+            )
+            if !isLoggedIn {
+                self.navigationController.setViewControllers([profileController], animated: true)
+            }
+            isLoggedIn = true
         } catch {
             self.showError(title: String(localized: "Error occurred"), message: String(localized: "Something went wrong. Try again later"))
         }

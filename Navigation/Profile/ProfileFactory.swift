@@ -2,9 +2,9 @@ import UIKit
 
 class ProfileFactory: ProfileFactoryProtocol {
     
-    func createProfileViewController(userService: UserService, loginInput: String, coordinator: ProfileCoordinator) throws -> ProfileViewControllerProtocol {
+    func createProfileViewController(userService: UserService, coordinator: ProfileCoordinator) throws -> ProfileViewControllerProtocol {
         return try ProfileViewController(
-            userService: userService, fullName: loginInput, profileCoordinator: coordinator
+            userService: userService, profileCoordinator: coordinator
         )
     }
 }

@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }()
     
 
-    init(userService: UserService, fullName: String, profileCoordinator: ProfileCoordinator) throws {
+    init(userService: UserService, profileCoordinator: ProfileCoordinator) throws {
         self.userService = userService
         self.profileCoordinator = profileCoordinator
         if let user = self.userService.getUserIfAuthorized() {

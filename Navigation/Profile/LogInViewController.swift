@@ -52,7 +52,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
                 self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({ user in
                     self.authUserStorage.save(lastAuthorizedUser)
                     self.userService.storeCurrentUser(user)
-                    self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
+                    self.coordinator?.openProfile(sender: nil)
                 }), ({
                     self.coordinator?.showError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
                 }))
@@ -65,7 +65,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
             self.checkCredentials(login: enteredLogin, password: enteredPassword, ({ user in
                 self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
                 self.userService.storeCurrentUser(user)
-                self.coordinator?.openProfile(sender: sender, loginInput: enteredLogin)
+                self.coordinator?.openProfile(sender: sender)
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             }))
@@ -75,7 +75,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
             let enteredLogin = self.loginView.loginInput.text ?? "";
             self.sugnUp(login: enteredLogin, password: enteredPassword, ({
                 self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
+                self.coordinator?.openProfile(sender: sender)
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             }))
