@@ -15,6 +15,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
     private let authUserStorage: AuthUserStorageProtocol
     private let localAuthorizationService = LocalAuthorizationService()
     private let userService: UserService
+    private let bloggerDataStorage: BloggerDataStorageProtocol
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
@@ -22,6 +23,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         self.coordinator = coordinator
         self.authUserStorage = RealmAuthUserStorage()
         self.userService = coordinator?.userService ?? CurrentUserService()
+        self.bloggerDataStorage = FirestoreBloggerDataStorage()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -74,9 +76,18 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
             let enteredPassword = self.loginView.passwordInput.text ?? "";
             let enteredLogin = self.loginView.loginInput.text ?? "";
             self.sugnUp(login: enteredLogin, password: enteredPassword, ({ user in
-                self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                self.userService.storeCurrentUser(user)
-                self.coordinator?.openProfile(sender: sender)
+                /** @todo create blogger in particular way */
+                self.bloggerDataStorage.create(
+                    BloggerPreview(
+                        userId: user.userId,
+                        name: enteredLogin,
+                        imageLink: "https://ucarecdn.com/ee19c14b-0d56-45fe-9e83-0f1af1a1d340/"
+                    )
+                ) { blogger in
+                    self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
+                    self.userService.storeCurrentUser(user)
+                    self.coordinator?.openProfile(sender: sender)
+                }
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             }))
@@ -90,7 +101,6 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
     
     func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         signUpViewControllerDelegate.sugnUp(login: login, password: password, completionHandler, errorHandler)
-        /** @todo create blogger */
     }
                                                       
     @objc func keyboardWillShow(notification:NSNotification) {

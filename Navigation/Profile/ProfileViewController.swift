@@ -71,9 +71,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         super.viewDidLoad()
         self.title = "Profile"
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
-        #if DEBUG
-        view.backgroundColor = UIColor.createColor(lightMode: .systemPurple, darkMode: .systemCyan)
-        #endif
         
         view.addSubview(postsTableView)
         
@@ -90,11 +87,13 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        print(self.user.userId)
         bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
                 self.blogger = blogger
                 self.profileCoordinator.setBlogger(blogger)
                 self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                    print("posts count: \(posts)")
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.postsTableView.reloadData()
@@ -113,6 +112,20 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 self.postsTableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+            }
+        } else {
+            bloggerDataProvider.getByUserId(self.user.userId) { blogger in
+                if let blogger = blogger {
+                    self.blogger = blogger
+                    self.profileCoordinator.setBlogger(blogger)
+                    self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                        self.couldGetNextPage = hasMore
+                        self.postListTableViewDataSource.addPosts(posts)
+                        self.postsTableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                        self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                    }
+                }
             }
         }
     }

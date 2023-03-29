@@ -11,8 +11,6 @@ class FirestorePostItemDataStorage: PostItemDataStorageProtocol {
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-//                print("Document added with ID: \(refDocument.documentID)")
-                print("Document added:")
                 completionHandler(postItem)
             }
         }
