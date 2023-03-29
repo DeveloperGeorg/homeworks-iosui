@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         .bloom(intensity: 0.7)
     ]
     
+    let refreshControl = UIRefreshControl()
     let postsTableView: UITableView = {
         let postsTableView = UITableView.init(frame: .zero, style: .plain)
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +77,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.addSubview(postsTableView)
         
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        postsTableView.addSubview(refreshControl)
+        
         postsTableView.dataSource = postListTableViewDataSource
         postsTableView.delegate = self
         postsTableView.rowHeight = UITableView.automaticDimension
@@ -94,6 +99,20 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                     self.postListTableViewDataSource.addPosts(posts)
                     self.postsTableView.reloadData()
                 }
+            }
+        }
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        if let blogger = self.blogger {
+            self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                self.couldGetNextPage = hasMore
+                self.postListTableViewDataSource.clearPosts()
+                self.postListTableViewDataSource.addPosts(posts)
+                self.postsTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
             }
         }
     }

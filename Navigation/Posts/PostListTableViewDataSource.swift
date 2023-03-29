@@ -8,6 +8,10 @@ class PostListTableViewDataSource: NSObject {
         self.posts = []
     }
     
+    func clearPosts() {
+        self.posts = []
+    }
+    
     func addPosts(_ posts: [PostAggregate]) {
         self.posts.append(contentsOf: posts)
     }

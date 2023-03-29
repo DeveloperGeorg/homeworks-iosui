@@ -8,6 +8,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let paginationLimit = 3;
     var couldGetNextPage = true
+    let refreshControl = UIRefreshControl()
     
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
@@ -36,6 +37,10 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         feedView?.postsTableView.rowHeight = UITableView.automaticDimension
         feedView?.postsTableView.register(PostItemTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
         
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        feedView?.postsTableView.addSubview(refreshControl)
+        
         self.feedPresenter.render()
         
         feedView?.validatePostButton.setButtonTappedCallback({ sender in
@@ -44,10 +49,18 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.view = feedView
     }
     
-//    @objc private func openPost(_ sender: UIButton) {
-//        let buttonTitle = sender.currentTitle!
-//        feedPresenter.openPost(postTitle: buttonTitle)
-//    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
+            self.couldGetNextPage = hasMore
+            self.postListTableViewDataSource.clearPosts()
+            self.postListTableViewDataSource.addPosts(posts)
+            self.feedView?.postsTableView.reloadData()
+            self.refreshControl.endRefreshing()
+            self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+        }
+    }
     
     func addPostToFeed(title: String) -> Void {
         let button = feedView?.getButtonWithText(title)
