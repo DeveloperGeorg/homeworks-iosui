@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     private var updatingImagesCounter = 0
     private let updatingImagesMaxCounter = 4
     var user: User
+    var blogger: BloggerPreview? = nil
     var posts: [PostAggregate] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
@@ -35,20 +36,20 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }()
     
 
-    init(userService: UserService, fullName: String, profileCoordinator: ProfileCoordinator) {
+    init(userService: UserService, fullName: String, profileCoordinator: ProfileCoordinator) throws {
         self.userService = userService
         self.profileCoordinator = profileCoordinator
-        /* @todo check password */
-        if let user = self.userService.getUserByFullName(fullName) {
+        print(self.userService.getUserIfAuthorized())
+        if let user = self.userService.getUserIfAuthorized() {
             self.user = user
+            self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
+            self.bloggerDataProvider = FirestoreBloggerDataProvider()
+            
+            super.init(nibName: nil, bundle: nil)
         } else {
-            self.user = User(
-            fullName: fullName, avatarImageSrc: "cat-avatar.png", status: String(localized: "some state"))
+            /** @todo throw and go back */
+            throw ValidationError.notFound
         }
-        self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
-        self.bloggerDataProvider = FirestoreBloggerDataProvider()
-        
-        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -88,6 +89,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         view.layoutIfNeeded()
         bloggerDataProvider.getByUserId(tempUserId) { blogger in
             if let blogger = blogger {
+                self.blogger = blogger
                 self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
@@ -98,7 +100,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ProfileTableHederView.init(profile: self.user, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 290), profileCoordinator: self.profileCoordinator)
+        let headerView = ProfileTableHederView.init(profile: self.blogger, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 290), profileCoordinator: self.profileCoordinator)
             
             return headerView
         }

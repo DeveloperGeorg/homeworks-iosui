@@ -9,7 +9,7 @@ class ProfileHeaderView: UIView {
     
     private let profileCoordinator: ProfileCoordinator
 
-    var profile: User
+    var profile: BloggerPreview?
     
     var avatarImageView: UIImageView = {
         let avatarImageView = UIImageView()
@@ -85,19 +85,32 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    public init(profile: User, frame: CGRect, profileCoordinator: ProfileCoordinator) {
+    public init(profile: BloggerPreview?, frame: CGRect, profileCoordinator: ProfileCoordinator) {
         self.profile = profile
         self.profileCoordinator = profileCoordinator
         super.init(frame: frame)
         
-        let image = UIImage(named: profile.avatarImageSrc)
-        avatarImageView.image = image
+        /** @ todo set default */
+        /** @ todo get from the internet */
+        if let imageLink = profile?.imageLink {
+            DispatchQueue.global().async { [weak self] in
+                if let url = URL(string: imageLink) {
+                    if let data = try? Data(contentsOf: url) {
+                        if let image = UIImage(data: data) {
+                            DispatchQueue.main.async {
+                                self?.avatarImageView.image = image
+                            }
+                        }
+                    }
+                }
+            }
+        }
         
         fullNameLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
-        fullNameLabel.text = profile.fullName
+        fullNameLabel.text = profile?.name
         
         statusLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
-        statusLabel.text = profile.status
+        statusLabel.text = profile?.shortDescription
         
         addSubviews()
         drawLayer()
@@ -161,7 +174,7 @@ class ProfileHeaderView: UIView {
     
     private func addTargets() {
         setStatusButton.setButtonTappedCallback({ sender in
-            self.statusLabel.text = self.profile.status
+            self.statusLabel.text = self.profile?.shortDescription
             self.statusLabel.setNeedsDisplay()
         })
         createPostButton.setButtonTappedCallback({ sender in
@@ -176,6 +189,6 @@ class ProfileHeaderView: UIView {
     
     @objc private func changeProfileState(_ textField: UITextField)
     {
-        profile.status = String(textField.text ?? profile.status)
+        profile?.shortDescription = String((textField.text ?? profile?.shortDescription) ?? "")
     }
 }

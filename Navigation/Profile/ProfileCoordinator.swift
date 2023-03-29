@@ -32,9 +32,16 @@ final class ProfileCoordinator: Coordinatable {
     }
     
     func openProfile(sender:UIButton?, loginInput: String) {
-        navigationController.show(self.profileFactory.createProfileViewController(
+        navigationController.show(try! self.profileFactory.createProfileViewController(
             userService: self.userService, loginInput: loginInput, coordinator: self
         ), sender: sender)
+//        do {
+//            navigationController.show(try self.profileFactory.createProfileViewController(
+//                userService: self.userService, loginInput: loginInput, coordinator: self
+//            ), sender: sender)
+//        } catch {
+//            print("something went wrong")
+//        }
     }
     
     func showLoginError(title: String, message: String) {

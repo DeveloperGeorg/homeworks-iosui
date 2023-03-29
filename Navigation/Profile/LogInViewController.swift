@@ -14,12 +14,14 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private let authUserStorage: AuthUserStorageProtocol
     private let localAuthorizationService = LocalAuthorizationService()
+    private let userService: UserService
 
     public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
         self.authUserStorage = RealmAuthUserStorage()
+        self.userService = coordinator?.userService ?? CurrentUserService()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,8 +49,9 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
                     )
                     return
                 }
-                self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({
+                self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({ user in
                     self.authUserStorage.save(lastAuthorizedUser)
+                    self.userService.storeCurrentUser(user)
                     self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
                 }), ({
                     self.coordinator?.showLoginError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
@@ -60,8 +63,9 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
             do {
                 let enteredPassword = self.loginView.passwordInput.text ?? "";
                 let enteredLogin = self.loginView.loginInput.text ?? "";
-                self.checkCredentials(login: enteredLogin, password: enteredPassword, ({
+                self.checkCredentials(login: enteredLogin, password: enteredPassword, ({ user in
                     self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
+                    self.userService.storeCurrentUser(user)
                     self.coordinator?.openProfile(sender: sender, loginInput: enteredLogin)
                 }), ({
                     self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
@@ -91,7 +95,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         view = loginView
     }
     
-    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func checkCredentials(login: String, password: String, _ completion: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         loginViewControllerDelegate.checkCredentials(login: login, password: password, completion, errorHandler)
     }
     

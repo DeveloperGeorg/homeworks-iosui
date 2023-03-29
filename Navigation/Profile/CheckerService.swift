@@ -3,12 +3,13 @@ import FirebaseCore
 import FirebaseAuth
 
 class CheckerService: CheckerServiceProtocol {
-    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func checkCredentials(login: String, password: String, _ completion: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         Task {
             
             FirebaseAuth.Auth.auth().signIn(withEmail: login, password: password, completion: { authDataResult, error in
-                if authDataResult?.user != nil {
-                    completion()
+                if let firebaseUser = authDataResult?.user {
+                    let user = User(fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
+                    completion(user)
                 } else {
                     errorHandler()
                 }

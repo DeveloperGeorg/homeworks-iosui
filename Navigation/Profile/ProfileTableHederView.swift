@@ -2,10 +2,13 @@ import UIKit
 
 class ProfileTableHederView: UIView {
     let profileHeaderView: ProfileHeaderView
+    
+    var profile: BloggerPreview?
 
-    public init(profile: User, frame: CGRect, profileCoordinator: ProfileCoordinator) {
+    public init(profile: BloggerPreview?, frame: CGRect, profileCoordinator: ProfileCoordinator) {
+        self.profile = profile
         profileHeaderView = ProfileHeaderView(
-            profile: profile,
+            profile: self.profile,
             frame: .zero,
             profileCoordinator: profileCoordinator
         )

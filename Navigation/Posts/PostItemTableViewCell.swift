@@ -175,14 +175,14 @@ class PostItemTableViewCell: UITableViewCell {
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.blogger.imageLink) {
                 if let data = try? Data(contentsOf: url) {
-                            if let image = UIImage(data: data) {
-                                DispatchQueue.main.async {
-                                    self?.authorImageView.image = image
-                                }
-                            }
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.authorImageView.image = image
                         }
                     }
+                }
             }
+        }
             
         authorTitleLabel.text = postAggregate.blogger.name
         authorSubTitleLabel.text = postAggregate.blogger.shortDescription
@@ -190,14 +190,14 @@ class PostItemTableViewCell: UITableViewCell {
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.post.mainImageLink) {
                 if let data = try? Data(contentsOf: url) {
-                            if let image = UIImage(data: data) {
-                                DispatchQueue.main.async {
-                                    self?.mainImageView.image = image
-                                }
-                            }
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.mainImageView.image = image
                         }
                     }
+                }
             }
+        }
         likesCounterLabel.text = "\(postAggregate.post.likesAmount)"
         commentsCounterLabel.text = "\(postAggregate.post.commentsAmount)"
     }

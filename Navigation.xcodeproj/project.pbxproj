@@ -48,7 +48,6 @@
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
 		4194722027F9AF170075A056 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
-		4194722127F9AF170075A056 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721D27F9AF170075A056 /* TestUserService.swift */; };
 		4194722227F9AF170075A056 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721E27F9AF170075A056 /* User.swift */; };
 		4194722327F9AF170075A056 /* CurrentUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721F27F9AF170075A056 /* CurrentUserService.swift */; };
 		4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194722727F9B0F70075A056 /* FeedViewController.swift */; };
@@ -187,7 +186,6 @@
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
 		4194721C27F9AF170075A056 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		4194721D27F9AF170075A056 /* TestUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		4194721E27F9AF170075A056 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4194721F27F9AF170075A056 /* CurrentUserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserService.swift; sourceTree = "<group>"; };
 		4194722727F9B0F70075A056 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				4194721F27F9AF170075A056 /* CurrentUserService.swift */,
-				4194721D27F9AF170075A056 /* TestUserService.swift */,
 				4194721E27F9AF170075A056 /* User.swift */,
 				4194721C27F9AF170075A056 /* UserService.swift */,
 				41E6CD2827213DF00030EF9A /* ProfileViewController.swift */,
@@ -754,7 +751,6 @@
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41C270BF29D00D0D00B40F43 /* PostComment.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
-				4194722127F9AF170075A056 /* TestUserService.swift in Sources */,
 				412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
