@@ -91,7 +91,6 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         
         /** @ todo set default */
-        /** @ todo get from the internet */
         if let imageLink = profile?.imageLink {
             DispatchQueue.global().async { [weak self] in
                 if let url = URL(string: imageLink) {
