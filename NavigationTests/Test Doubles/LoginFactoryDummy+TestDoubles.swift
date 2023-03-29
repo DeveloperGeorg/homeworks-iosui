@@ -12,9 +12,6 @@ class LoginFactoryDummy: LoginFactoryProtocol {
         let vc = LogInViewControllerDummy()
         return vc
     }
-    func createLoginError(title: String, message: String) -> UIAlertController {
-        return UIAlertController()
-    }
 }
 
 class LogInViewControllerDummy: UIViewController, LogInViewControllerProtocol {
@@ -22,7 +19,7 @@ class LogInViewControllerDummy: UIViewController, LogInViewControllerProtocol {
 }
 
 class LoginViewControllerDelegateDummy: LoginViewControllerDelegateProtocol {
-    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func checkCredentials(login: String, password: String, _ completion: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) {
         
     }
 }
