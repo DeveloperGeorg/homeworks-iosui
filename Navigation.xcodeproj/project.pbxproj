@@ -44,6 +44,8 @@
 		4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A94D27F577900030C223 /* ProfileCoordinator.swift */; };
 		4149A95127F607650030C223 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95027F607650030C223 /* FeedPresenter.swift */; };
 		4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95327F6BA660030C223 /* FeedViewDelegate.swift */; };
+		414CEDC829E324C700D37933 /* PostCommentStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDC729E324C700D37933 /* PostCommentStorageProtocol.swift */; };
+		414CEDCA29E3253200D37933 /* FirestorePostCommentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
@@ -184,6 +186,8 @@
 		4149A94D27F577900030C223 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		4149A95027F607650030C223 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		4149A95327F6BA660030C223 /* FeedViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewDelegate.swift; sourceTree = "<group>"; };
+		414CEDC729E324C700D37933 /* PostCommentStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentStorageProtocol.swift; sourceTree = "<group>"; };
+		414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostCommentStorage.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
@@ -281,31 +285,33 @@
 		41038DE429C8B6DB00CE8195 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
-				41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */,
-				41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */,
-				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
-				41038DEB29C970D700CE8195 /* PostAggregate.swift */,
-				41038DED29C9719600CE8195 /* BloggerPreview.swift */,
-				41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */,
-				41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */,
-				41C270B829CC2A2A00B40F43 /* PostItem.swift */,
-				4194721427F9AF010075A056 /* PostAggregateViewController.swift */,
 				41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */,
+				41C270DE29D4A29900B40F43 /* BloggerDataStorageProtocol.swift */,
+				41038DED29C9719600CE8195 /* BloggerPreview.swift */,
+				41C270CA29D05ECF00B40F43 /* CreatePostViewController.swift */,
+				41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */,
+				41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */,
 				41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */,
+				41C270E029D4A33200B40F43 /* FirestoreBloggerDataStorage.swift */,
+				41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */,
+				41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */,
+				41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */,
+				41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */,
+				41038DEB29C970D700CE8195 /* PostAggregate.swift */,
+				41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */,
+				41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */,
+				4194721427F9AF010075A056 /* PostAggregateViewController.swift */,
 				41C270BE29D00D0D00B40F43 /* PostComment.swift */,
 				41C270C029D00E7C00B40F43 /* PostCommentDataProviderProtocol.swift */,
-				41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */,
+				414CEDC729E324C700D37933 /* PostCommentStorageProtocol.swift */,
 				41C270C429D03AB500B40F43 /* PostDataProviderProtocol.swift */,
-				41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */,
-				41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */,
-				41C270CA29D05ECF00B40F43 /* CreatePostViewController.swift */,
-				41C270CC29D0614900B40F43 /* PostItemFormCoordinator.swift */,
+				41C270B829CC2A2A00B40F43 /* PostItem.swift */,
 				41C270CE29D067C300B40F43 /* PostItemDataStorageProtocol.swift */,
-				41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */,
-				41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */,
+				41C270CC29D0614900B40F43 /* PostItemFormCoordinator.swift */,
+				41038DEF29C9746400CE8195 /* PostItemTableViewCell.swift */,
+				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
 				41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */,
-				41C270DE29D4A29900B40F43 /* BloggerDataStorageProtocol.swift */,
-				41C270E029D4A33200B40F43 /* FirestoreBloggerDataStorage.swift */,
+				414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -408,13 +414,13 @@
 		41E6CD01272075F50030EF9A = {
 			isa = PBXGroup;
 			children = (
+				07716614BC270F4AACC7FB3D /* Frameworks */,
 				413118FA2835518E00582FCE /* GoogleService-Info.plist */,
 				41E6CD0C272075F60030EF9A /* Navigation */,
-				41B9053727BABC830020A8DD /* StorageService */,
 				413CA01529A2386100005D7F /* NavigationTests */,
-				41E6CD0B272075F60030EF9A /* Products */,
 				E46FE82746DAB04AB35FB1DC /* Pods */,
-				07716614BC270F4AACC7FB3D /* Frameworks */,
+				41E6CD0B272075F60030EF9A /* Products */,
+				41B9053727BABC830020A8DD /* StorageService */,
 			);
 			sourceTree = "<group>";
 		};
@@ -760,6 +766,7 @@
 				41C270BF29D00D0D00B40F43 /* PostComment.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
 				412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */,
+				414CEDC829E324C700D37933 /* PostCommentStorageProtocol.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
@@ -784,6 +791,7 @@
 				41C270C729D03B3500B40F43 /* FirestorePostDataProvider.swift in Sources */,
 				41A384E5273B95B300B2B76C /* LogInView.swift in Sources */,
 				4149A94627F4AED20030C223 /* ApplicationCoordinator.swift in Sources */,
+				414CEDCA29E3253200D37933 /* FirestorePostCommentStorage.swift in Sources */,
 				411A848D29AD0ABE002AA549 /* BiometricIDAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

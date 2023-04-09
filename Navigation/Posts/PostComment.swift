@@ -18,6 +18,15 @@ struct PostComment: Decodable {
        case commentedAt
     }
     
+    init(blogger: String, post: String, comment: String, commentedAt: Date, parent: String? = nil, id: String? = nil) {
+        self.blogger = blogger
+        self.post = post
+        self.parent = parent
+        self.comment = comment
+        self.commentedAt = commentedAt
+        self.id = id
+    }
+    
     init(from decoder:Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         blogger = try values.decode(String.self, forKey: .blogger)
