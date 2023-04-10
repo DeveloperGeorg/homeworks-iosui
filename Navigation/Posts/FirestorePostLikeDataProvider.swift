@@ -48,17 +48,20 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
     }
     
     private func getTotalAmountForPost(postIdsFilter: String, completionHandler: @escaping (Int) -> Void) {
-//        let query = db.collection("post-likes")
-//            .whereField("post", isEqualTo: postIdsFilter)
-//
-//        let countQuery = query.count
-//        do {
-//            let snapshot = try await countQuery.getAggregation(source: .server)
-//            print(snapshot.count)
-//        } catch {
-//            print(error);
-//        }
-        /** @todo */
-        completionHandler(0)
+        let query = db.collection("post-likes")
+            .whereField("post", isEqualTo: postIdsFilter)
+
+        let countQuery = query.count
+        countQuery.getAggregation(source: .server) { snapshot, error  in
+            var amount = 0
+            if let error = error {
+                print("Error getting likes amont for post \(postIdsFilter): \(error)")
+            } else if let snapshot = snapshot {
+                amount = Int(truncating: snapshot.count)
+                print("post #\(postIdsFilter), likes \(amount)")
+            }
+            
+            completionHandler(amount)
+        }
     }
 }

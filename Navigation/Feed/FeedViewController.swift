@@ -39,7 +39,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
                     if let postId = post.post.id {
                         if let postLike = postLikes[postId] {
                             post.isLiked = true
-                            print(post)
                         }
                     }
                 }
@@ -48,7 +47,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
                         if let postId = post.post.id {
                             if let likesAmount = postToAmount[postId] {
                                 post.likesAmount = likesAmount
-                                print(post)
                             }
                         }
                     }
