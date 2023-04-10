@@ -55,7 +55,7 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
         countQuery.getAggregation(source: .server) { snapshot, error  in
             var amount = 0
             if let error = error {
-                print("Error getting likes amont for post \(postIdsFilter): \(error)")
+                print("Error getting likes amount for post \(postIdsFilter): \(error)")
             } else if let snapshot = snapshot {
                 amount = Int(truncating: snapshot.count)
                 print("post #\(postIdsFilter), likes \(amount)")

@@ -7,6 +7,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let postLikeDataProvider: PostLikeDataProviderProtocol
+    let postCommentDataProvider: PostCommentDataProviderProtocol
     let paginationLimit = 3;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
@@ -15,6 +16,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.feedPresenter = feedPresenter
         self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
         self.postLikeDataProvider = FirestorePostLikeDataProvider()
+        self.postCommentDataProvider = FirestorePostCommentDataProvider()
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
@@ -27,33 +29,8 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         super.viewDidLoad()
         postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
             self.couldGetNextPage = hasMore
-            var postIds: [String] = []
-            for post in posts {
-                if let postId = post.post.id {
-                    postIds.append(postId)
-                }
-            }
-            /** @todo blogger */
-            self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
-                for var post in posts {
-                    if let postId = post.post.id {
-                        if let postLike = postLikes[postId] {
-                            post.isLiked = true
-                        }
-                    }
-                }
-                self.postLikeDataProvider.getTotalAmount(postIdsFilter: postIds) { postToAmount in
-                    for var post in posts {
-                        if let postId = post.post.id {
-                            if let likesAmount = postToAmount[postId] {
-                                post.likesAmount = likesAmount
-                            }
-                        }
-                    }
-                    self.postListTableViewDataSource.addPosts(posts)
-                    self.feedView?.postsTableView.reloadData()
-                }
-            }
+            self.postListTableViewDataSource.addPosts(posts)
+            self.feedView?.postsTableView.reloadData()
         }
     }
     
@@ -136,16 +113,6 @@ extension FeedViewController: UITableViewDelegate {
                 postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
-                    var postIds: [String] = []
-                    for post in posts {
-                        if let postId = post.post.id {
-                            postIds.append(postId)
-                        }
-                    }
-                    /** @todo blogger */
-                    self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
-                        print(postLikes)
-                    }
                     self.feedView?.postsTableView.reloadData()
                 }
             }

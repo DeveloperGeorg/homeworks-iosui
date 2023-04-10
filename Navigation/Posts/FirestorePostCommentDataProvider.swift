@@ -37,5 +37,35 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
         }
     }
     
+    func getTotalAmount(postIdsFilter: [String], completionHandler: @escaping ([String:Int]) -> Void) {
+        var postToAmount: [String:Int] = [:]
+        var handledItems = 0
+        for postId in postIdsFilter {
+            self.getTotalAmountForPost(postIdsFilter: postId) { amount in
+                postToAmount[postId] = amount
+                handledItems += 1
+                if postIdsFilter.count == handledItems {
+                    completionHandler(postToAmount)
+                }
+            }
+        }
+    }
     
+    private func getTotalAmountForPost(postIdsFilter: String, completionHandler: @escaping (Int) -> Void) {
+        let query = db.collection("post-comments")
+            .whereField("post", isEqualTo: postIdsFilter)
+
+        let countQuery = query.count
+        countQuery.getAggregation(source: .server) { snapshot, error  in
+            var amount = 0
+            if let error = error {
+                print("Error getting comments amount for post \(postIdsFilter): \(error)")
+            } else if let snapshot = snapshot {
+                amount = Int(truncating: snapshot.count)
+                print("post #\(postIdsFilter), comments \(amount)")
+            }
+            
+            completionHandler(amount)
+        }
+    }
 }

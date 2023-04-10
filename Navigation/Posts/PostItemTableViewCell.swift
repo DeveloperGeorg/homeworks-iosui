@@ -198,6 +198,7 @@ class PostItemTableViewCell: UITableViewCell {
                 }
             }
         }
+        print("POST #\(postAggregate.post.id) likes \(postAggregate.likesAmount) comments \(postAggregate.likesAmount)")
         likesCounterLabel.text = "\(postAggregate.post.likesAmount)"
         commentsCounterLabel.text = "\(postAggregate.post.commentsAmount)"
     }
