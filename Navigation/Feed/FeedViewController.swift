@@ -27,7 +27,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         super.viewDidLoad()
         postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
             self.couldGetNextPage = hasMore
-            self.postListTableViewDataSource.addPosts(posts)
             var postIds: [String] = []
             for post in posts {
                 if let postId = post.post.id {
@@ -37,8 +36,17 @@ class FeedViewController: UIViewController, FeedViewDelegate {
             /** @todo blogger */
             self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
                 print(postLikes)
+                for var post in posts {
+                    if let postId = post.post.id {
+                        if let postLike = postLikes[postId] {
+                            post.isLiked = true
+                            print(post)
+                        }
+                    }
+                }
+                self.postListTableViewDataSource.addPosts(posts)
+                self.feedView?.postsTableView.reloadData()
             }
-            self.feedView?.postsTableView.reloadData()
         }
     }
     
