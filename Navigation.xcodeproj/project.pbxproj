@@ -46,6 +46,9 @@
 		4149A95427F6BA660030C223 /* FeedViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A95327F6BA660030C223 /* FeedViewDelegate.swift */; };
 		414CEDC829E324C700D37933 /* PostCommentStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDC729E324C700D37933 /* PostCommentStorageProtocol.swift */; };
 		414CEDCA29E3253200D37933 /* FirestorePostCommentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */; };
+		414CEDCC29E3D25200D37933 /* PostLikeDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDCB29E3D25200D37933 /* PostLikeDataProviderProtocol.swift */; };
+		414CEDCE29E3D28700D37933 /* PostLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDCD29E3D28700D37933 /* PostLike.swift */; };
+		414CEDD029E3D38800D37933 /* FirestorePostLikeDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDCF29E3D38800D37933 /* FirestorePostLikeDataProvider.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
@@ -188,6 +191,9 @@
 		4149A95327F6BA660030C223 /* FeedViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewDelegate.swift; sourceTree = "<group>"; };
 		414CEDC729E324C700D37933 /* PostCommentStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentStorageProtocol.swift; sourceTree = "<group>"; };
 		414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostCommentStorage.swift; sourceTree = "<group>"; };
+		414CEDCB29E3D25200D37933 /* PostLikeDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikeDataProviderProtocol.swift; sourceTree = "<group>"; };
+		414CEDCD29E3D28700D37933 /* PostLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLike.swift; sourceTree = "<group>"; };
+		414CEDCF29E3D38800D37933 /* FirestorePostLikeDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostLikeDataProvider.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +318,9 @@
 				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
 				41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */,
 				414CEDC929E3253200D37933 /* FirestorePostCommentStorage.swift */,
+				414CEDCB29E3D25200D37933 /* PostLikeDataProviderProtocol.swift */,
+				414CEDCD29E3D28700D37933 /* PostLike.swift */,
+				414CEDCF29E3D38800D37933 /* FirestorePostLikeDataProvider.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -751,6 +760,7 @@
 				41C270CD29D0614900B40F43 /* PostItemFormCoordinator.swift in Sources */,
 				41C270BB29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
+				414CEDCC29E3D25200D37933 /* PostLikeDataProviderProtocol.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				41038DEC29C970D700CE8195 /* PostAggregate.swift in Sources */,
 				413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */,
@@ -771,6 +781,8 @@
 				41A5EF832807EA3F00A12C07 /* NetworkService.swift in Sources */,
 				4194722227F9AF170075A056 /* User.swift in Sources */,
 				41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */,
+				414CEDCE29E3D28700D37933 /* PostLike.swift in Sources */,
+				414CEDD029E3D38800D37933 /* FirestorePostLikeDataProvider.swift in Sources */,
 				412D778529C742A200BD23E8 /* LightColorPalette.swift in Sources */,
 				413CA00F29A204A300005D7F /* UIColorLightDarkExtension.swift in Sources */,
 				41C270CF29D067C300B40F43 /* PostItemDataStorageProtocol.swift in Sources */,

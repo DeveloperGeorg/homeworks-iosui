@@ -6,6 +6,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
+    let postLikeDataProvider: PostLikeDataProviderProtocol
     let paginationLimit = 3;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
@@ -13,6 +14,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
         self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
+        self.postLikeDataProvider = FirestorePostLikeDataProvider()
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
@@ -26,6 +28,16 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
+            var postIds: [String] = []
+            for post in posts {
+                if let postId = post.post.id {
+                    postIds.append(postId)
+                }
+            }
+            /** @todo blogger */
+            self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
+                print(postLikes)
+            }
             self.feedView?.postsTableView.reloadData()
         }
     }
@@ -67,7 +79,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         guard let postButton = button else {
             return
         }
-//        postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
         feedView?.postsStackView.addArrangedSubview(postButton)
     }
 
@@ -110,6 +121,16 @@ extension FeedViewController: UITableViewDelegate {
                 postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
+                    var postIds: [String] = []
+                    for post in posts {
+                        if let postId = post.post.id {
+                            postIds.append(postId)
+                        }
+                    }
+                    /** @todo blogger */
+                    self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
+                        print(postLikes)
+                    }
                     self.feedView?.postsTableView.reloadData()
                 }
             }
