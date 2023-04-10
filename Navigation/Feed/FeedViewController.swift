@@ -35,7 +35,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
             }
             /** @todo blogger */
             self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { postLikes in
-                print(postLikes)
                 for var post in posts {
                     if let postId = post.post.id {
                         if let postLike = postLikes[postId] {
@@ -44,8 +43,18 @@ class FeedViewController: UIViewController, FeedViewDelegate {
                         }
                     }
                 }
-                self.postListTableViewDataSource.addPosts(posts)
-                self.feedView?.postsTableView.reloadData()
+                self.postLikeDataProvider.getTotalAmount(postIdsFilter: postIds) { postToAmount in
+                    for var post in posts {
+                        if let postId = post.post.id {
+                            if let likesAmount = postToAmount[postId] {
+                                post.likesAmount = likesAmount
+                                print(post)
+                            }
+                        }
+                    }
+                    self.postListTableViewDataSource.addPosts(posts)
+                    self.feedView?.postsTableView.reloadData()
+                }
             }
         }
     }
