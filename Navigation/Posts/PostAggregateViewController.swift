@@ -37,8 +37,8 @@ class PostAggregateViewController: UIViewController {
         text += "Description: \(post.blogger.shortDescription)\n"
         text += "Image: \(post.blogger.imageLink)\n"
         text += "Post content: \(post.post.content)\n"
-        text += "Likes amount: \(post.post.likesAmount)\n"
-        text += "Comments amount: \(post.post.commentsAmount)\n"
+        text += "Likes amount: \(post.likesAmount)\n"
+        text += "Comments amount: \(post.commentsAmount)\n"
         tempPostContent.text = text
         super.init(nibName: nil, bundle: nil)
     }

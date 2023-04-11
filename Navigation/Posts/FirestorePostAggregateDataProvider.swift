@@ -77,11 +77,9 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                 bloggerIdToBlogger[bloggerId] = blogger
             }
         }
-        for var post in posts {
+        for post in posts {
             if let postId = post.id {
                 if let bloggerItem = bloggerIdToBlogger[post.blogger] {
-                    post.commentsAmount = postToCommentAmount[postId] ?? 0
-                    post.likesAmount = postToLikeAmount[postId] ?? 0
                     let postAggregate = PostAggregate(
                         blogger: bloggerItem,
                         post: post,
