@@ -7,7 +7,7 @@ class FirestoreBloggerDataStorage: BloggerDataStorageProtocol {
     private let db = Firestore.firestore()
     
     func create(_ blogger: BloggerPreview, completionHandler: @escaping (BloggerPreview) -> Void) -> Void {
-        var refDocument = db.collection("bloggers").addDocument(data: blogger.getDataForFirestore()) { err in
+        _ = db.collection("bloggers").addDocument(data: blogger.getDataForFirestore()) { err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {

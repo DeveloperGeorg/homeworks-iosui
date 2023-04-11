@@ -23,10 +23,11 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
         query.getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
+                completionHandler(postComments, false)
             } else if let snapshot = snapshot {
                 let postCommentsDocumentsCount = snapshot.documents.count
                 for postCommentDocument in snapshot.documents {
-                    if var postComment = try? postCommentDocument.data(as: PostComment.self) {
+                    if let postComment = try? postCommentDocument.data(as: PostComment.self) {
                         postComments.append(postComment)
                     } else {
                         print("something went wrong during post decoding")

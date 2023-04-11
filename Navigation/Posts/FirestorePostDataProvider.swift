@@ -22,6 +22,7 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
         query.getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
+                completionHandler(posts, false)
             } else if let snapshot = snapshot {
                 let postDocumentsCount = snapshot.documents.count
                 for postDocument in snapshot.documents {

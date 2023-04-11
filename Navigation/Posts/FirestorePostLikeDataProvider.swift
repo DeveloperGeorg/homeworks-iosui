@@ -10,7 +10,7 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
         
         var postLikes: [String:PostLike] = [:]
             
-            var query = db.collection("post-likes")
+        let query = db.collection("post-likes")
                 .whereField("blogger", isEqualTo: bloggerIdFilter)
                 .whereField("post", in: postIdsFilter)
                 .limit(to: postIdsFilter.count)
@@ -18,8 +18,8 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
             query.getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error getting posts: \(error)")
+                    completionHandler(postLikes)
                 } else if let snapshot = snapshot {
-                    let postDocumentsCount = snapshot.documents.count
                     for postDocument in snapshot.documents {
                         if var postLike = try? postDocument.data(as: PostLike.self) {
                             postLike.id = String(postDocument.documentID)

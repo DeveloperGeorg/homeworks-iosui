@@ -8,9 +8,9 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
     
     func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String, completionHandler: @escaping ([String:PostFavorites]) -> Void) {
         
-        var postLikes: [String:PostFavorites] = [:]
+        var postFavorites: [String:PostFavorites] = [:]
             
-        var query = db.collection("post-favorites")
+        let query = db.collection("post-favorites")
             .whereField("blogger", isEqualTo: bloggerIdFilter)
             .whereField("post", in: postIdsFilter)
             .limit(to: postIdsFilter.count)
@@ -19,16 +19,15 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
             if let error = error {
                 print("Error getting posts: \(error)")
             } else if let snapshot = snapshot {
-                let postDocumentsCount = snapshot.documents.count
                 for postDocument in snapshot.documents {
-                    if var postLike = try? postDocument.data(as: PostFavorites.self) {
-                        postLike.id = String(postDocument.documentID)
-                        postLikes[postLike.post] = postLike
+                    if var postFavoritesItem = try? postDocument.data(as: PostFavorites.self) {
+                        postFavoritesItem.id = String(postDocument.documentID)
+                        postFavorites[postFavoritesItem.post] = postFavoritesItem
                     } else {
                         print("something went wrong during post decoding")
                     }
                 }
-                completionHandler(postLikes)
+                completionHandler(postFavorites)
             }
         }
     }
@@ -37,7 +36,7 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
         var postFavorites: [PostFavorites] = []
         
         let beforeAddedAtFilterTimestamp: Timestamp = Timestamp(date: beforeAddedAtFilter ?? Date())
-        var query = db.collection("post-favorites")
+        let query = db.collection("post-favorites")
             .whereField("addedAt", isLessThan: beforeAddedAtFilterTimestamp)
             .whereField("blogger", isEqualTo: bloggerIdFilter)
             .order(by: "addedAt", descending: true)
@@ -49,9 +48,9 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
             } else if let snapshot = snapshot {
                 let postDocumentsCount = snapshot.documents.count
                 for postDocument in snapshot.documents {
-                    if var post = try? postDocument.data(as: PostFavorites.self) {
-                        post.id = String(postDocument.documentID)
-                        postFavorites.append(post)
+                    if var postFavoritesItem = try? postDocument.data(as: PostFavorites.self) {
+                        postFavoritesItem.id = String(postDocument.documentID)
+                        postFavorites.append(postFavoritesItem)
                     } else {
                         print("something went wrong during post decoding")
                     }

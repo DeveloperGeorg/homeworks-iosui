@@ -7,7 +7,7 @@ class FirestorePostCommentStorage: PostCommentStorageProtocol {
     private let db = Firestore.firestore()
     
     func add(postComment: PostComment, completionHandler: @escaping (PostComment) -> Void) {
-        var refDocument = db.collection("post-comments").addDocument(data: postComment.getDataForFirestore()) { err in
+        _ = db.collection("post-comments").addDocument(data: postComment.getDataForFirestore()) { err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {

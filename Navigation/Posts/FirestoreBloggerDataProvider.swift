@@ -13,6 +13,7 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
             .getDocuments() { (snapshot, error) in
                 if let error = error as NSError? {
                     print("Error getting blogger: \(error)")
+                    completionHandler(nil)
                 }
                 else {
                     if let bloggerDocument = snapshot?.documents.first {
@@ -21,6 +22,7 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
                             completionHandler(bloggerItem)
                         } else {
                             print("something went wrong during blogger decoding")
+                            completionHandler(nil)
                         }
                     }
                 }
@@ -35,6 +37,7 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
             .getDocuments() { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
+                completionHandler([])
             } else if let snapshot = snapshot {
                 for bloggerDocument in snapshot.documents {
                     if var blogger = try? bloggerDocument.data(as: BloggerPreview.self) {

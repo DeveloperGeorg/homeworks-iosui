@@ -39,6 +39,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     init(userService: UserService, profileCoordinator: ProfileCoordinator) throws {
         self.userService = userService
         self.profileCoordinator = profileCoordinator
+        self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
         if let user = self.userService.getUserIfAuthorized() {
             self.user = user
             self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
@@ -91,6 +92,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
                 self.blogger = blogger
+                self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
                 self.profileCoordinator.setBlogger(blogger)
                 self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                     print("posts count: \(posts)")
