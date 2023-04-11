@@ -12,11 +12,15 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
     
+    let temporaryBloggerId = "5WSoAxbM6IVfobdPRpAU3PpA0wO2"
+    
     public init(feedPresenter: FeedPresenter) {
         self.feedPresenter = feedPresenter
         self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
         self.postLikeDataProvider = FirestorePostLikeDataProvider()
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
+        self.postListTableViewDataSource.setCurrentBloggerId(self.temporaryBloggerId)
+        self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
@@ -27,7 +31,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: temporaryBloggerId) { posts, hasMore in
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
             self.feedView?.postsTableView.reloadData()
@@ -56,7 +60,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: temporaryBloggerId) { posts, hasMore in
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.clearPosts()
             self.postListTableViewDataSource.addPosts(posts)
@@ -110,7 +114,7 @@ extension FeedViewController: UITableViewDelegate {
                 if let lastPost = postListTableViewDataSource.posts.last {
                     beforePostedAtFilter = lastPost.post.postedAt
                 }
-                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
+                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil, currentBloggerId: temporaryBloggerId) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.feedView?.postsTableView.reloadData()

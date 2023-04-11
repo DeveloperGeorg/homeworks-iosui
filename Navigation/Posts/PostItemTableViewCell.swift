@@ -3,6 +3,7 @@ import UIKit
 class PostItemTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
+    private var postAggregate: PostAggregate?
         /** @todo blogger preview block */
     var authorContentView: UIView = {
         let view = UIView()
@@ -80,6 +81,7 @@ class PostItemTableViewCell: UITableViewCell {
     var likesCounterView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isExclusiveTouch = true
         
        return view
     }()
@@ -171,7 +173,8 @@ class PostItemTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func initFromPostItem(_ postAggregate: PostAggregate) {
+    func initFromPostItem(_ postAggregate: PostAggregate, index: Int) {
+        self.postAggregate = postAggregate
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.blogger.imageLink) {
                 if let data = try? Data(contentsOf: url) {
@@ -199,9 +202,17 @@ class PostItemTableViewCell: UITableViewCell {
             }
         }
         likesCounterLabel.text = "\(postAggregate.likesAmount)"
+        likesCounterView.tag = index
         commentsCounterLabel.text = "\(postAggregate.commentsAmount)"
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+//        likesCounterView.addGestureRecognizer(tapGesture)
     }
-    
+//    @objc func handleTap(sender: UITapGestureRecognizer) {
+//        if sender.state == .ended {
+//            print(self.postAggregate)
+//        }
+//        print(self.postAggregate)
+//    }
     private func activateConstraints() {
         
         NSLayoutConstraint.activate([
