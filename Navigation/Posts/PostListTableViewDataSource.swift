@@ -41,6 +41,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostItemTableViewCell
+        cell.isUserInteractionEnabled = true
         
         let index = Int(indexPath.row)
         let post = self.posts[index] as PostAggregate
@@ -56,19 +57,24 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
-                    let post = self.posts[index] as PostAggregate
-                    if let postId = post.post.id {
-                        if let postLikeDataStorage = self.postLikeDataStorage {
-                            let postLike = PostLike(blogger: currentBloggerId, post: postId)
-                            postLikeDataStorage.create(postLike) { postLike in
-                                print("success like")
-                                print(postLike)
+                    let postAggregate = self.posts[index] as PostAggregate
+                    if !postAggregate.isLiked {
+                        if let postId = postAggregate.post.id {
+                            if let postLikeDataStorage = self.postLikeDataStorage {
+                                let postLike = PostLike(blogger: currentBloggerId, post: postId)
+                                postLikeDataStorage.create(postLike) { postLike in
+                                    print("success like")
+                                    print(postLike)
+                                }
+                            } else {
+                                print("no like data storage was set")
                             }
                         } else {
-                            print("no like data storage was set")
+                            print("no post id was got \(postAggregate.post.id)")
                         }
                     } else {
-                        print("no post id was got \(post.post.id)")
+                        /** @todo remove like */
+                        print("Post has been liked already")
                     }
                 } else {
                     print("no index was got \(sender.view?.tag)")
@@ -83,19 +89,26 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
-                    let post = self.posts[index] as PostAggregate
-                    if let postId = post.post.id {
-                        if let postFavoritesDataStorage = self.postFavoritesDataStorage {
-                            let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
-                            postFavoritesDataStorage.create(postFavorites) { postFavorites in
-                                print("success favorite")
-                                print(postFavorites)
+                    let postAggregate = self.posts[index] as PostAggregate
+                    print("post index \(index)")
+                    print(postAggregate)
+                    if !postAggregate.isFavorite {
+                        if let postId = postAggregate.post.id {
+                            if let postFavoritesDataStorage = self.postFavoritesDataStorage {
+                                let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
+                                postFavoritesDataStorage.create(postFavorites) { postFavorites in
+                                    print("success favorite")
+                                    print(postFavorites)
+                                }
+                            } else {
+                                print("no favorite data storage was set")
                             }
                         } else {
-                            print("no like data storage was set")
+                            print("no post id was got \(postAggregate.post.id)")
                         }
                     } else {
-                        print("no post id was got \(post.post.id)")
+                        /** @todo remove vaforite */
+                        print("Post has been added in favorite already")
                     }
                 } else {
                     print("no index was got \(sender.view?.tag)")

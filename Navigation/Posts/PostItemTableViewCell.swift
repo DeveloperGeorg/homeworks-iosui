@@ -127,6 +127,7 @@ class PostItemTableViewCell: UITableViewCell {
     var favoriteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isExclusiveTouch = true
         
        return view
     }()
@@ -212,6 +213,7 @@ class PostItemTableViewCell: UITableViewCell {
         likesCounterLabel.text = "\(postAggregate.likesAmount)"
         likesCounterView.tag = index
         commentsCounterLabel.text = "\(postAggregate.commentsAmount)"
+        favoriteView.tag = index
     }
     private func activateConstraints() {
         
