@@ -175,6 +175,7 @@ class PostItemTableViewCell: UITableViewCell {
     
     func initFromPostItem(_ postAggregate: PostAggregate, index: Int) {
         self.postAggregate = postAggregate
+        print(postAggregate)
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.blogger.imageLink) {
                 if let data = try? Data(contentsOf: url) {
@@ -204,15 +205,7 @@ class PostItemTableViewCell: UITableViewCell {
         likesCounterLabel.text = "\(postAggregate.likesAmount)"
         likesCounterView.tag = index
         commentsCounterLabel.text = "\(postAggregate.commentsAmount)"
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-//        likesCounterView.addGestureRecognizer(tapGesture)
     }
-//    @objc func handleTap(sender: UITapGestureRecognizer) {
-//        if sender.state == .ended {
-//            print(self.postAggregate)
-//        }
-//        print(self.postAggregate)
-//    }
     private func activateConstraints() {
         
         NSLayoutConstraint.activate([

@@ -58,7 +58,6 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
                 print("Error getting likes amount for post \(postIdsFilter): \(error)")
             } else if let snapshot = snapshot {
                 amount = Int(truncating: snapshot.count)
-                print("post #\(postIdsFilter), likes \(amount)")
             }
             
             completionHandler(amount)

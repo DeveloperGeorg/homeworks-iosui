@@ -5,6 +5,7 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
     private let postDataProvider: PostDataProviderProtocol = FirestorePostDataProvider()
     private let postLikeDataProvider: PostLikeDataProviderProtocol = FirestorePostLikeDataProvider()
     private let postCommentDataProvider: PostCommentDataProviderProtocol = FirestorePostCommentDataProvider()
+    private let postFavoritesDataProvider: PostFavoritesDataProviderProtocol = FirestorePostFavoritesDataProvider()
     
     func getList(
         limit: Int,
@@ -31,15 +32,18 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                         self.bloggerDataProvider.getByIds(bloggerIds) { bloggers in
                             if let currentBloggerId = currentBloggerId {
                                 self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postLikes in
-                                    self.makeAggregatesAndHandle(
-                                        posts: posts,
-                                        hasMore: hasMore,
-                                        bloggers: bloggers,
-                                        postToLikeAmount: postToLikeAmount,
-                                        postToCommentAmount: postToCommentAmount,
-                                        postLikes: postLikes,
-                                        completionHandler: completionHandler
-                                    )
+                                    self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postFavorites in
+                                        self.makeAggregatesAndHandle(
+                                            posts: posts,
+                                            hasMore: hasMore,
+                                            bloggers: bloggers,
+                                            postToLikeAmount: postToLikeAmount,
+                                            postToCommentAmount: postToCommentAmount,
+                                            postLikes: postLikes,
+                                            postFavorites: postFavorites,
+                                            completionHandler: completionHandler
+                                        )
+                                    }
                                 }
                             } else {
                                 self.makeAggregatesAndHandle(
@@ -49,6 +53,7 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                                     postToLikeAmount: postToLikeAmount,
                                     postToCommentAmount: postToCommentAmount,
                                     postLikes: [:],
+                                    postFavorites: [:],
                                     completionHandler: completionHandler
                                 )
                             }
@@ -68,6 +73,7 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
         postToLikeAmount: [String:Int],
         postToCommentAmount: [String:Int],
         postLikes: [String : PostLike],
+        postFavorites: [String : PostFavorites],
         completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
     ) {
         var postsAggregates: [PostAggregate] = []
@@ -84,6 +90,7 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                         blogger: bloggerItem,
                         post: post,
                         isLiked: (postLikes[postId] != nil) ? true : false,
+                        isFavorite: (postFavorites[postId] != nil) ? true : false,
                         commentsAmount: postToCommentAmount[postId] ?? 0,
                         likesAmount: postToLikeAmount[postId] ?? 0
                     )

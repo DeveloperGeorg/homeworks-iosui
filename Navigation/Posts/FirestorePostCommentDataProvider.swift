@@ -62,7 +62,6 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
                 print("Error getting comments amount for post \(postIdsFilter): \(error)")
             } else if let snapshot = snapshot {
                 amount = Int(truncating: snapshot.count)
-                print("post #\(postIdsFilter), comments \(amount)")
             }
             
             completionHandler(amount)
