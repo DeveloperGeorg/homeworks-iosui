@@ -92,7 +92,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             if let blogger = blogger {
                 self.blogger = blogger
                 self.profileCoordinator.setBlogger(blogger)
-                self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                     print("posts count: \(posts)")
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
@@ -105,7 +105,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
         if let blogger = self.blogger {
-            self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+            self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                 self.couldGetNextPage = hasMore
                 self.postListTableViewDataSource.clearPosts()
                 self.postListTableViewDataSource.addPosts(posts)
@@ -118,7 +118,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 if let blogger = blogger {
                     self.blogger = blogger
                     self.profileCoordinator.setBlogger(blogger)
-                    self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id) { posts, hasMore in
+                    self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                         self.couldGetNextPage = hasMore
                         self.postListTableViewDataSource.addPosts(posts)
                         self.postsTableView.reloadData()

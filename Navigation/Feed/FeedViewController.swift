@@ -27,7 +27,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.addPosts(posts)
             self.feedView?.postsTableView.reloadData()
@@ -56,7 +56,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
-        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil) { posts, hasMore in
+        postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
             self.couldGetNextPage = hasMore
             self.postListTableViewDataSource.clearPosts()
             self.postListTableViewDataSource.addPosts(posts)
@@ -110,7 +110,7 @@ extension FeedViewController: UITableViewDelegate {
                 if let lastPost = postListTableViewDataSource.posts.last {
                     beforePostedAtFilter = lastPost.post.postedAt
                 }
-                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil) { posts, hasMore in
+                postDataProviderProtocol.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil, currentBloggerId: "5WSoAxbM6IVfobdPRpAU3PpA0wO2") { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.feedView?.postsTableView.reloadData()
