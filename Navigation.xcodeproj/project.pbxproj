@@ -54,6 +54,8 @@
 		414CEDD629E5C00B00D37933 /* PostFavoritesDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDD529E5C00B00D37933 /* PostFavoritesDataProviderProtocol.swift */; };
 		414CEDD829E5C05800D37933 /* PostFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDD729E5C05800D37933 /* PostFavorites.swift */; };
 		414CEDDA29E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDD929E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift */; };
+		414CEDDC29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDDB29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift */; };
+		414CEDDE29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
@@ -204,6 +206,8 @@
 		414CEDD529E5C00B00D37933 /* PostFavoritesDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFavoritesDataProviderProtocol.swift; sourceTree = "<group>"; };
 		414CEDD729E5C05800D37933 /* PostFavorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFavorites.swift; sourceTree = "<group>"; };
 		414CEDD929E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostFavoritesDataProvider.swift; sourceTree = "<group>"; };
+		414CEDDB29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFavoritesDataStorageProtocol.swift; sourceTree = "<group>"; };
+		414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostFavoritesDataStorage.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 				414CEDD529E5C00B00D37933 /* PostFavoritesDataProviderProtocol.swift */,
 				414CEDD729E5C05800D37933 /* PostFavorites.swift */,
 				414CEDD929E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift */,
+				414CEDDB29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift */,
+				414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -775,6 +781,7 @@
 				41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */,
 				41C270CD29D0614900B40F43 /* PostItemFormCoordinator.swift in Sources */,
 				414CEDD229E52FD300D37933 /* PostLikeDataStorageProtocol.swift in Sources */,
+				414CEDDC29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift in Sources */,
 				41C270BB29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift in Sources */,
 				411F73E527E5C12F00555D97 /* LoginInspector.swift in Sources */,
 				414CEDCC29E3D25200D37933 /* PostLikeDataProviderProtocol.swift in Sources */,
@@ -816,6 +823,7 @@
 				413E71F429B0F78D00723D71 /* LocalNotificationsService.swift in Sources */,
 				4194722027F9AF170075A056 /* UserService.swift in Sources */,
 				4194721627F9AF010075A056 /* FeedView.swift in Sources */,
+				414CEDDE29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift in Sources */,
 				41C270BD29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift in Sources */,
 				411F73F627F03CB200555D97 /* NewPostValidator.swift in Sources */,
 				41E6CD10272075F60030EF9A /* SceneDelegate.swift in Sources */,

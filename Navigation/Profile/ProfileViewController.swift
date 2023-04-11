@@ -40,6 +40,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         self.userService = userService
         self.profileCoordinator = profileCoordinator
         self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
+        self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
         if let user = self.userService.getUserIfAuthorized() {
             self.user = user
             self.postDataProviderProtocol = FirestorePostAggregateDataProvider()

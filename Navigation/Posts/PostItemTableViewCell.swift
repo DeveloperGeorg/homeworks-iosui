@@ -3,7 +3,6 @@ import UIKit
 class PostItemTableViewCell: UITableViewCell {
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
-    private var postAggregate: PostAggregate?
         /** @todo blogger preview block */
     var authorContentView: UIView = {
         let view = UIView()
@@ -124,6 +123,13 @@ class PostItemTableViewCell: UITableViewCell {
     }()
     
     /** @todo favorite block */
+    
+    var favoriteView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+       return view
+    }()
     var favoriteCounterIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -152,12 +158,15 @@ class PostItemTableViewCell: UITableViewCell {
             commentsCounterIcon,
             commentsCounterLabel
         ])
+        favoriteView.addSubviews([
+            favoriteCounterIcon
+        ])
         postContentView.addSubviews([
             mainImageBlockView,
             anonsContentView,
             likesCounterView,
             commentsCounterView,
-            favoriteCounterIcon
+            favoriteView
         ])
         contentView.addSubviews([
             authorContentView,
@@ -174,8 +183,6 @@ class PostItemTableViewCell: UITableViewCell {
     }
     
     func initFromPostItem(_ postAggregate: PostAggregate, index: Int) {
-        self.postAggregate = postAggregate
-        print(postAggregate)
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: postAggregate.blogger.imageLink) {
                 if let data = try? Data(contentsOf: url) {
@@ -266,9 +273,13 @@ class PostItemTableViewCell: UITableViewCell {
             commentsCounterLabel.topAnchor.constraint(equalTo: commentsCounterView.topAnchor),
             commentsCounterLabel.bottomAnchor.constraint(equalTo: commentsCounterView.bottomAnchor),
             
-            favoriteCounterIcon.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
-            favoriteCounterIcon.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
-            favoriteCounterIcon.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
+            favoriteView.topAnchor.constraint(equalTo: commentsCounterView.topAnchor),
+            favoriteView.bottomAnchor.constraint(equalTo: commentsCounterView.bottomAnchor),
+            favoriteView.leadingAnchor.constraint(equalTo: favoriteCounterIcon.leadingAnchor),
+            favoriteView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -16),
+            favoriteCounterIcon.trailingAnchor.constraint(equalTo: favoriteView.trailingAnchor),
+            favoriteCounterIcon.topAnchor.constraint(equalTo: favoriteView.topAnchor),
+            favoriteCounterIcon.bottomAnchor.constraint(equalTo: favoriteView.bottomAnchor),
         ])
     }
 }

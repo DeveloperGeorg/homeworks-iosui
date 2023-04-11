@@ -21,6 +21,7 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postListTableViewDataSource.setCurrentBloggerId(self.temporaryBloggerId)
         self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
+        self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
         super.init(nibName: nil, bundle: nil)
         self.feedPresenter.setFeedViewDelegate(self)
         NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
