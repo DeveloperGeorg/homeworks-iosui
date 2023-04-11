@@ -90,8 +90,6 @@ extension PostListTableViewDataSource: UITableViewDataSource {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
                     let postAggregate = self.posts[index] as PostAggregate
-                    print("post index \(index)")
-                    print(postAggregate)
                     if !postAggregate.isFavorite {
                         if let postId = postAggregate.post.id {
                             if let postFavoritesDataStorage = self.postFavoritesDataStorage {
