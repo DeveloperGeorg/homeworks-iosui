@@ -12,7 +12,7 @@ final class FeedCoordinator: Coordinatable {
     }
     
     func start() {
-        let feedViewController = FeedViewController(feedPresenter: FeedPresenter(coordinator: self))
+        let feedViewController = FeedViewController(feedCoordinator: self)
         navigationController.pushViewController(feedViewController, animated: false)
     }
     

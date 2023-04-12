@@ -1,21 +1,20 @@
 import UIKit
 
-class FeedViewController: UIViewController, FeedViewDelegate {
-    var feedPresenter: FeedPresenter
+class FeedViewController: UIViewController {
+    var feedCoordinator: FeedCoordinator
     var feedView: FeedView?
-    var newPostValidator: NewPostValidator = NewPostValidator()
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postDataProviderProtocol: PostAggregateDataProviderProtocol
     let postLikeDataProvider: PostLikeDataProviderProtocol
     let postCommentDataProvider: PostCommentDataProviderProtocol
-    let paginationLimit = 3;
+    let paginationLimit = 5;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
     
     let temporaryBloggerId = "5WSoAxbM6IVfobdPRpAU3PpA0wO2"
     
-    public init(feedPresenter: FeedPresenter) {
-        self.feedPresenter = feedPresenter
+    public init(feedCoordinator: FeedCoordinator) {
+        self.feedCoordinator = feedCoordinator
         self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
         self.postLikeDataProvider = FirestorePostLikeDataProvider()
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
@@ -23,8 +22,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
         self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
         super.init(nibName: nil, bundle: nil)
-        self.feedPresenter.setFeedViewDelegate(self)
-        NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -50,11 +47,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         feedView?.postsTableView.addSubview(refreshControl)
         
-        self.feedPresenter.render()
-        
-        feedView?.validatePostButton.setButtonTappedCallback({ sender in
-            self.newPostValidator.title = self.feedView?.newPostTitleField.text ?? ""
-        })
         self.view = feedView
     }
     
@@ -70,24 +62,6 @@ class FeedViewController: UIViewController, FeedViewDelegate {
             self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
         }
     }
-    
-    func addPostToFeed(title: String) -> Void {
-        let button = feedView?.getButtonWithText(title)
-        guard let postButton = button else {
-            return
-        }
-        feedView?.postsStackView.addArrangedSubview(postButton)
-    }
-
-    @objc func validateNewPost(notification: NSNotification) {
-        if let newPostData = notification.userInfo?["newPostData"] as? NewPostValidator {
-            if newPostData.check(title: newPostData.title) {
-                self.feedView?.setNewPostTitleLabelIsValid()
-            } else {
-                self.feedView?.setNewPostTitleLabelIsNotValid()
-            }
-          }
-    }
 }
 
 /** @todo move to the common place */
@@ -95,7 +69,7 @@ extension FeedViewController: UITableViewDelegate {
     func selectedCell(row: Int) {
         /** @todo create and use posts coordinator */
         let post = self.postListTableViewDataSource.posts[row]
-        feedPresenter.openPost(post: post)
+        feedCoordinator.openPost(post: post)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
