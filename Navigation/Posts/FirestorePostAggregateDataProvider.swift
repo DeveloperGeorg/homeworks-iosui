@@ -92,7 +92,9 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                         isLiked: (postLikes[postId] != nil) ? true : false,
                         isFavorite: (postFavorites[postId] != nil) ? true : false,
                         commentsAmount: postToCommentAmount[postId] ?? 0,
-                        likesAmount: postToLikeAmount[postId] ?? 0
+                        likesAmount: postToLikeAmount[postId] ?? 0,
+                        like: postLikes[postId] ?? nil,
+                        favorite: postFavorites[postId] ?? nil
                     )
                     postsAggregates.append(postAggregate)
                 }

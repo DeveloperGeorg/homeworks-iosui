@@ -15,6 +15,22 @@ class FirestorePostLikeDataStorage: PostLikeDataStorageProtocol {
             }
         }
     }
+    func remove(_ postLike:PostLike, completionHandler: @escaping (Bool) -> Void) {
+        if let postLikeId = postLike.id {
+            db.collection("post-likes").document(postLikeId).delete() { err in
+                if let err = err {
+                    print("Error removing post likes document: \(err)")
+                    completionHandler(false)
+                } else {
+                    print("Document successfully removed!")
+                    completionHandler(true)
+                }
+            }
+        } else {
+            print("Post like has no id")
+            completionHandler(false)
+        }
+    }
 }
 
 extension PostLike {

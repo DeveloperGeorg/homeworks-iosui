@@ -57,24 +57,30 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
-                    let postAggregate = self.posts[index] as PostAggregate
-                    if !postAggregate.isLiked {
-                        if let postId = postAggregate.post.id {
-                            if let postLikeDataStorage = self.postLikeDataStorage {
+                    if let postLikeDataStorage = self.postLikeDataStorage {
+                        let postAggregate = self.posts[index] as PostAggregate
+                        if !postAggregate.isLiked {
+                            if let postId = postAggregate.post.id {
                                 let postLike = PostLike(blogger: currentBloggerId, post: postId)
                                 postLikeDataStorage.create(postLike) { postLike in
                                     print("success like")
                                     print(postLike)
+                                    /** @todo set postLike */
                                 }
                             } else {
-                                print("no like data storage was set")
+                                print("no post id was got \(postAggregate.post.id)")
                             }
                         } else {
-                            print("no post id was got \(postAggregate.post.id)")
+                            print("Post has been liked already. Trying to remove")
+                            if let postLike = postAggregate.like {
+                                postLikeDataStorage.remove(postLike) { wasRemoved in
+                                    print("Remove result \(wasRemoved)")
+                                }
+                                /** @todo set postLike nil */
+                            }
                         }
                     } else {
-                        /** @todo remove like */
-                        print("Post has been liked already")
+                        print("no like data storage was set")
                     }
                 } else {
                     print("no index was got \(sender.view?.tag)")
@@ -89,24 +95,30 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
-                    let postAggregate = self.posts[index] as PostAggregate
-                    if !postAggregate.isFavorite {
-                        if let postId = postAggregate.post.id {
-                            if let postFavoritesDataStorage = self.postFavoritesDataStorage {
+                    if let postFavoritesDataStorage = self.postFavoritesDataStorage {
+                        let postAggregate = self.posts[index] as PostAggregate
+                        if !postAggregate.isFavorite {
+                            if let postId = postAggregate.post.id {
                                 let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
                                 postFavoritesDataStorage.create(postFavorites) { postFavorites in
                                     print("success favorite")
                                     print(postFavorites)
                                 }
                             } else {
-                                print("no favorite data storage was set")
+                                print("no post id was got \(postAggregate.post.id)")
                             }
                         } else {
-                            print("no post id was got \(postAggregate.post.id)")
+                            /** @todo remove vaforite */
+                            print("Post has been added in favorite already. Trying to remove")
+                            if let postFavorite = postAggregate.favorite {
+                                postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
+                                    print("Remove result \(wasRemoved)")
+                                }
+                                /** @todo set postLike nil */
+                            }
                         }
                     } else {
-                        /** @todo remove vaforite */
-                        print("Post has been added in favorite already")
+                        print("no favorite data storage was set")
                     }
                 } else {
                     print("no index was got \(sender.view?.tag)")

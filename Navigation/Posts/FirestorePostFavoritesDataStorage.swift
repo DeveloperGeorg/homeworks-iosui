@@ -16,6 +16,22 @@ class FirestorePostFavoritesDataStorage: PostFavoritesDataStorageProtocol {
             }
         }
     }
+    
+    func remove(_ postFavorites:PostFavorites, completionHandler: @escaping (Bool) -> Void) {
+        if let postFavoritesId = postFavorites.id {
+            db.collection("post-favorites").document(postFavoritesId).delete() { err in
+                if let err = err {
+                    print("Error removing post favorites document: \(err)")
+                    completionHandler(false)
+                } else {
+                    completionHandler(true)
+                }
+            }
+        } else {
+            print("Post favorite has no id")
+            completionHandler(false)
+        }
+    }
 }
 
 extension PostFavorites {
