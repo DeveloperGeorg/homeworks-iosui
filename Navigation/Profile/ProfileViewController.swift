@@ -96,7 +96,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
                 self.profileCoordinator.setBlogger(blogger)
                 self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
-                    print("posts count: \(posts)")
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.postsTableView.reloadData()

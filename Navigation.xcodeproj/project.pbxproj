@@ -54,6 +54,8 @@
 		414CEDDA29E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDD929E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift */; };
 		414CEDDC29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDDB29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift */; };
 		414CEDDE29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */; };
+		414CEDE129E67E4F00D37933 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDE029E67E4F00D37933 /* FavoritesCoordinator.swift */; };
+		414CEDE329E6800900D37933 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDE229E6800900D37933 /* FavoritesViewController.swift */; };
 		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
@@ -204,6 +206,8 @@
 		414CEDD929E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostFavoritesDataProvider.swift; sourceTree = "<group>"; };
 		414CEDDB29E5CDF200D37933 /* PostFavoritesDataStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFavoritesDataStorageProtocol.swift; sourceTree = "<group>"; };
 		414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostFavoritesDataStorage.swift; sourceTree = "<group>"; };
+		414CEDE029E67E4F00D37933 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
+		414CEDE229E6800900D37933 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +421,15 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		414CEDDF29E67E1F00D37933 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				414CEDE029E67E4F00D37933 /* FavoritesCoordinator.swift */,
+				414CEDE229E6800900D37933 /* FavoritesViewController.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		41A5EF7D2807EA0B00A12C07 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +474,7 @@
 		41E6CD0C272075F60030EF9A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				414CEDDF29E67E1F00D37933 /* Favorites */,
 				41C270D829D1690600B40F43 /* Config.xcconfig */,
 				41038DE429C8B6DB00CE8195 /* Posts */,
 				4149A94827F571CA0030C223 /* Feed */,
@@ -780,6 +794,7 @@
 				414CEDCC29E3D25200D37933 /* PostLikeDataProviderProtocol.swift in Sources */,
 				411F73E827E6162300555D97 /* LoginFactoryProtocol.swift in Sources */,
 				41038DEC29C970D700CE8195 /* PostAggregate.swift in Sources */,
+				414CEDE129E67E4F00D37933 /* FavoritesCoordinator.swift in Sources */,
 				413CA01E29A23F6000005D7F /* ProfileFactoryProtocol.swift in Sources */,
 				411C845B274A6E670083FD12 /* ProfileTableHederView.swift in Sources */,
 				41C3FD6A29698B23009D3920 /* AuthUserStorageProtocol.swift in Sources */,
@@ -791,6 +806,7 @@
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41C270BF29D00D0D00B40F43 /* PostComment.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
+				414CEDE329E6800900D37933 /* FavoritesViewController.swift in Sources */,
 				412D778B29C7648E00BD23E8 /* ColorPaletteProtocol.swift in Sources */,
 				414CEDC829E324C700D37933 /* PostCommentStorageProtocol.swift in Sources */,
 				41F353E4293FA49200B906A6 /* CheckerService.swift in Sources */,

@@ -7,11 +7,15 @@ class LoginFactory: LoginFactoryProtocol {
     func getSignUpDelegate() -> SignUpViewControllerDelegateProtocol {
         return LoginInspector()
     }
-    func createLogInViewController(coordinator: ProfileCoordinator) -> LogInViewControllerProtocol {
+    func createLogInViewController(
+        coordinator: Coordinatable,
+        loginCompletionHandler: @escaping (User) -> Void
+    ) -> LogInViewControllerProtocol {
         return LogInViewController(
             loginViewControllerDelegate: self.getLognCredentialsValidator(),
             signUpViewControllerDelegate: self.getSignUpDelegate(),
-            coordinator: coordinator
+            coordinator: coordinator,
+            loginCompletionHandler: loginCompletionHandler
         )
     }
 }

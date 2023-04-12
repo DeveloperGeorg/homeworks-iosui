@@ -23,20 +23,25 @@ final class ProfileCoordinator: Coordinatable {
         self.userService = userService
         self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
         self.postItemFormCoordinator = PostItemFormCoordinator(navigationController: navigationController)
-        let logInViewController = loginFactory.createLogInViewController(coordinator: self)
+        let logInViewController = loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
+            self.userService.storeCurrentUser(user)
+            self.openProfile(user)
+        })
         self.navigationController.setViewControllers([logInViewController], animated: false)
     }
     
     func start() {
         if isLoggedIn {
-            let logInViewController = self.loginFactory.createLogInViewController(coordinator: self)
+            let logInViewController = self.loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
+                self.openProfile(user)
+            })
             navigationController.pushViewController(logInViewController, animated: false)
         } else {
-            self.openProfile(sender: nil)
+            self.openProfile(nil)
         }
     }
     
-    func openProfile(sender:UIButton?) {
+    func openProfile(_ user: User?) {
         do {
             let profileController = try self.profileFactory.createProfileViewController(
                 userService: self.userService, coordinator: self

@@ -9,21 +9,27 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         }
 
     private let loginView = LogInView()
-    weak var coordinator: ProfileCoordinator?
+    weak var coordinator: Coordinatable?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private let authUserStorage: AuthUserStorageProtocol
     private let localAuthorizationService = LocalAuthorizationService()
-    private let userService: UserService
     private let bloggerDataStorage: BloggerDataStorageProtocol
+    
+    private let loginCompletionHandler: (User) -> Void
 
-    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
+    public init(
+        loginViewControllerDelegate: LoginViewControllerDelegateProtocol,
+        signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol,
+        coordinator: Coordinatable?,
+        loginCompletionHandler: @escaping (User) -> Void
+    ) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
         self.authUserStorage = RealmAuthUserStorage()
-        self.userService = coordinator?.userService ?? CurrentUserService()
         self.bloggerDataStorage = FirestoreBloggerDataStorage()
+        self.loginCompletionHandler = loginCompletionHandler
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,8 +59,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
                 }
                 self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({ user in
                     self.authUserStorage.save(lastAuthorizedUser)
-                    self.userService.storeCurrentUser(user)
-                    self.coordinator?.openProfile(sender: nil)
+                    self.loginCompletionHandler(user)
                 }), ({
                     self.coordinator?.showError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
                 }))
@@ -66,8 +71,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
             let enteredLogin = self.loginView.loginInput.text ?? "";
             self.checkCredentials(login: enteredLogin, password: enteredPassword, ({ user in
                 self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                self.userService.storeCurrentUser(user)
-                self.coordinator?.openProfile(sender: sender)
+                self.loginCompletionHandler(user)
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
             }))
@@ -85,8 +89,7 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
                     )
                 ) { blogger in
                     self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                    self.userService.storeCurrentUser(user)
-                    self.coordinator?.openProfile(sender: sender)
+                    self.loginCompletionHandler(user)
                 }
             }), ({
                 self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))

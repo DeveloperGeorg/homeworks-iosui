@@ -8,7 +8,10 @@ class LoginFactoryDummy: LoginFactoryProtocol {
     func getSignUpDelegate() -> SignUpViewControllerDelegateProtocol {
         return SignUpViewControllerDelegateDummy()
     }
-    func createLogInViewController(coordinator: ProfileCoordinator) -> LogInViewControllerProtocol {
+    func createLogInViewController(
+        coordinator: Coordinatable,
+        loginCompletionHandler: @escaping (User) -> Void
+    ) -> LogInViewControllerProtocol {
         let vc = LogInViewControllerDummy()
         return vc
     }
