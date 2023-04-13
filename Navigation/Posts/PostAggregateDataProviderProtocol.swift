@@ -8,4 +8,9 @@ protocol PostAggregateDataProviderProtocol {
         currentBloggerId: String?,
         completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
     )
+    func getListByIds(
+        postIds: [String],
+        currentBloggerId: String?,
+        completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
+    )
 }

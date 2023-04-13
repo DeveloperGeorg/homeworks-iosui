@@ -16,53 +16,82 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
     ) {
         self.postDataProvider.getList(limit: limit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: bloggerIdFilter) { posts, hasMore in
             
-            if posts.count > 0 {
-                var bloggerIds: [String] = []
-                for post in posts {
-                    bloggerIds.append(post.blogger)
+            self.aggregatePosts(
+                posts: posts,
+                hasMore: hasMore,
+                currentBloggerId: currentBloggerId,
+                completionHandler: completionHandler
+            )
+        }
+    }
+    
+    func getListByIds(
+        postIds: [String],
+        currentBloggerId: String? = nil,
+        completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
+    ) {
+        self.postDataProvider.getListByIds(postIds: postIds) { posts in
+            self.aggregatePosts(
+                posts: posts,
+                hasMore: false,
+                currentBloggerId: currentBloggerId,
+                completionHandler: completionHandler
+            )
+        }
+    }
+    
+    fileprivate func aggregatePosts(
+        posts: [PostItem],
+        hasMore: Bool,
+        currentBloggerId: String? = nil,
+        completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
+    ) {
+        if posts.count > 0 {
+            var bloggerIds: [String] = []
+            for post in posts {
+                bloggerIds.append(post.blogger)
+            }
+            var postIds: [String] = []
+            for post in posts {
+                if let postId = post.id {
+                    postIds.append(postId)
                 }
-                var postIds: [String] = []
-                for post in posts {
-                    if let postId = post.id {
-                        postIds.append(postId)
-                    }
-                }
-                self.postLikeDataProvider.getTotalAmount(postIdsFilter: postIds) { postToLikeAmount in
-                    self.postCommentDataProvider.getTotalAmount(postIdsFilter: postIds) { postToCommentAmount in
-                        self.bloggerDataProvider.getByIds(bloggerIds) { bloggers in
-                            if let currentBloggerId = currentBloggerId {
-                                self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postLikes in
-                                    self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postFavorites in
-                                        self.makeAggregatesAndHandle(
-                                            posts: posts,
-                                            hasMore: hasMore,
-                                            bloggers: bloggers,
-                                            postToLikeAmount: postToLikeAmount,
-                                            postToCommentAmount: postToCommentAmount,
-                                            postLikes: postLikes,
-                                            postFavorites: postFavorites,
-                                            completionHandler: completionHandler
-                                        )
-                                    }
+            }
+            self.postLikeDataProvider.getTotalAmount(postIdsFilter: postIds) { postToLikeAmount in
+                self.postCommentDataProvider.getTotalAmount(postIdsFilter: postIds) { postToCommentAmount in
+                    self.bloggerDataProvider.getByIds(bloggerIds) { bloggers in
+                        if let currentBloggerId = currentBloggerId {
+                            self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postLikes in
+                                self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: postIds, bloggerIdFilter: currentBloggerId) { postFavorites in
+                                    self.makeAggregatesAndHandle(
+                                        posts: posts,
+                                        hasMore: hasMore,
+                                        bloggers: bloggers,
+                                        postToLikeAmount: postToLikeAmount,
+                                        postToCommentAmount: postToCommentAmount,
+                                        postLikes: postLikes,
+                                        postFavorites: postFavorites,
+                                        completionHandler: completionHandler
+                                    )
                                 }
-                            } else {
-                                self.makeAggregatesAndHandle(
-                                    posts: posts,
-                                    hasMore: hasMore,
-                                    bloggers: bloggers,
-                                    postToLikeAmount: postToLikeAmount,
-                                    postToCommentAmount: postToCommentAmount,
-                                    postLikes: [:],
-                                    postFavorites: [:],
-                                    completionHandler: completionHandler
-                                )
                             }
+                        } else {
+                            self.makeAggregatesAndHandle(
+                                posts: posts,
+                                hasMore: hasMore,
+                                bloggers: bloggers,
+                                postToLikeAmount: postToLikeAmount,
+                                postToCommentAmount: postToCommentAmount,
+                                postLikes: [:],
+                                postFavorites: [:],
+                                completionHandler: completionHandler
+                            )
                         }
                     }
                 }
-            } else {
-                completionHandler([], false)
             }
+        } else {
+            completionHandler([], false)
         }
     }
     

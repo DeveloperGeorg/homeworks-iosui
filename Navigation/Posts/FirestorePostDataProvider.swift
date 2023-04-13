@@ -39,4 +39,29 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
         }
     }
     
+    
+    func getListByIds(postIds: [String], completionHandler: @escaping ([PostItem]) -> Void) {
+        var postsCounter = 0
+        var postList: [PostItem] = []
+        for postId in postIds {
+            let docRef = db.collection("posts").document(postId)
+
+            docRef.getDocument { (document, error) in
+                postsCounter += 1
+                if let document = document, document.exists {
+                    if var post = try? document.data(as: PostItem.self) {
+                        post.id = String(document.documentID)
+                        postList.append(post)
+                    } else {
+                        print("something went wrong during post decoding")
+                    }
+                } else {
+                    print("Document does not exist")
+                }
+                if postsCounter == postIds.count {
+                    completionHandler(postList)
+                }
+            }
+        }
+    }
 }
