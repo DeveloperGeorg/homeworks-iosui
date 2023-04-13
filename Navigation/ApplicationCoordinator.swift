@@ -34,6 +34,7 @@ final class ApplicationCoordinator: Coordinatable {
             userService: userService
         )
         favoritesCoordinator.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Favorites"), image: UIImage(named: "favorite")!, selectedImage: nil)
+        favoritesCoordinator.navigationController.navigationBar.isHidden = true
         
         self.rootController.setViewControllers([
             navigationController,

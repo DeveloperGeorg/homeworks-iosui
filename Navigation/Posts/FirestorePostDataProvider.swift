@@ -59,6 +59,14 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
                     print("Document does not exist")
                 }
                 if postsCounter == postIds.count {
+                    postList = postList.sorted(by: {
+                        if let firstIndex = postIds.firstIndex(of: $0.id ?? "")  {
+                            if let secondIndex = postIds.firstIndex(of: $1.id ?? "")  {
+                                return firstIndex <= secondIndex
+                            }
+                        }
+                        return false
+                    })
                     completionHandler(postList)
                 }
             }

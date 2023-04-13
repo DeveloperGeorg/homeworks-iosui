@@ -55,6 +55,7 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
                         print("something went wrong during post decoding")
                     }
                 }
+                postFavorites = postFavorites.sorted(by: { $0.addedAt >= $1.addedAt })
                 completionHandler(postFavorites, postDocumentsCount >= limit)
             }
         }

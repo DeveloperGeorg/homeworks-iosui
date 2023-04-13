@@ -129,7 +129,6 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                 }
             }
         }
-        
         completionHandler(postsAggregates, hasMore)
     }
     
