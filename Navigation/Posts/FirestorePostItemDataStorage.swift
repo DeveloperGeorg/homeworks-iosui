@@ -16,6 +16,16 @@ class FirestorePostItemDataStorage: PostItemDataStorageProtocol {
         }
     }
     
+    func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void) {
+        db.collection("posts").document(postId).delete() { err in
+            if let err = err {
+                print("Error removing posts document: \(err)")
+                completionHandler(false)
+            } else {
+                completionHandler(true)
+            }
+        }
+    }
 }
 
 extension PostItem {

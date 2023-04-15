@@ -6,14 +6,17 @@ import FirebaseFirestoreSwift
 class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String, completionHandler: @escaping ([String:PostLike]) -> Void) {
+    func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String?, completionHandler: @escaping ([String:[PostLike]]) -> Void) {
         
-        var postLikes: [String:PostLike] = [:]
+        var postLikes: [String:[PostLike]] = [:]
             
-        let query = db.collection("post-likes")
-                .whereField("blogger", isEqualTo: bloggerIdFilter)
+        var query = db.collection("post-likes")
                 .whereField("post", in: postIdsFilter)
                 .limit(to: postIdsFilter.count)
+        if let bloggerIdFilter = bloggerIdFilter {
+            query = query
+                .whereField("blogger", isEqualTo: bloggerIdFilter)
+        }
             
             query.getDocuments { (snapshot, error) in
                 if let error = error {
@@ -23,7 +26,10 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
                     for postDocument in snapshot.documents {
                         if var postLike = try? postDocument.data(as: PostLike.self) {
                             postLike.id = String(postDocument.documentID)
-                            postLikes[postLike.post] = postLike
+                            if !postLikes.keys.contains(postLike.post) {
+                                postLikes[postLike.post] = []
+                            }
+                            postLikes[postLike.post]!.append(postLike)
                         } else {
                             print("something went wrong during post decoding")
                         }

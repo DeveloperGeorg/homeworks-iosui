@@ -4,9 +4,13 @@ protocol PostAggregateServiceProtocol {
     
     var bloggerDataProvider: BloggerDataProviderProtocol { get }
     var postDataProvider: PostDataProviderProtocol { get }
+    var postItemDataStorage: PostItemDataStorageProtocol { get }
     var postLikeDataProvider: PostLikeDataProviderProtocol { get }
+    var postLikeDataStorage: PostLikeDataStorageProtocol { get }
     var postCommentDataProvider: PostCommentDataProviderProtocol { get }
+    var postCommentStorage: PostCommentStorageProtocol { get }
     var postFavoritesDataProvider: PostFavoritesDataProviderProtocol { get }
+    var postFavoritesDataStorage: PostFavoritesDataStorageProtocol { get }
     
     func getList(
         limit: Int,
@@ -58,10 +62,43 @@ extension PostAggregateServiceProtocol {
     }
     
     func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void) {
-        /** @todo remove post */
-        /** @todo remove post comments */
-        /** @todo remove post likes */
-        /** @todo remove post favorites */
+        postItemDataStorage.remove(postId) { isPostRemoved in
+            if isPostRemoved {
+                self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: nil) { postFavoritesList in
+                    if let postFavorites = postFavoritesList[postId] {
+                        for postFavorite in postFavorites {
+                            self.postFavoritesDataStorage.remove(postFavorite) { isPostFavoriteRemoved in
+                                
+                            }
+                        }
+                    }
+                }
+                var hasMoreCommentsToRemove = true
+                while hasMoreCommentsToRemove {
+                    self.postCommentDataProvider.getList(limit: 100, postIdFilter: postId, parentIdFilter: nil) { postComments, hasMoreComments in
+                        for postComment in postComments {
+                            if let postCommentId = postComment.id {
+                                self.postCommentStorage.remove(postCommentId) { isPostCommentRemoved in
+                                    /** @todo remove kids */
+                                }
+                            }
+                        }
+                        hasMoreCommentsToRemove = hasMoreComments
+                    }
+                }
+                self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: nil) { postLikesList in
+                    if let postLikes = postLikesList[postId] {
+                        for postLike in postLikes {
+                            self.postLikeDataStorage.remove(postLike) { isPostLikeRemoved in
+                                
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("post #\(postId) was not removed")
+            }
+        }
     }
     
     fileprivate func aggregatePosts(
@@ -125,8 +162,8 @@ extension PostAggregateServiceProtocol {
         bloggers: [BloggerPreview],
         postToLikeAmount: [String:Int],
         postToCommentAmount: [String:Int],
-        postLikes: [String : PostLike],
-        postFavorites: [String : PostFavorites],
+        postLikes: [String : [PostLike]],
+        postFavorites: [String : [PostFavorites]],
         completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
     ) {
         var postsAggregates: [PostAggregate] = []
@@ -139,15 +176,17 @@ extension PostAggregateServiceProtocol {
         for post in posts {
             if let postId = post.id {
                 if let bloggerItem = bloggerIdToBlogger[post.blogger] {
+                    let postFavoritesList = postFavorites[postId] ?? []
+                    let postLikesList = postLikes[postId] ?? []
                     let postAggregate = PostAggregate(
                         blogger: bloggerItem,
                         post: post,
-                        isLiked: (postLikes[postId] != nil) ? true : false,
-                        isFavorite: (postFavorites[postId] != nil) ? true : false,
+                        isLiked: (postLikesList.count > 0) ? true : false,
+                        isFavorite: (postFavoritesList.count > 0) ? true : false,
                         commentsAmount: postToCommentAmount[postId] ?? 0,
                         likesAmount: postToLikeAmount[postId] ?? 0,
-                        like: postLikes[postId] ?? nil,
-                        favorite: postFavorites[postId] ?? nil
+                        like: postLikesList.first ?? nil,
+                        favorite: postFavoritesList.first ?? nil
                     )
                     postsAggregates.append(postAggregate)
                 }

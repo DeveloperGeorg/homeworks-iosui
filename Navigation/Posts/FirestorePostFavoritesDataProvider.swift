@@ -6,14 +6,17 @@ import FirebaseFirestoreSwift
 class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String, completionHandler: @escaping ([String:PostFavorites]) -> Void) {
+    func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String?, completionHandler: @escaping ([String:[PostFavorites]]) -> Void) {
         
-        var postFavorites: [String:PostFavorites] = [:]
+        var postFavorites: [String:[PostFavorites]] = [:]
             
-        let query = db.collection("post-favorites")
-            .whereField("blogger", isEqualTo: bloggerIdFilter)
+        var query = db.collection("post-favorites")
             .whereField("post", in: postIdsFilter)
             .limit(to: postIdsFilter.count)
+        if let bloggerIdFilter = bloggerIdFilter {
+            query = query
+                .whereField("blogger", isEqualTo: bloggerIdFilter)
+        }
         
         query.getDocuments { (snapshot, error) in
             if let error = error {
@@ -22,7 +25,10 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
                 for postDocument in snapshot.documents {
                     if var postFavoritesItem = try? postDocument.data(as: PostFavorites.self) {
                         postFavoritesItem.id = String(postDocument.documentID)
-                        postFavorites[postFavoritesItem.post] = postFavoritesItem
+                        if !postFavorites.keys.contains(postFavoritesItem.post) {
+                            postFavorites[postFavoritesItem.post] = []
+                        }
+                        postFavorites[postFavoritesItem.post]!.append(postFavoritesItem)
                     } else {
                         print("something went wrong during post decoding")
                     }

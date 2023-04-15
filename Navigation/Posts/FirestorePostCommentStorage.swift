@@ -16,6 +16,17 @@ class FirestorePostCommentStorage: PostCommentStorageProtocol {
             }
         }
     }
+    
+    func remove(_ postCommentId: String, completionHandler: @escaping (Bool) -> Void) {
+        db.collection("post-comments").document(postCommentId).delete() { err in
+            if let err = err {
+                print("Error removing post-comments document: \(err)")
+                completionHandler(false)
+            } else {
+                completionHandler(true)
+            }
+        }
+    }
 }
 
 extension PostComment {
