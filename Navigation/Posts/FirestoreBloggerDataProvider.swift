@@ -24,6 +24,8 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
                             print("something went wrong during blogger decoding")
                             completionHandler(nil)
                         }
+                    } else {
+                        completionHandler(nil)
                     }
                 }
             }
@@ -45,6 +47,8 @@ class FirestoreBloggerDataProvider: BloggerDataProviderProtocol {
                         bloggers.append(blogger)
                     }
                 }
+                completionHandler(bloggers)
+            } else {
                 completionHandler(bloggers)
             }
         }

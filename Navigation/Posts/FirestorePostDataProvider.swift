@@ -35,6 +35,8 @@ class FirestorePostDataProvider: PostDataProviderProtocol {
                 }
                 posts = posts.sorted(by: { $0.postedAt >= $1.postedAt })
                 completionHandler(posts, postDocumentsCount >= limit)
+            } else {
+                completionHandler(posts, false)
             }
         }
     }

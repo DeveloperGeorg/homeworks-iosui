@@ -64,33 +64,33 @@ extension PostAggregateServiceProtocol {
     func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void) {
         postItemDataStorage.remove(postId) { isPostRemoved in
             if isPostRemoved {
+                print("post #\(postId) was removed. trying to remove relations")
                 self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: nil) { postFavoritesList in
+                    print("\(postFavoritesList.count) post favorites were found")
                     if let postFavorites = postFavoritesList[postId] {
                         for postFavorite in postFavorites {
                             self.postFavoritesDataStorage.remove(postFavorite) { isPostFavoriteRemoved in
-                                
+                                print("post favorite #\(postFavorite.id) was removed")
                             }
                         }
                     }
                 }
-                var hasMoreCommentsToRemove = true
-                while hasMoreCommentsToRemove {
-                    self.postCommentDataProvider.getList(limit: 100, postIdFilter: postId, parentIdFilter: nil) { postComments, hasMoreComments in
-                        for postComment in postComments {
-                            if let postCommentId = postComment.id {
-                                self.postCommentStorage.remove(postCommentId) { isPostCommentRemoved in
-                                    /** @todo remove kids */
-                                }
+                self.postCommentDataProvider.getList(limit: nil, postIdFilter: postId, parentIdFilter: nil) { postComments, hasMoreComments in
+                    print("\(postComments.count) postComments were found")
+                    for postComment in postComments {
+                        if let postCommentId = postComment.id {
+                            self.postCommentStorage.remove(postCommentId) { isPostCommentRemoved in
+                                print("post comment #\(postCommentId) was removed")
                             }
                         }
-                        hasMoreCommentsToRemove = hasMoreComments
                     }
                 }
                 self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: nil) { postLikesList in
+                    print("\(postLikesList.count) postLikesList were found")
                     if let postLikes = postLikesList[postId] {
                         for postLike in postLikes {
                             self.postLikeDataStorage.remove(postLike) { isPostLikeRemoved in
-                                
+                                print("post like #\(postLike.id) was removed")
                             }
                         }
                     }

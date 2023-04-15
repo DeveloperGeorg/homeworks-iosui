@@ -67,6 +67,8 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                     self.postAggregateService?.remove(postId) { isPostRemoved in
                         print("post eas removed")
                     }
+                } else {
+                    print("no post id #\(post.post.id)")
                 }
             })
         } else {

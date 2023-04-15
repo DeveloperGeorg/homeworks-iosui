@@ -7,12 +7,10 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
     private let db = Firestore.firestore()
     
     func getListByBloggerPost(postIdsFilter: [String], bloggerIdFilter: String?, completionHandler: @escaping ([String:[PostFavorites]]) -> Void) {
-        
         var postFavorites: [String:[PostFavorites]] = [:]
             
         var query = db.collection("post-favorites")
             .whereField("post", in: postIdsFilter)
-            .limit(to: postIdsFilter.count)
         if let bloggerIdFilter = bloggerIdFilter {
             query = query
                 .whereField("blogger", isEqualTo: bloggerIdFilter)
@@ -33,6 +31,8 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
                         print("something went wrong during post decoding")
                     }
                 }
+                completionHandler(postFavorites)
+            } else {
                 completionHandler(postFavorites)
             }
         }

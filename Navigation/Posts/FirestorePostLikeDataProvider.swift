@@ -12,7 +12,6 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
             
         var query = db.collection("post-likes")
                 .whereField("post", in: postIdsFilter)
-                .limit(to: postIdsFilter.count)
         if let bloggerIdFilter = bloggerIdFilter {
             query = query
                 .whereField("blogger", isEqualTo: bloggerIdFilter)
@@ -34,6 +33,8 @@ class FirestorePostLikeDataProvider: PostLikeDataProviderProtocol {
                             print("something went wrong during post decoding")
                         }
                     }
+                    completionHandler(postLikes)
+                } else {
                     completionHandler(postLikes)
                 }
             }

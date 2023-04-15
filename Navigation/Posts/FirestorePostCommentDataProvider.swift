@@ -6,18 +6,22 @@ import FirebaseFirestoreSwift
 class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getList(limit: Int, postIdFilter: String, parentIdFilter: String? = nil, completionHandler: @escaping ([PostComment], Bool) -> Void) {
+    func getList(limit: Int?, postIdFilter: String, parentIdFilter: String? = nil, completionHandler: @escaping ([PostComment], Bool) -> Void) {
         var postComments: [PostComment] = []
         
         var query = db.collection("post-comments")
             .whereField("post", isEqualTo: postIdFilter)
             .order(by: "commentedAt", descending: true)
-            .limit(to: limit)
         
         if let parentIdFilter = parentIdFilter {
             query = query.whereField("parent", isEqualTo: parentIdFilter)
         } else {
             query = query.whereField("parent", isEqualTo: "")
+        }
+        
+        if let limit = limit {
+            query = query
+                .limit(to: limit)
         }
         
         query.getDocuments { (snapshot, error) in
@@ -33,7 +37,13 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
                         print("something went wrong during post decoding")
                     }
                 }
-                completionHandler(postComments, postCommentsDocumentsCount >= limit)
+                var hasMore = false
+                if let limit = limit {
+                    hasMore = postCommentsDocumentsCount >= limit
+                }
+                completionHandler(postComments, hasMore)
+            } else {
+                completionHandler(postComments, false)
             }
         }
     }
