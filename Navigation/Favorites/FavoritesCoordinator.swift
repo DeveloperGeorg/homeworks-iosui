@@ -19,6 +19,7 @@ final class FavoritesCoordinator: Coordinatable{
         self.userService = userService
         self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
         let logInViewController = loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
+            self.userService.storeCurrentUser(user)
             self.isLoggedIn = true
             self.openFavorites()
         })
@@ -37,8 +38,12 @@ final class FavoritesCoordinator: Coordinatable{
     }
     
     func openFavorites() {
-        let favoritesViewController = FavoritesViewController(favoritesCoordinator: self)
-        navigationController.pushViewController(favoritesViewController, animated: false)
+        do {
+            let favoritesViewController = try FavoritesViewController(favoritesCoordinator: self, userService: self.userService)
+            navigationController.pushViewController(favoritesViewController, animated: false)
+        } catch {
+            self.showError(title: String(localized: "Error occurred"), message: String(localized: "Something went wrong. Try again later"))
+        }
     }
     
     func openPost(post: PostAggregate) {

@@ -1,30 +1,39 @@
 import UIKit
 
 class FavoritesViewController: UIViewController {
+    enum ValidationError: Error {
+            case notFound
+        }
     var favoritesCoordinator: FavoritesCoordinator
     var feedView: FeedView?
     var postListTableViewDataSource = PostListTableViewDataSource()
     let postAggregateService: PostAggregateServiceProtocol
+    private let bloggerDataProvider: BloggerDataProviderProtocol
     let postLikeDataProvider: PostLikeDataProviderProtocol
     let postCommentDataProvider: PostCommentDataProviderProtocol
     let postFavoritesDataProvider: PostFavoritesDataProviderProtocol
+    private var userService: UserService
     let paginationLimit = 5;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
+    let user: User
+    var blogger: BloggerPreview? = nil
     
-    let temporaryBloggerId = "5WSoAxbM6IVfobdPRpAU3PpA0wO2"
-    
-    public init(favoritesCoordinator: FavoritesCoordinator) {
+    public init(favoritesCoordinator: FavoritesCoordinator, userService: UserService) throws {
         self.favoritesCoordinator = favoritesCoordinator
         self.postAggregateService = FirestorePostAggregateService()
         self.postLikeDataProvider = FirestorePostLikeDataProvider()
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postFavoritesDataProvider = FirestorePostFavoritesDataProvider()
-        self.postListTableViewDataSource.setCurrentBloggerId(self.temporaryBloggerId)
-        self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
-        self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
-        self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
-        super.init(nibName: nil, bundle: nil)
+        self.bloggerDataProvider = FirestoreBloggerDataProvider()
+        self.userService = userService
+        if let user = self.userService.getUserIfAuthorized() {
+            self.user = user
+            super.init(nibName: nil, bundle: nil)
+        } else {
+            /** @todo throw and go back */
+            throw ValidationError.notFound
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -38,16 +47,28 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: temporaryBloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
-            var postIds: [String] = []
-            for postFavorite in postFavoriteList {
-                postIds.append(postFavorite.post)
+        self.bloggerDataProvider.getByUserId(user.userId) { blogger in
+            if let blogger = blogger {
+                self.blogger = blogger
+                self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
+                self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
+                self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
+                self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
+                if let bloggerId = self.blogger?.id {
+                    self.postFavoritesDataProvider.getListByBlogger(limit: self.paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
+                        var postIds: [String] = []
+                        for postFavorite in postFavoriteList {
+                            postIds.append(postFavorite.post)
+                        }
+                        self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: bloggerId) { posts, hasMore in
+                            self.couldGetNextPage = hasMoreFavorite
+                            self.postListTableViewDataSource.addPosts(posts)
+                            self.feedView?.postsTableView.reloadData()
+                        }
+                    }
+                }
             }
-            self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
-                self.couldGetNextPage = hasMoreFavorite
-                self.postListTableViewDataSource.addPosts(posts)
-                self.feedView?.postsTableView.reloadData()
-            }
+            
         }
     }
     
@@ -68,18 +89,27 @@ class FavoritesViewController: UIViewController {
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
-        self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: temporaryBloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
-            var postIds: [String] = []
-            for postFavorite in postFavoriteList {
-                postIds.append(postFavorite.post)
-            }
-            self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
-                self.couldGetNextPage = hasMoreFavorite
-                self.postListTableViewDataSource.clearPosts()
-                self.postListTableViewDataSource.addPosts(posts)
-                self.feedView?.postsTableView.reloadData()
-                self.refreshControl.endRefreshing()
-                self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+        if let bloggerId = self.blogger?.id {
+            self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
+                var postIds: [String] = []
+                for postFavorite in postFavoriteList {
+                    postIds.append(postFavorite.post)
+                }
+                if postIds.count > 0 {
+                    self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: bloggerId) { posts, hasMore in
+                        self.couldGetNextPage = hasMoreFavorite
+                        self.postListTableViewDataSource.clearPosts()
+                        self.postListTableViewDataSource.addPosts(posts)
+                        self.feedView?.postsTableView.reloadData()
+                        self.refreshControl.endRefreshing()
+                        self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                    }
+                } else {
+                    self.postListTableViewDataSource.clearPosts()
+                    self.feedView?.postsTableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                    self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                }
             }
         }
     }
@@ -108,15 +138,17 @@ extension FavoritesViewController: UITableViewDelegate {
                 if let lastPost = postListTableViewDataSource.posts.last {
                     beforeAddedAtFilter = lastPost.favorite?.addedAt
                 }
-                self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: temporaryBloggerId, beforeAddedAtFilter: beforeAddedAtFilter) { postFavoriteList, hasMoreFavorite in
-                    var postIds: [String] = []
-                    for postFavorite in postFavoriteList {
-                        postIds.append(postFavorite.post)
-                    }
-                    self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
-                        self.couldGetNextPage = hasMoreFavorite
-                        self.postListTableViewDataSource.addPosts(posts)
-                        self.feedView?.postsTableView.reloadData()
+                if let bloggerId = self.blogger?.id {
+                    self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: beforeAddedAtFilter) { postFavoriteList, hasMoreFavorite in
+                        var postIds: [String] = []
+                        for postFavorite in postFavoriteList {
+                            postIds.append(postFavorite.post)
+                        }
+                        self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: bloggerId) { posts, hasMore in
+                            self.couldGetNextPage = hasMoreFavorite
+                            self.postListTableViewDataSource.addPosts(posts)
+                            self.feedView?.postsTableView.reloadData()
+                        }
                     }
                 }
             }

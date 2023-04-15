@@ -62,10 +62,9 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         
         if doShowRemoveFunctionality {
             cell.removePostButton.setButtonTappedCallback({ sender in
-                print("remove button tapped: post #\(post.post.id)")
                 if let postId = post.post.id {
                     self.postAggregateService?.remove(postId) { isPostRemoved in
-                        print("post eas removed")
+                        print("post was removed")
                     }
                 } else {
                     print("no post id #\(post.post.id)")

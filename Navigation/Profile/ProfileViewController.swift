@@ -91,7 +91,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
-        print(self.user.userId)
         bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
                 self.blogger = blogger
