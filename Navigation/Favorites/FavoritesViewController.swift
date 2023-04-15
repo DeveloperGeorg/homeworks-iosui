@@ -23,6 +23,7 @@ class FavoritesViewController: UIViewController {
         self.postListTableViewDataSource.setCurrentBloggerId(self.temporaryBloggerId)
         self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
         self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
+        self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
         super.init(nibName: nil, bundle: nil)
     }
     

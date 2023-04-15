@@ -7,6 +7,9 @@ class PostListTableViewDataSource: NSObject {
     var currentBloggerId: String?
     var postLikeDataStorage: PostLikeDataStorageProtocol?
     var postFavoritesDataStorage: PostFavoritesDataStorageProtocol?
+    var postAggregateService: PostAggregateServiceProtocol?
+    var doShowRemoveFunctionality: Bool = false
+    
     override init() {
         self.posts = []
         self.currentBloggerId = nil
@@ -31,6 +34,10 @@ class PostListTableViewDataSource: NSObject {
     func setPostFavoritesDataStorage(_ postFavoritesDataStorage: PostFavoritesDataStorageProtocol) {
         self.postFavoritesDataStorage = postFavoritesDataStorage
     }
+    
+    func setPostAggregateService(_ postAggregateService: PostAggregateServiceProtocol) {
+        self.postAggregateService = postAggregateService
+    }
 }
 
 extension PostListTableViewDataSource: UITableViewDataSource {
@@ -46,10 +53,25 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         let index = Int(indexPath.row)
         let post = self.posts[index] as PostAggregate
         cell.initFromPostItem(post, index: index)
+        
         let likeTapGesture = UITapGestureRecognizer(target: self, action: #selector(likeTap))
         cell.likesCounterView.addGestureRecognizer(likeTapGesture)
+        
         let favoriteTapGesture = UITapGestureRecognizer(target: self, action: #selector(favoriteTap))
         cell.favoriteView.addGestureRecognizer(favoriteTapGesture)
+        
+        if doShowRemoveFunctionality {
+            cell.removePostButton.setButtonTappedCallback({ sender in
+                print("remove button tapped: post #\(post.post.id)")
+                if let postId = post.post.id {
+                    self.postAggregateService?.remove(postId) { isPostRemoved in
+                        print("post eas removed")
+                    }
+                }
+            })
+        } else {
+            cell.removePostButton.isHidden = true
+        }
         
         return cell
     }

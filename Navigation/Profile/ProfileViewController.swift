@@ -45,6 +45,8 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.user = user
             self.postAggregateService = FirestorePostAggregateService()
             self.bloggerDataProvider = FirestoreBloggerDataProvider()
+            self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
+            self.postListTableViewDataSource.doShowRemoveFunctionality = true
             
             super.init(nibName: nil, bundle: nil)
         } else {

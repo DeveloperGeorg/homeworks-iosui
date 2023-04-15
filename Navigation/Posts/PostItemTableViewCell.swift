@@ -41,6 +41,23 @@ class PostItemTableViewCell: UITableViewCell {
         
         return label
     }()
+    var removePostButton: CustomButton = {
+        let button = CustomButton(
+            title: String(localized: "Remove"),
+            titleColor: UiKitFacade.shared.getPrimaryTextColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UiKitFacade.shared.getAccentColor()
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
+        button.layer.shadowRadius = CGFloat(4)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     var postContentView: UIView = {
         let view = UIView()
@@ -122,8 +139,6 @@ class PostItemTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    /** @todo favorite block */
-    
     var favoriteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +162,8 @@ class PostItemTableViewCell: UITableViewCell {
         authorContentView.addSubviews([
             authorImageBlockView,
             authorTitleLabel,
-            authorSubTitleLabel
+            authorSubTitleLabel,
+            removePostButton
         ])
         
         mainImageBlockView.addSubview(mainImageView)
@@ -234,8 +250,12 @@ class PostItemTableViewCell: UITableViewCell {
             
             authorTitleLabel.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
             authorTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
+            authorTitleLabel.trailingAnchor.constraint(equalTo: removePostButton.leadingAnchor, constant: 8),
             authorSubTitleLabel.topAnchor.constraint(equalTo: authorTitleLabel.bottomAnchor),
             authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
+            removePostButton.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
+            removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant: -8),
+            removePostButton.heightAnchor.constraint(equalToConstant: 8),
             
             postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant: 8),
             postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
