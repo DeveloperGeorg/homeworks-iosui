@@ -1,12 +1,29 @@
 import Foundation
 
-class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
-    private let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
-    private let postDataProvider: PostDataProviderProtocol = FirestorePostDataProvider()
-    private let postLikeDataProvider: PostLikeDataProviderProtocol = FirestorePostLikeDataProvider()
-    private let postCommentDataProvider: PostCommentDataProviderProtocol = FirestorePostCommentDataProvider()
-    private let postFavoritesDataProvider: PostFavoritesDataProviderProtocol = FirestorePostFavoritesDataProvider()
+protocol PostAggregateServiceProtocol {
     
+    var bloggerDataProvider: BloggerDataProviderProtocol { get }
+    var postDataProvider: PostDataProviderProtocol { get }
+    var postLikeDataProvider: PostLikeDataProviderProtocol { get }
+    var postCommentDataProvider: PostCommentDataProviderProtocol { get }
+    var postFavoritesDataProvider: PostFavoritesDataProviderProtocol { get }
+    
+    func getList(
+        limit: Int,
+        beforePostedAtFilter: Date?,
+        bloggerIdFilter: String?,
+        currentBloggerId: String?,
+        completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
+    )
+    func getListByIds(
+        postIds: [String],
+        currentBloggerId: String?,
+        completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
+    )
+    func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void)
+}
+
+extension PostAggregateServiceProtocol {
     func getList(
         limit: Int,
         beforePostedAtFilter: Date? = nil,
@@ -38,6 +55,13 @@ class FirestorePostAggregateDataProvider: PostAggregateDataProviderProtocol {
                 completionHandler: completionHandler
             )
         }
+    }
+    
+    func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void) {
+        /** @todo remove post */
+        /** @todo remove post comments */
+        /** @todo remove post likes */
+        /** @todo remove post favorites */
     }
     
     fileprivate func aggregatePosts(

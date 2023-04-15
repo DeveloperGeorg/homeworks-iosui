@@ -4,7 +4,7 @@ class FavoritesViewController: UIViewController {
     var favoritesCoordinator: FavoritesCoordinator
     var feedView: FeedView?
     var postListTableViewDataSource = PostListTableViewDataSource()
-    let postDataProviderProtocol: PostAggregateDataProviderProtocol
+    let postAggregateService: PostAggregateServiceProtocol
     let postLikeDataProvider: PostLikeDataProviderProtocol
     let postCommentDataProvider: PostCommentDataProviderProtocol
     let postFavoritesDataProvider: PostFavoritesDataProviderProtocol
@@ -16,7 +16,7 @@ class FavoritesViewController: UIViewController {
     
     public init(favoritesCoordinator: FavoritesCoordinator) {
         self.favoritesCoordinator = favoritesCoordinator
-        self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
+        self.postAggregateService = FirestorePostAggregateService()
         self.postLikeDataProvider = FirestorePostLikeDataProvider()
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postFavoritesDataProvider = FirestorePostFavoritesDataProvider()
@@ -42,7 +42,7 @@ class FavoritesViewController: UIViewController {
             for postFavorite in postFavoriteList {
                 postIds.append(postFavorite.post)
             }
-            self.postDataProviderProtocol.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
+            self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
                 self.couldGetNextPage = hasMoreFavorite
                 self.postListTableViewDataSource.addPosts(posts)
                 self.feedView?.postsTableView.reloadData()
@@ -72,7 +72,7 @@ class FavoritesViewController: UIViewController {
             for postFavorite in postFavoriteList {
                 postIds.append(postFavorite.post)
             }
-            self.postDataProviderProtocol.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
+            self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
                 self.couldGetNextPage = hasMoreFavorite
                 self.postListTableViewDataSource.clearPosts()
                 self.postListTableViewDataSource.addPosts(posts)
@@ -112,7 +112,7 @@ extension FavoritesViewController: UITableViewDelegate {
                     for postFavorite in postFavoriteList {
                         postIds.append(postFavorite.post)
                     }
-                    self.postDataProviderProtocol.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
+                    self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: self.temporaryBloggerId) { posts, hasMore in
                         self.couldGetNextPage = hasMoreFavorite
                         self.postListTableViewDataSource.addPosts(posts)
                         self.feedView?.postsTableView.reloadData()

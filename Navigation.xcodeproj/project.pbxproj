@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		41038DE629C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */; };
+		41038DE629C8B70500CE8195 /* PostAggregateServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE529C8B70500CE8195 /* PostAggregateServiceProtocol.swift */; };
 		41038DE829C8B78B00CE8195 /* DebugPostDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */; };
 		41038DEA29C8B95600CE8195 /* PostListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */; };
 		41038DEC29C970D700CE8195 /* PostAggregate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41038DEB29C970D700CE8195 /* PostAggregate.swift */; };
@@ -70,7 +70,7 @@
 		41B9053D27BABC830020A8DD /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; };
 		41B9053E27BABC830020A8DD /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 41B9053627BABC830020A8DD /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		41B9054427BABCD50020A8DD /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4135193C2721C798009739D1 /* Post.swift */; };
-		41C270B729CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */; };
+		41C270B729CACC4A00B40F43 /* FirestorePostAggregateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270B629CACC4A00B40F43 /* FirestorePostAggregateService.swift */; };
 		41C270B929CC2A2A00B40F43 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270B829CC2A2A00B40F43 /* PostItem.swift */; };
 		41C270BB29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */; };
 		41C270BD29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */; };
@@ -156,7 +156,7 @@
 
 /* Begin PBXFileReference section */
 		290D7993F50973178B8D57E3 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
-		41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateDataProviderProtocol.swift; sourceTree = "<group>"; };
+		41038DE529C8B70500CE8195 /* PostAggregateServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateServiceProtocol.swift; sourceTree = "<group>"; };
 		41038DE729C8B78B00CE8195 /* DebugPostDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPostDataProvider.swift; sourceTree = "<group>"; };
 		41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListTableViewDataSource.swift; sourceTree = "<group>"; };
 		41038DEB29C970D700CE8195 /* PostAggregate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregate.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		41B9053627BABC830020A8DD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41B9053827BABC830020A8DD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		41B9053927BABC830020A8DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostAggregateDataProvider.swift; sourceTree = "<group>"; };
+		41C270B629CACC4A00B40F43 /* FirestorePostAggregateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostAggregateService.swift; sourceTree = "<group>"; };
 		41C270B829CC2A2A00B40F43 /* PostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItem.swift; sourceTree = "<group>"; };
 		41C270BA29CF6E5100B40F43 /* BloggerDataProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BloggerDataProviderProtocol.swift; sourceTree = "<group>"; };
 		41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBloggerDataProvider.swift; sourceTree = "<group>"; };
@@ -313,12 +313,12 @@
 				41C270D429D15D5400B40F43 /* FileUploaderProtocol.swift */,
 				41C270BC29CF6EBF00B40F43 /* FirestoreBloggerDataProvider.swift */,
 				41C270E029D4A33200B40F43 /* FirestoreBloggerDataStorage.swift */,
-				41C270B629CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift */,
+				41C270B629CACC4A00B40F43 /* FirestorePostAggregateService.swift */,
 				41C270C229D01E7900B40F43 /* FirestorePostCommentDataProvider.swift */,
 				41C270C629D03B3500B40F43 /* FirestorePostDataProvider.swift */,
 				41C270D029D0683C00B40F43 /* FirestorePostItemDataStorage.swift */,
 				41038DEB29C970D700CE8195 /* PostAggregate.swift */,
-				41038DE529C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift */,
+				41038DE529C8B70500CE8195 /* PostAggregateServiceProtocol.swift */,
 				41C270C829D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift */,
 				4194721427F9AF010075A056 /* PostAggregateViewController.swift */,
 				41C270BE29D00D0D00B40F43 /* PostComment.swift */,
@@ -756,7 +756,7 @@
 			files = (
 				412D778D29C77A9200BD23E8 /* Typography.swift in Sources */,
 				41F0BF8229AB7A5400A21B4F /* ProfileViewControllerProtocol.swift in Sources */,
-				41038DE629C8B70500CE8195 /* PostAggregateDataProviderProtocol.swift in Sources */,
+				41038DE629C8B70500CE8195 /* PostAggregateServiceProtocol.swift in Sources */,
 				4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */,
 				411F73F127EEE99400555D97 /* CustomButton.swift in Sources */,
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
@@ -801,7 +801,7 @@
 				41C270C329D01E7900B40F43 /* FirestorePostCommentDataProvider.swift in Sources */,
 				412D778F29C77AB000BD23E8 /* TypographyProtocol.swift in Sources */,
 				41C270DF29D4A29900B40F43 /* BloggerDataStorageProtocol.swift in Sources */,
-				41C270B729CACC4A00B40F43 /* FirestorePostAggregateDataProvider.swift in Sources */,
+				41C270B729CACC4A00B40F43 /* FirestorePostAggregateService.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41C270BF29D00D0D00B40F43 /* PostComment.swift in Sources */,

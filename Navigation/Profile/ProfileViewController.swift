@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     var blogger: BloggerPreview? = nil
     var posts: [PostAggregate] = []
     var postListTableViewDataSource = PostListTableViewDataSource()
-    let postDataProviderProtocol: PostAggregateDataProviderProtocol
+    let postAggregateService: PostAggregateServiceProtocol
     let paginationLimit = 10
     var couldGetNextPage = true
     
@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
         if let user = self.userService.getUserIfAuthorized() {
             self.user = user
-            self.postDataProviderProtocol = FirestorePostAggregateDataProvider()
+            self.postAggregateService = FirestorePostAggregateService()
             self.bloggerDataProvider = FirestoreBloggerDataProvider()
             
             super.init(nibName: nil, bundle: nil)
@@ -95,7 +95,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 self.blogger = blogger
                 self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
                 self.profileCoordinator.setBlogger(blogger)
-                self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
+                self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.postsTableView.reloadData()
@@ -107,7 +107,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
         if let blogger = self.blogger {
-            self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
+            self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                 self.couldGetNextPage = hasMore
                 self.postListTableViewDataSource.clearPosts()
                 self.postListTableViewDataSource.addPosts(posts)
@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 if let blogger = blogger {
                     self.blogger = blogger
                     self.profileCoordinator.setBlogger(blogger)
-                    self.postDataProviderProtocol.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
+                    self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                         self.couldGetNextPage = hasMore
                         self.postListTableViewDataSource.addPosts(posts)
                         self.postsTableView.reloadData()
