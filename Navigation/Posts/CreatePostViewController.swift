@@ -6,6 +6,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     private let postItemDataStorage: PostItemDataStorageProtocol
     private let fileUploader: FileUploaderProtocol
     private let blogger: BloggerPreview
+    private let imageService: ImageService = ImageService()
     
     let imagePickerController: UIImagePickerController = {
         let imagePickerController = UIImagePickerController()
@@ -106,6 +107,9 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
                                 mainImageLink: fileName,
                                 content: content
                             )
+                            self.imageService.getUIImageByUrlString(fileName) { uiImage in
+                                print("file \(fileName) was cached")
+                            }
                             self.postItemDataStorage.create(post) { post in
                                 print("post item was created")
                                 self.postItemFormCoordinator.goBack()
