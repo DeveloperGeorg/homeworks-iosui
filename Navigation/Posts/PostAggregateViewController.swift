@@ -10,6 +10,14 @@ class PostAggregateViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
+    
+    var newCommentTextInput: CustomTextInput = {
+        let textInput = CustomTextInput()
+        textInput.placeholder = String(localized: "Awesome comment")
+        textInput.label.text = String(localized: "Add comment")
+        
+        return textInput
+    }()
     var addPostCommentButton: CustomButton = {
         let button = CustomButton(
             title: String(localized: "Add comment"),
@@ -53,17 +61,22 @@ class PostAggregateViewController: UIViewController {
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         tempPostContent.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         view.addSubview(tempPostContent)
+        view.addSubview(newCommentTextInput)
         view.addSubview(addPostCommentButton)
         NSLayoutConstraint.activate([
             tempPostContent.widthAnchor.constraint(equalTo: view.widthAnchor),
             tempPostContent.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tempPostContent.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tempPostContent.topAnchor.constraint(equalTo: view.topAnchor),
-            tempPostContent.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -160),
-            addPostCommentButton.topAnchor.constraint(equalTo: tempPostContent.bottomAnchor, constant: 8),
+            tempPostContent.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -200),
+            newCommentTextInput.topAnchor.constraint(equalTo: tempPostContent.bottomAnchor, constant: 8),
+            newCommentTextInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            newCommentTextInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            newCommentTextInput.heightAnchor.constraint(equalToConstant: 40),
+            addPostCommentButton.topAnchor.constraint(equalTo: newCommentTextInput.bottomAnchor, constant: 8),
             addPostCommentButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            addPostCommentButton.heightAnchor.constraint(equalToConstant: 50)
+            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         postCommentDataProvider.getList(limit: 10, postIdFilter: post.post.id!, parentIdFilter: nil) { postComments, hasMore in
             self.tempPostContent.text += "-----------------\n"
@@ -77,21 +90,23 @@ class PostAggregateViewController: UIViewController {
             }
         }
         addPostCommentButton.setButtonTappedCallback({sender in
-            let content = "Generated comment \(UUID().uuidString)"
-            if let postId = self.post.post.id {
-                let postComment = PostComment(
-                    blogger: self.post.blogger.userId,
-                    post: postId,
-                    comment: content,
-                    commentedAt: Date()
-                )
-                self.postCommentStorage.add(postComment: postComment) { postComment in
-                    print(postComment)
-                    self.tempPostContent.text += "---\n"
-                    self.tempPostContent.text += "Blogger ID: \(postComment.blogger)\n"
-                    self.tempPostContent.text += "Parent: \(String(describing: postComment.parent))\n"
-                    self.tempPostContent.text += "commentedAt: \(postComment.commentedAt)\n"
-                    self.tempPostContent.text += "Comment: \(postComment.comment)\n"
+            if let content = self.newCommentTextInput.text {
+                if let postId = self.post.post.id {
+                    let postComment = PostComment(
+                        blogger: self.post.blogger.userId,
+                        post: postId,
+                        comment: content,
+                        commentedAt: Date()
+                    )
+                    self.postCommentStorage.add(postComment: postComment) { postComment in
+                        print(postComment)
+                        self.newCommentTextInput.text = ""
+                        self.tempPostContent.text += "---\n"
+                        self.tempPostContent.text += "Blogger ID: \(postComment.blogger)\n"
+                        self.tempPostContent.text += "Parent: \(String(describing: postComment.parent))\n"
+                        self.tempPostContent.text += "commentedAt: \(postComment.commentedAt)\n"
+                        self.tempPostContent.text += "Comment: \(postComment.comment)\n"
+                    }
                 }
             }
         })
