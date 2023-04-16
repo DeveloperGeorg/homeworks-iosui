@@ -1,6 +1,7 @@
 import UIKit
 
 class PostItemTableViewCell: UITableViewCell {
+    private let imageService: ImageService = ImageService()
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
         /** @todo blogger preview block */
@@ -200,31 +201,15 @@ class PostItemTableViewCell: UITableViewCell {
     }
     
     func initFromPostItem(_ postAggregate: PostAggregate, index: Int) {
-        DispatchQueue.global().async { [weak self] in
-            if let url = URL(string: postAggregate.blogger.imageLink) {
-                if let data = try? Data(contentsOf: url) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.authorImageView.image = image
-                        }
-                    }
-                }
-            }
+        self.imageService.getUIImageByUrlString(postAggregate.blogger.imageLink) { uiImage in
+            self.authorImageView.image = uiImage
         }
             
         authorTitleLabel.text = postAggregate.blogger.name
         authorSubTitleLabel.text = postAggregate.blogger.shortDescription
         anonsContentView.text = postAggregate.post.content
-        DispatchQueue.global().async { [weak self] in
-            if let url = URL(string: postAggregate.post.mainImageLink) {
-                if let data = try? Data(contentsOf: url) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.mainImageView.image = image
-                        }
-                    }
-                }
-            }
+        self.imageService.getUIImageByUrlString(postAggregate.post.mainImageLink) { uiImage in
+            self.mainImageView.image = uiImage
         }
         likesCounterLabel.text = "\(postAggregate.likesAmount)"
         likesCounterView.tag = index

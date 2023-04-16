@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 
 class ProfileHeaderView: UIView {
+    private let imageService: ImageService = ImageService()
     fileprivate let NavBarPadding = 91
     fileprivate let profileTitleFontSize = 18
     fileprivate let profileTextFieldFontSize = 14
@@ -92,16 +93,8 @@ class ProfileHeaderView: UIView {
         
         /** @ todo set default */
         if let imageLink = profile?.imageLink {
-            DispatchQueue.global().async { [weak self] in
-                if let url = URL(string: imageLink) {
-                    if let data = try? Data(contentsOf: url) {
-                        if let image = UIImage(data: data) {
-                            DispatchQueue.main.async {
-                                self?.avatarImageView.image = image
-                            }
-                        }
-                    }
-                }
+            self.imageService.getUIImageByUrlString(imageLink) { uiImage in
+                self.avatarImageView.image = uiImage
             }
         }
         
