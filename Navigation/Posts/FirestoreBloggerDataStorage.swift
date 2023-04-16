@@ -11,13 +11,25 @@ class FirestoreBloggerDataStorage: BloggerDataStorageProtocol {
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                print("blogger was created")
                 completionHandler(blogger)
             }
         }
     }
     
-    
+    func update(_ blogger: BloggerPreview, completionHandler: @escaping (Bool) -> Void) -> Void {
+        if let bloggerId = blogger.id {
+            db.collection("bloggers").document(bloggerId).setData(blogger.getDataForFirestore()) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                    completionHandler(false)
+                } else {
+                    completionHandler(true)
+                }
+            }
+        } else {
+            completionHandler(false)
+        }
+    }
 }
 
 extension BloggerPreview {

@@ -23,27 +23,11 @@ class ProfileHeaderView: UIView {
         return fullNameLabel
     }()
     
-    var statusLabel: UILabel = {
+    var shortDescriptionLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.textColor = UIColor.createColor(lightMode: .gray, darkMode: .lightGray)
         
         return statusLabel
-    }()
-    
-    var statusTextField: UITextField = {
-        let statusTextField = UITextField()
-        statusTextField.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .white)
-        statusTextField.layer.cornerRadius = 12
-        statusTextField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        statusTextField.textColor = UIColor.createColor(lightMode: .white, darkMode: .black)
-        statusTextField.layer.borderColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
-        statusTextField.layer.borderWidth = 1
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        statusTextField.leftView = paddingView
-        statusTextField.leftViewMode = .always
-        
-        return statusTextField
     }()
     
     var editProfileButton: CustomButton = {
@@ -98,8 +82,8 @@ class ProfileHeaderView: UIView {
         fullNameLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
         fullNameLabel.text = profile?.name
         
-        statusLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
-        statusLabel.text = profile?.shortDescription
+        shortDescriptionLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
+        shortDescriptionLabel.text = profile?.shortDescription
         
         addSubviews()
         drawLayer()
@@ -110,8 +94,7 @@ class ProfileHeaderView: UIView {
     private func addSubviews() {
         addSubview(avatarImageView)
         addSubview(fullNameLabel)
-        addSubview(statusLabel)
-        addSubview(statusTextField)
+        addSubview(shortDescriptionLabel)
         addSubview(editProfileButton)
         addSubview(createPostButton)
         
@@ -128,22 +111,16 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(self).inset(16)
             make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
         }
-        statusLabel.snp.makeConstraints { (make) -> Void in
+        shortDescriptionLabel.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(CGFloat(profileTextFieldFontSize))
             make.trailing.equalTo(self).offset(16)
             make.bottom.equalTo(avatarImageView).inset(18)
             make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
         }
-        statusTextField.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(40)
-            make.trailing.equalTo(self).inset(16)
-            make.top.equalTo(statusLabel.snp.bottom).offset(16)
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
-        }
         editProfileButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
             make.trailing.equalTo(self).inset(16)
-            make.top.equalTo(statusTextField.snp.bottom).offset(16)
+            make.top.equalTo(avatarImageView.snp.bottom).offset(16)
             make.leading.equalTo(self).inset(16)
         }
         createPostButton.snp.makeConstraints { (make) -> Void in

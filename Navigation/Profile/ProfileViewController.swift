@@ -107,6 +107,13 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        
+        bloggerDataProvider.getByUserId(self.user.userId) { blogger in
+            if let blogger = blogger {
+                self.blogger = blogger
+            }
+        }
+        
         if let blogger = self.blogger {
             self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: blogger.id, currentBloggerId: self.blogger?.id) { posts, hasMore in
                 self.couldGetNextPage = hasMore
