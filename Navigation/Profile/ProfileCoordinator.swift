@@ -4,41 +4,26 @@ final class ProfileCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
-    let loginFactory: LoginFactoryProtocol
     let profileFactory: ProfileFactoryProtocol
     let userService: UserService
     let postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
     let postItemFormCoordinator: PostItemFormCoordinator
-    var isLoggedIn = false
     
     init(
         navigationController: UINavigationController,
-        loginFactory: LoginFactoryProtocol,
         profileFactory: ProfileFactoryProtocol,
         userService: UserService
     ) {
         self.navigationController = navigationController
-        self.loginFactory = loginFactory
         self.profileFactory = profileFactory
         self.userService = userService
         self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
         self.postItemFormCoordinator = PostItemFormCoordinator(navigationController: navigationController)
-        let logInViewController = loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
-            self.userService.storeCurrentUser(user)
-            self.openProfile(user)
-        })
-        self.navigationController.setViewControllers([logInViewController], animated: false)
+        self.openProfile(nil)
     }
     
     func start() {
-        if isLoggedIn {
-            let logInViewController = self.loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
-                self.openProfile(user)
-            })
-            navigationController.pushViewController(logInViewController, animated: false)
-        } else {
-            self.openProfile(nil)
-        }
+        self.openProfile(nil)
     }
     
     func openProfile(_ user: User?) {
@@ -46,10 +31,7 @@ final class ProfileCoordinator: Coordinatable {
             let profileController = try self.profileFactory.createProfileViewController(
                 userService: self.userService, coordinator: self
             )
-            if !isLoggedIn {
-                self.navigationController.setViewControllers([profileController], animated: true)
-            }
-            isLoggedIn = true
+            self.navigationController.setViewControllers([profileController], animated: true)
         } catch {
             self.showError(title: String(localized: "Error occurred"), message: String(localized: "Something went wrong. Try again later"))
         }
