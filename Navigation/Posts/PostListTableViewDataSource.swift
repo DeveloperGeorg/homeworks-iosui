@@ -81,13 +81,16 @@ extension PostListTableViewDataSource: UITableViewDataSource {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
                     if let postLikeDataStorage = self.postLikeDataStorage {
-                        let postAggregate = self.posts[index] as PostAggregate
+                        var postAggregate = self.posts[index] as PostAggregate
                         if !postAggregate.isLiked {
                             if let postId = postAggregate.post.id {
                                 let postLike = PostLike(blogger: currentBloggerId, post: postId)
                                 postLikeDataStorage.create(postLike) { postLike in
                                     print("success like")
                                     print(postLike)
+                                    postAggregate.isLiked = true
+                                    postAggregate.likesAmount += 1
+                                    postAggregate.like = postLike
                                     /** @todo set postLike */
                                 }
                             } else {
@@ -99,6 +102,9 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                 postLikeDataStorage.remove(postLike) { wasRemoved in
                                     print("Remove result \(wasRemoved)")
                                 }
+                                postAggregate.isLiked = false
+                                postAggregate.likesAmount -= 1
+                                postAggregate.like = nil
                                 /** @todo set postLike nil */
                             }
                         }
@@ -119,13 +125,15 @@ extension PostListTableViewDataSource: UITableViewDataSource {
             if let currentBloggerId = currentBloggerId {
                 if let index = sender.view?.tag {
                     if let postFavoritesDataStorage = self.postFavoritesDataStorage {
-                        let postAggregate = self.posts[index] as PostAggregate
+                        var postAggregate = self.posts[index] as PostAggregate
                         if !postAggregate.isFavorite {
                             if let postId = postAggregate.post.id {
                                 let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
                                 postFavoritesDataStorage.create(postFavorites) { postFavorites in
                                     print("success favorite")
                                     print(postFavorites)
+                                    postAggregate.isFavorite = true
+                                    postAggregate.favorite = postFavorites
                                 }
                             } else {
                                 print("no post id was got \(postAggregate.post.id)")
@@ -136,6 +144,8 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                             if let postFavorite = postAggregate.favorite {
                                 postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
                                     print("Remove result \(wasRemoved)")
+                                    postAggregate.isFavorite = false
+                                    postAggregate.favorite = nil
                                 }
                                 /** @todo set postLike nil */
                             }

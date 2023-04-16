@@ -1,6 +1,7 @@
 import UIKit
 
 class PostItemTableViewCell: UITableViewCell {
+    var postAggregate: PostAggregate?
     private let imageService: ImageService = ImageService()
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
@@ -201,6 +202,7 @@ class PostItemTableViewCell: UITableViewCell {
     }
     
     func initFromPostItem(_ postAggregate: PostAggregate, index: Int) {
+        self.postAggregate = postAggregate
         self.imageService.getUIImageByUrlString(postAggregate.blogger.imageLink) { uiImage in
             self.authorImageView.image = uiImage
         }

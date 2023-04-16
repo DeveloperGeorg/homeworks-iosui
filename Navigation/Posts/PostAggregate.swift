@@ -1,14 +1,14 @@
 import Foundation
 
-struct PostAggregate {
+class PostAggregate {
     let blogger: BloggerPreview
     let post: PostItem
     var isLiked: Bool
     var like: PostLike? = nil
     var isFavorite: Bool
     var favorite: PostFavorites? = nil
-    let commentsAmount: Int
-    let likesAmount: Int
+    var commentsAmount: Int
+    var likesAmount: Int
     
     init(blogger: BloggerPreview, post: PostItem, isLiked: Bool, isFavorite: Bool, commentsAmount: Int, likesAmount: Int, like: PostLike? = nil, favorite: PostFavorites? = nil) {
         self.blogger = blogger
@@ -21,7 +21,7 @@ struct PostAggregate {
         self.favorite = favorite
     }
     
-    mutating func setLike(_ like: PostLike?) {
+    func setLike(_ like: PostLike?) {
         self.like = like
         if self.like == nil {
             self.isLiked = false
@@ -30,7 +30,7 @@ struct PostAggregate {
         }
     }
     
-    mutating func setFavorite(_ favorite: PostFavorites?) {
+    func setFavorite(_ favorite: PostFavorites?) {
         self.favorite = favorite
         if self.favorite == nil {
             self.isFavorite = false
