@@ -351,10 +351,10 @@
 		411F73EF27EEE96700555D97 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				413EE07429EBB87F00744A16 /* Image */,
 				412D778329C7427700BD23E8 /* UiKit */,
 				41A5EF7D2807EA0B00A12C07 /* Network */,
 				411F73F027EEE99400555D97 /* CustomButton.swift */,
-				413EE07229EBB53200744A16 /* ImageService.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -412,6 +412,14 @@
 				41F0BF6529AB6ACB00A21B4F /* Profile */,
 			);
 			path = NavigationTests;
+			sourceTree = "<group>";
+		};
+		413EE07429EBB87F00744A16 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				413EE07229EBB53200744A16 /* ImageService.swift */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 		4149A94827F571CA0030C223 /* Feed */ = {
