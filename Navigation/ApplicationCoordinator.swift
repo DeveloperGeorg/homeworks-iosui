@@ -4,6 +4,8 @@ final class ApplicationCoordinator: Coordinatable {
     var navigationController: UINavigationController
     var window: UIWindow
     var rootController: UITabBarController = UITabBarController()
+    let loginFactory = LoginFactory()
+    let userService = CurrentUserService()
     
     var childCoordinators: [Coordinatable] = []
     
@@ -14,11 +16,13 @@ final class ApplicationCoordinator: Coordinatable {
     init(window: UIWindow) {
         self.window = window
         self.navigationController = UINavigationController()
-        self.feedCoordinator = FeedCoordinator(navigationController: navigationController)
-        self.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Feed"), image: UIImage(systemName: "list.bullet"), selectedImage: nil)
+        self.feedCoordinator = FeedCoordinator(
+            navigationController: navigationController,
+            userService: userService
+        )
+        feedCoordinator.navigationController.tabBarItem = UITabBarItem(title: String(localized: "Feed"), image: UIImage(systemName: "list.bullet"), selectedImage: nil)
+        feedCoordinator.navigationController.navigationBar.isHidden = true
         
-        let loginFactory = LoginFactory()
-        let userService = CurrentUserService()
         self.profileCoordinator = ProfileCoordinator(
             navigationController: UINavigationController(),
             loginFactory: loginFactory,
@@ -44,7 +48,13 @@ final class ApplicationCoordinator: Coordinatable {
     }
     
     func start() {
-        feedCoordinator.start()
+        let logInViewController = loginFactory.createLogInViewController(coordinator: self, loginCompletionHandler: { user in
+            self.userService.storeCurrentUser(user)
+            self.rootController.tabBar.isHidden = false
+            self.feedCoordinator.start()
+        })
+        self.navigationController.setViewControllers([logInViewController], animated: false)
+        rootController.tabBar.isHidden = true
         window.rootViewController = rootController
         window.makeKeyAndVisible()
     }

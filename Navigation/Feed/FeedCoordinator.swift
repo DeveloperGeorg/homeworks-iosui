@@ -5,15 +5,17 @@ final class FeedCoordinator: Coordinatable {
     
     var navigationController: UINavigationController
     var postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
+    let userService: UserService
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, userService: UserService) {
         self.navigationController = navigationController
+        self.userService = userService
         self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
     }
     
     func start() {
-        let feedViewController = FeedViewController(feedCoordinator: self)
-        navigationController.pushViewController(feedViewController, animated: false)
+        let feedViewController = try! FeedViewController(feedCoordinator: self, userService: userService)
+        navigationController.setViewControllers([feedViewController], animated: false)
     }
     
     func openPost(post: PostAggregate) {
