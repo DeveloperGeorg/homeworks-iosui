@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-struct BloggerPreview: Codable {
+class BloggerPreview: Codable {
     @DocumentID var id: String?
     let userId: String
     var name: String
@@ -23,7 +23,7 @@ struct BloggerPreview: Codable {
        case shortDescription
     }
     
-    init(from decoder:Decoder) throws {
+    required init(from decoder:Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         userId = try values.decode(String.self, forKey: .userId)
         name = try values.decode(String.self, forKey: .name)

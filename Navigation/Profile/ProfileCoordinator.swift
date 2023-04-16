@@ -55,6 +55,10 @@ final class ProfileCoordinator: Coordinatable {
         }
     }
     
+    func openProfileEdit(_ user: User) {
+        self.navigationController.pushViewController(ProfileEditViewController(user: user, userService: self.userService), animated: true)
+    }
+    
     func openPost(post: PostAggregate) {
         self.postAggregateDetailViewCoordinator.post = post
         self.postAggregateDetailViewCoordinator.start()

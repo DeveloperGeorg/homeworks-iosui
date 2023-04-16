@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Profile"
+        self.title = String(localized: "Profile")
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .black)
         
         view.addSubview(postsTableView)
@@ -135,7 +135,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = ProfileTableHederView.init(profile: self.blogger, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 290), profileCoordinator: self.profileCoordinator)
-            
+        headerView.profileHeaderView.editProfileButton.setButtonTappedCallback({ sender in
+            print("button tapped")
+            self.profileCoordinator.openProfileEdit(self.user)
+        })
             return headerView
         }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -46,18 +46,15 @@ class ProfileHeaderView: UIView {
         return statusTextField
     }()
     
-    var setStatusButton: CustomButton = {
+    var editProfileButton: CustomButton = {
         let button = CustomButton(
-            title: String(localized: "Set status"),
-            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            title: String(localized: "Edit profile"),
+            titleColor: UiKitFacade.shared.getPrimaryTextColor(),
             titleFor: .normal,
             buttonTappedCallback: nil
         )
         button.layer.cornerRadius = 4
-        button.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
-        )
+        button.backgroundColor = UiKitFacade.shared.getAccentColor()
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
@@ -115,7 +112,7 @@ class ProfileHeaderView: UIView {
         addSubview(fullNameLabel)
         addSubview(statusLabel)
         addSubview(statusTextField)
-        addSubview(setStatusButton)
+        addSubview(editProfileButton)
         addSubview(createPostButton)
         
     }
@@ -143,7 +140,7 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(statusLabel.snp.bottom).offset(16)
             make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
         }
-        setStatusButton.snp.makeConstraints { (make) -> Void in
+        editProfileButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
             make.trailing.equalTo(self).inset(16)
             make.top.equalTo(statusTextField.snp.bottom).offset(16)
@@ -152,7 +149,7 @@ class ProfileHeaderView: UIView {
         createPostButton.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(50)
             make.trailing.equalTo(self).inset(16)
-            make.top.equalTo(setStatusButton.snp.bottom).offset(16)
+            make.top.equalTo(editProfileButton.snp.bottom).offset(16)
             make.leading.equalTo(self).inset(16)
         }
     }
@@ -165,22 +162,12 @@ class ProfileHeaderView: UIView {
     }
     
     private func addTargets() {
-        setStatusButton.setButtonTappedCallback({ sender in
-            self.statusLabel.text = self.profile?.shortDescription
-            self.statusLabel.setNeedsDisplay()
-        })
         createPostButton.setButtonTappedCallback({ sender in
             self.profileCoordinator.createPost()
         })
-        statusTextField.addTarget(self, action: #selector(changeProfileState), for: .editingChanged)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func changeProfileState(_ textField: UITextField)
-    {
-        profile?.shortDescription = String((textField.text ?? profile?.shortDescription) ?? "")
     }
 }
