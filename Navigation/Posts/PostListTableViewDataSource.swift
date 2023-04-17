@@ -48,7 +48,6 @@ extension PostListTableViewDataSource: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostItemTableViewCell
-        cell.isUserInteractionEnabled = true
         
         let index = Int(indexPath.row)
         let post = self.posts[index] as PostAggregate

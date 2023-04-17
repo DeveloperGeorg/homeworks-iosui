@@ -39,6 +39,7 @@
 		413EE07C29EBF1DA00744A16 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE07B29EBF1DA00744A16 /* ProfileEditViewController.swift */; };
 		413EE07E29EC063E00744A16 /* CustomTextInputWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE07D29EC063E00744A16 /* CustomTextInputWithLabel.swift */; };
 		413EE08029ED116800744A16 /* CustomTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE07F29ED116800744A16 /* CustomTextInput.swift */; };
+		413EE08229ED97B300744A16 /* TextCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08129ED97B300744A16 /* TextCutter.swift */; };
 		4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
 		4149A94027F4AB820030C223 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93F27F4AB820030C223 /* Presentable.swift */; };
 		4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */; };
@@ -194,6 +195,7 @@
 		413EE07B29EBF1DA00744A16 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		413EE07D29EC063E00744A16 /* CustomTextInputWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextInputWithLabel.swift; sourceTree = "<group>"; };
 		413EE07F29ED116800744A16 /* CustomTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextInput.swift; sourceTree = "<group>"; };
+		413EE08129ED97B300744A16 /* TextCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCutter.swift; sourceTree = "<group>"; };
 		4149A93C27F4AB1F0030C223 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		4149A93F27F4AB820030C223 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorOutputProtocol.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				411F73F027EEE99400555D97 /* CustomButton.swift */,
 				413EE07D29EC063E00744A16 /* CustomTextInputWithLabel.swift */,
 				413EE07F29ED116800744A16 /* CustomTextInput.swift */,
+				413EE08129ED97B300744A16 /* TextCutter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				4194722827F9B0F70075A056 /* FeedViewController.swift in Sources */,
 				41C270C529D03AB500B40F43 /* PostDataProviderProtocol.swift in Sources */,
 				41C270C929D0448F00B40F43 /* PostAggregateDetailViewCoordinator.swift in Sources */,
+				413EE08229ED97B300744A16 /* TextCutter.swift in Sources */,
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,

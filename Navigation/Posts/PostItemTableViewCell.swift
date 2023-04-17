@@ -3,6 +3,7 @@ import UIKit
 class PostItemTableViewCell: UITableViewCell {
     var postAggregate: PostAggregate?
     private let imageService: ImageService = ImageService()
+    private let textCutter: TextCutter = TextCutter()
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
         /** @todo blogger preview block */
@@ -69,16 +70,15 @@ class PostItemTableViewCell: UITableViewCell {
        return view
     }()
     
-    var anonsContentView: UITextView = {
-        let textView = UITextView()
+    var anonsContentView: UILabel = {
+        let textView = UILabel()
         textView.textColor = UiKitFacade.shared.getPrimaryTextColor()
         textView.font = UiKitFacade.shared.getRegularTextFont()
         textView.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .left
-        textView.isScrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets.zero
-        textView.textContainer.lineFragmentPadding = 0
+        textView.lineBreakMode = .byWordWrapping
+        textView.numberOfLines = 0
         
         return textView
     }()
@@ -209,7 +209,7 @@ class PostItemTableViewCell: UITableViewCell {
             
         authorTitleLabel.text = postAggregate.blogger.name
         authorSubTitleLabel.text = postAggregate.blogger.shortDescription
-        anonsContentView.text = postAggregate.post.content
+        anonsContentView.text = textCutter.cut(postAggregate.post.content)
         self.imageService.getUIImageByUrlString(postAggregate.post.mainImageLink) { uiImage in
             self.mainImageView.image = uiImage
         }
@@ -226,9 +226,9 @@ class PostItemTableViewCell: UITableViewCell {
             authorContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             authorContentView.bottomAnchor.constraint(equalTo: authorImageBlockView.bottomAnchor),
             
-            authorImageBlockView.topAnchor.constraint(equalTo: authorContentView.topAnchor, constant: 8),
-            authorImageBlockView.leadingAnchor.constraint(equalTo: authorContentView.leadingAnchor, constant: 8),
-            authorImageBlockView.trailingAnchor.constraint(equalTo: authorImageView.trailingAnchor, constant: 8),
+            authorImageBlockView.topAnchor.constraint(equalTo: authorContentView.topAnchor, constant: UiKitFacade.shared.getConstraintContant(1)),
+            authorImageBlockView.leadingAnchor.constraint(equalTo: authorContentView.leadingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            authorImageBlockView.trailingAnchor.constraint(equalTo: authorImageView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             authorImageView.heightAnchor.constraint(equalToConstant: maxAvatarSize),
             authorImageView.widthAnchor.constraint(equalToConstant: maxAvatarSize),
             authorImageView.leadingAnchor.constraint(equalTo: authorImageBlockView.leadingAnchor),
@@ -236,56 +236,56 @@ class PostItemTableViewCell: UITableViewCell {
             authorImageView.bottomAnchor.constraint(equalTo: authorImageBlockView.bottomAnchor),
             
             authorTitleLabel.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
-            authorTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
-            authorTitleLabel.trailingAnchor.constraint(equalTo: removePostButton.leadingAnchor, constant: 8),
+            authorTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            authorTitleLabel.trailingAnchor.constraint(equalTo: removePostButton.leadingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             authorSubTitleLabel.topAnchor.constraint(equalTo: authorTitleLabel.bottomAnchor),
-            authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant: 8),
+            authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             removePostButton.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
-            removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant: -8),
-            removePostButton.heightAnchor.constraint(equalToConstant: 8),
+            removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
+            removePostButton.heightAnchor.constraint(equalToConstant:  UiKitFacade.shared.getConstraintContant(1)),
             
-            postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant: 8),
+            postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             postContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             postContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            mainImageBlockView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
-            mainImageBlockView.topAnchor.constraint(equalTo: postContentView.topAnchor, constant: 8),
-            mainImageBlockView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
+            anonsContentView.topAnchor.constraint(equalTo: postContentView.topAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            anonsContentView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            anonsContentView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
+            mainImageBlockView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            mainImageBlockView.topAnchor.constraint(equalTo: anonsContentView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            mainImageBlockView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
             mainImageBlockView.heightAnchor.constraint(equalToConstant: maxImageHeight),
             mainImageView.centerXAnchor.constraint(equalTo: mainImageBlockView.centerXAnchor, constant: 0),
             mainImageView.centerYAnchor.constraint(equalTo: mainImageBlockView.centerYAnchor, constant: 0),
             mainImageView.heightAnchor.constraint(equalToConstant: maxImageHeight),
-            anonsContentView.topAnchor.constraint(equalTo: mainImageBlockView.bottomAnchor, constant: 8),
-            anonsContentView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
-            anonsContentView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -8),
             
-            likesCounterView.topAnchor.constraint(equalTo: anonsContentView.bottomAnchor, constant: 8),
-            likesCounterView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant: 8),
-            likesCounterView.bottomAnchor.constraint(equalTo: postContentView.bottomAnchor, constant: -8),
+            likesCounterView.topAnchor.constraint(equalTo: mainImageBlockView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            likesCounterView.leadingAnchor.constraint(equalTo: postContentView.leadingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
+            likesCounterView.bottomAnchor.constraint(equalTo: postContentView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
             likesCounterView.trailingAnchor.constraint(equalTo: likesCounterLabel.trailingAnchor),
             likesCounterIcon.leadingAnchor.constraint(equalTo: likesCounterView.leadingAnchor),
             likesCounterIcon.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
             likesCounterIcon.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
-            likesCounterLabel.leadingAnchor.constraint(equalTo: likesCounterIcon.trailingAnchor, constant: 8),
+            likesCounterLabel.leadingAnchor.constraint(equalTo: likesCounterIcon.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             likesCounterLabel.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
             likesCounterLabel.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
             
             commentsCounterView.topAnchor.constraint(equalTo: likesCounterView.topAnchor),
-            commentsCounterView.leadingAnchor.constraint(equalTo: likesCounterView.trailingAnchor, constant: 8),
+            commentsCounterView.leadingAnchor.constraint(equalTo: likesCounterView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             commentsCounterView.bottomAnchor.constraint(equalTo: likesCounterView.bottomAnchor),
             commentsCounterView.trailingAnchor.constraint(equalTo: commentsCounterLabel.trailingAnchor),
             commentsCounterIcon.leadingAnchor.constraint(equalTo: commentsCounterView.leadingAnchor),
             commentsCounterIcon.topAnchor.constraint(equalTo: commentsCounterView.topAnchor),
             commentsCounterIcon.bottomAnchor.constraint(equalTo: commentsCounterView.bottomAnchor),
-            commentsCounterLabel.leadingAnchor.constraint(equalTo: commentsCounterIcon.trailingAnchor, constant: 8),
+            commentsCounterLabel.leadingAnchor.constraint(equalTo: commentsCounterIcon.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             commentsCounterLabel.topAnchor.constraint(equalTo: commentsCounterView.topAnchor),
             commentsCounterLabel.bottomAnchor.constraint(equalTo: commentsCounterView.bottomAnchor),
             
             favoriteView.topAnchor.constraint(equalTo: commentsCounterView.topAnchor),
             favoriteView.bottomAnchor.constraint(equalTo: commentsCounterView.bottomAnchor),
             favoriteView.leadingAnchor.constraint(equalTo: favoriteCounterIcon.leadingAnchor),
-            favoriteView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant: -16),
+            favoriteView.trailingAnchor.constraint(equalTo: postContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-2)),
             favoriteCounterIcon.trailingAnchor.constraint(equalTo: favoriteView.trailingAnchor),
             favoriteCounterIcon.topAnchor.constraint(equalTo: favoriteView.topAnchor),
             favoriteCounterIcon.bottomAnchor.constraint(equalTo: favoriteView.bottomAnchor),

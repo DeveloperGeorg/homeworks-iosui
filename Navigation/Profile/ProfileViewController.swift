@@ -155,7 +155,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
 
 extension ProfileViewController: UITableViewDelegate {
     func selectedCell(row: Int) {
-        /** @todo create and use posts coordinator */
         let post = self.postListTableViewDataSource.posts[row]
         self.profileCoordinator.openPost(post: post)
     }
