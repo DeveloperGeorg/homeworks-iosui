@@ -25,4 +25,8 @@ class Typography: TypographyProtocol {
     func getSmallText() -> UIFont {
         return UIFont.systemFont(ofSize: 12, weight: .regular)
     }
+    
+    func getDefaultPaddingSize() -> Float {
+        return 8
+    }
 }

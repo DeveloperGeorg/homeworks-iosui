@@ -67,4 +67,12 @@ class UiKitFacade {
     func getSmallTextFont() -> UIFont {
         return typography.getSmallText()
     }
+    
+    func getDefaultPaddingSize() -> Float {
+        return typography.getDefaultPaddingSize()
+    }
+    
+    func getConstraintContant(_ multiplier: Float) -> CGFloat {
+        return CGFloat(multiplier * self.getDefaultPaddingSize())
+    }
 }

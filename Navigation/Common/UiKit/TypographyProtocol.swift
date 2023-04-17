@@ -7,4 +7,5 @@ protocol TypographyProtocol {
     func getQuaternaryTitle() -> UIFont
     func getRegularText() -> UIFont
     func getSmallText() -> UIFont
+    func getDefaultPaddingSize() -> Float
 }
