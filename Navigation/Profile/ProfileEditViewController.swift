@@ -35,15 +35,15 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
         return button
     }()
     
-    var nameTextInput: CustomTextInput = {
-        let textInput = CustomTextInput()
+    var nameTextInput: CustomTextInputWithLabel = {
+        let textInput = CustomTextInputWithLabel()
         textInput.placeholder = String(localized: "Name")
         textInput.label.text = String(localized: "Name")
         
         return textInput
     }()
-    var shortDescriptionTextInput: CustomTextInput = {
-        let textInput = CustomTextInput()
+    var shortDescriptionTextInput: CustomTextInputWithLabel = {
+        let textInput = CustomTextInputWithLabel()
         textInput.placeholder = String(localized: "Short description")
         textInput.label.text = String(localized: "Short description")
         

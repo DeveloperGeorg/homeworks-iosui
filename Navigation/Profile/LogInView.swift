@@ -21,61 +21,47 @@ class LogInView: UIView {
         return logoImageView
     }()
     
-    let loginInput: UITextField = {
-        let loginInput = UITextField()
-        loginInput.translatesAutoresizingMaskIntoConstraints = false
-        loginInput.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(242.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(247.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(42.0/255.0), green: CGFloat(42.0/255.0), blue: CGFloat(47.0/255.0), alpha: CGFloat(1.0))
-        )
-        loginInput.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
-        loginInput.layer.borderColor = UIColor.createColor(lightMode: UIColor.lightGray, darkMode: UIColor.white).cgColor
-        loginInput.layer.borderWidth = 0.5
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        loginInput.leftView = paddingView
-        loginInput.leftViewMode = .always
-        
+    let loginInput: CustomTextInput = {
+        let loginInput = CustomTextInput()
         loginInput.placeholder = String(localized: "Email or phone")
+        loginInput.layer.borderWidth = 0.5
         
         return loginInput
     }()
     
-    let passwordInput: UITextField = {
-        let passwordInput = UITextField()
-        passwordInput.translatesAutoresizingMaskIntoConstraints = false
-        passwordInput.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(242.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(247.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(42.0/255.0), green: CGFloat(42.0/255.0), blue: CGFloat(47.0/255.0), alpha: CGFloat(1.0))
-        )
-        passwordInput.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
-        passwordInput.layer.borderColor = UIColor.createColor(lightMode: UIColor.lightGray, darkMode: UIColor.white).cgColor
-        passwordInput.layer.borderWidth = 0.5
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        passwordInput.leftView = paddingView
-        passwordInput.leftViewMode = .always
-        
+    let passwordInput: CustomTextInput = {
+        let passwordInput = CustomTextInput()
         passwordInput.placeholder = String(localized: "Password")
         passwordInput.isSecureTextEntry = true
+        passwordInput.layer.borderWidth = 0.5
         
         return passwordInput
     }()
     
     
     let logInButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Log In"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Log In"),
+            titleColor: UiKitFacade.shared.getTextActionButtonColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = UiKitFacade.shared.getConstraintContant(1.5)
         button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonDisabledColor()
 
         return button
     }()
     
     let signUpButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Sign up"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Sign up"),
+            titleColor: UiKitFacade.shared.getTextActionButtonColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = UiKitFacade.shared.getConstraintContant(1.5)
         button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonDisabledColor()
 
         return button

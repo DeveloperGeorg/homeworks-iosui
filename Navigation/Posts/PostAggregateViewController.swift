@@ -11,8 +11,8 @@ class PostAggregateViewController: UIViewController {
         return textView
     }()
     
-    var newCommentTextInput: CustomTextInput = {
-        let textInput = CustomTextInput()
+    var newCommentTextInput: CustomTextInputWithLabel = {
+        let textInput = CustomTextInputWithLabel()
         textInput.placeholder = String(localized: "Awesome comment")
         textInput.label.text = String(localized: "Add comment")
         
