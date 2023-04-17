@@ -140,11 +140,12 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var increasedMaxSizeError = false
+        var fileSize = 0
         if let pickedImage = info[.originalImage] as? UIImage {
 
             if let data = pickedImage.pngData() {
-                print("Chose pictire size=\(data.count), max size=\(self.fileUploader.getMaxFileSize())")
-                if (data.count <= self.fileUploader.getMaxFileSize()) {
+                fileSize = data.count
+                if (fileSize <= self.fileUploader.getMaxFileSize()) {
                     self.fileDataToUpload = data
                 } else {
                     self.fileDataToUpload = nil
@@ -154,8 +155,10 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         }
         dismiss(animated: true)
         if increasedMaxSizeError {
-            print("Error max file size")
-            /** @todo show error */
+            self.postItemFormCoordinator.showError(
+                title: String(localized: "Error max file size"),
+                message: String(localized: "You trying to load image with size \(fileSize). Max file size is \(self.fileUploader.getMaxFileSize()). Please, choose other image")
+            )
         }
     }
 }
