@@ -25,6 +25,7 @@ protocol PostAggregateServiceProtocol {
         completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
     )
     func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void)
+    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, afterCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void)
 }
 
 extension PostAggregateServiceProtocol {
@@ -75,7 +76,7 @@ extension PostAggregateServiceProtocol {
                         }
                     }
                 }
-                self.postCommentDataProvider.getList(limit: nil, postIdFilter: postId, parentIdFilter: nil) { postComments, hasMoreComments in
+                self.postCommentDataProvider.getList(limit: nil, postIdFilter: postId, parentIdFilter: nil, afterCommentedAtFilter: nil) { postComments, hasMoreComments in
                     print("\(postComments.count) postComments were found")
                     for postComment in postComments {
                         if let postCommentId = postComment.id {
@@ -195,4 +196,38 @@ extension PostAggregateServiceProtocol {
         completionHandler(postsAggregates, hasMore)
     }
     
+    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, afterCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void) {
+        var postCommentAggregateList: [PostCommentAggregate] = []
+        self.postCommentDataProvider.getList(limit: limit, postIdFilter: postIdFilter, parentIdFilter: parentIdFilter, afterCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
+            print(postComments)
+            if postComments.count > 0 {
+                var bloggerIds: [String] = []
+                for postComment in postComments {
+                    bloggerIds.append(postComment.blogger)
+                }
+                print("BLOGGERS")
+                print(bloggerIds)
+                self.bloggerDataProvider.getByIds(bloggerIds) { bloggers in
+                    print(bloggers)
+                    var bloggerIdToBlogger: [String:BloggerPreview] = [:]
+                    for blogger in bloggers {
+                        if let bloggerId = blogger.id {
+                            bloggerIdToBlogger[bloggerId] = blogger
+                        }
+                    }
+                    for postComment in postComments {
+                        if let blogger = bloggerIdToBlogger[postComment.blogger] {
+                            postCommentAggregateList.append(PostCommentAggregate(
+                                postComment: postComment,
+                                blogger: blogger
+                            ))
+                        }
+                    }
+                    completionHandler(postCommentAggregateList, hasMore)
+                }
+            } else {
+                completionHandler([], false)
+            }
+        }
+    }
 }

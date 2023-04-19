@@ -6,14 +6,16 @@ class PostAggregateDetailViewCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
+    let userService: UserService
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, userService: UserService) {
         self.navigationController = navigationController
+        self.userService = userService
     }
     
     func start() {
         if let post = self.post {
-            navigationController.pushViewController(PostAggregateViewController(post: post), animated: true)
+            navigationController.pushViewController(PostAggregateViewController(post: post, userService: self.userService), animated: true)
             navigationController.navigationBar.isHidden = false
         } else {
             /** @todo print error */

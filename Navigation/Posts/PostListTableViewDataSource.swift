@@ -138,7 +138,6 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                 print("no post id was got \(postAggregate.post.id)")
                             }
                         } else {
-                            /** @todo remove vaforite */
                             print("Post has been added in favorite already. Trying to remove")
                             if let postFavorite = postAggregate.favorite {
                                 postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
@@ -146,7 +145,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                     postAggregate.isFavorite = false
                                     postAggregate.favorite = nil
                                 }
-                                /** @todo set postLike nil */
+                                /** @todo set favorite nil */
                             }
                         }
                     } else {

@@ -129,6 +129,5 @@ extension FeedViewController: UITableViewDelegate {
                 }
             }
         }
-
     }
 }

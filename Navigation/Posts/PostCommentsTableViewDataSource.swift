@@ -2,42 +2,12 @@ import UIKit
 
 class PostCommentsTableViewDataSource: NSObject {
     let forCellReuseIdentifier = "list_post_comment_cell"
-    var postComments: [PostComment] = []
+    var postComments: [PostCommentAggregate] = []
     var currentBloggerId: String?
     var currentPostId: String?
     
     override init() {
-        self.postComments = [
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date()),
-            PostComment(blogger: "asdasd", post: "asdasd", comment: "test", commentedAt: Date())
-        ]
+        self.postComments = []
         self.currentBloggerId = nil
         self.currentPostId = nil
     }
@@ -46,7 +16,7 @@ class PostCommentsTableViewDataSource: NSObject {
         self.postComments = []
     }
     
-    func addPosts(_ postComments: [PostComment]) {
+    func addPostComments(_ postComments: [PostCommentAggregate]) {
         self.postComments.append(contentsOf: postComments)
     }
 }
@@ -59,7 +29,7 @@ extension PostCommentsTableViewDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: forCellReuseIdentifier, for: indexPath) as! PostCommentTableViewCell
         
         let index = Int(indexPath.row)
-        let postComment = self.postComments[index] as PostComment
+        let postComment = self.postComments[index] as PostCommentAggregate
         cell.initFromPostComment(postComment)
 
         return cell

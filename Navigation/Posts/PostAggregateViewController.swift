@@ -4,8 +4,15 @@ class PostAggregateViewController: UIViewController {
     let postCommentDataProvider: PostCommentDataProviderProtocol
     let postCommentStorage: PostCommentStorageProtocol
     let postCommentsTableViewDataSource: PostCommentsTableViewDataSource = PostCommentsTableViewDataSource()
+    let postLikeDataStorage: PostLikeDataStorageProtocol = FirestorePostLikeDataStorage()
+    let postFavoritesDataStorage: PostFavoritesDataStorageProtocol = FirestorePostFavoritesDataStorage()
+    let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
+    let postAggregateService: PostAggregateServiceProtocol = FirestorePostAggregateService()
     let postTitle: String
     let post: PostAggregate
+    var currentBloggerId: String?
+    let commentsPaginationLimit = 3
+    var couldGetNextPage = true
     let postCommentsTableView: UITableView = {
         let postCommentsTableView = UITableView.init(frame: .zero, style: .grouped)
         postCommentsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,12 +44,20 @@ class PostAggregateViewController: UIViewController {
 //        return button
 //    }()
     
-    public init(post: PostAggregate) {
+    public init(post: PostAggregate, userService: UserService) {
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postCommentStorage = FirestorePostCommentStorage()
         self.postTitle = "Post \(post.post.content.count)"
         self.post = post
         super.init(nibName: nil, bundle: nil)
+        if let user = userService.getUserIfAuthorized() {
+            self.bloggerDataProvider.getByUserId(user.userId) { blogger in
+                if let blogger = blogger {
+                    self.currentBloggerId = blogger.id
+                    print("currentBloggerId \(self.currentBloggerId)")
+                }
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -71,6 +86,13 @@ class PostAggregateViewController: UIViewController {
         postCommentsTableView.register(PostCommentTableViewCell.self, forCellReuseIdentifier: postCommentsTableViewDataSource.forCellReuseIdentifier)
         postCommentsTableView.sectionHeaderHeight = UITableView.automaticDimension
         postCommentsTableView.sectionFooterHeight = UITableView.automaticDimension
+        
+        postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, afterCommentedAtFilter: nil) { postComments, hasMore in
+            self.postCommentsTableViewDataSource.addPostComments(postComments)
+            self.couldGetNextPage = hasMore
+            self.postCommentsTableView.reloadData()
+        }
+        
         activateConstraints()
         
         view.setNeedsLayout()
@@ -89,10 +111,6 @@ class PostAggregateViewController: UIViewController {
 //            addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
 //            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40)
 //        ])
-//        postCommentDataProvider.getList(limit: 10, postIdFilter: post.post.id!, parentIdFilter: nil) { postComments, hasMore in
-//            for postComment in postComments {
-//            }
-//        }
 //        addPostCommentButton.setButtonTappedCallback({sender in
 //            if let content = self.newCommentTextInput.text {
 //                if let postId = self.post.post.id {
@@ -110,14 +128,107 @@ class PostAggregateViewController: UIViewController {
 //            }
 //        })
     }
+    @objc func likeTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            if let currentBloggerId = currentBloggerId {
+                if !post.isLiked {
+                    if let postId = post.post.id {
+                        let postLike = PostLike(blogger: currentBloggerId, post: postId)
+                        postLikeDataStorage.create(postLike) { postLike in
+                            print("success like")
+                            print(postLike)
+                            self.post.isLiked = true
+                            self.post.likesAmount += 1
+                            self.post.like = postLike
+                            /** @todo set postLike */
+                        }
+                    } else {
+                        print("no post id was got \(self.post.post.id)")
+                    }
+                } else {
+                    print("Post has been liked already. Trying to remove")
+                    if let postLike = post.like {
+                        postLikeDataStorage.remove(postLike) { wasRemoved in
+                            print("Remove result \(wasRemoved)")
+                        }
+                        post.isLiked = false
+                        post.likesAmount -= 1
+                        post.like = nil
+                        /** @todo set postLike nil */
+                    }
+                }
+            }
+        }
+    }
+    @objc func favoriteTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            if let currentBloggerId = currentBloggerId {
+                if let index = sender.view?.tag {
+                    if !post.isFavorite {
+                        if let postId = post.post.id {
+                            let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
+                            postFavoritesDataStorage.create(postFavorites) { postFavorites in
+                                print("success favorite")
+                                print(postFavorites)
+                                self.post.isFavorite = true
+                                self.post.favorite = postFavorites
+                            }
+                        } else {
+                            print("no post id was got \(self.post.post.id)")
+                        }
+                    } else {
+                        print("Post has been added in favorite already. Trying to remove")
+                        if let postFavorite = self.post.favorite {
+                            print(postFavorite)
+                            postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
+                                print("Remove result \(wasRemoved)")
+                                self.post.isFavorite = false
+                                self.post.favorite = nil
+                            }
+                        }
+                    }
+                } else {
+                    print("no index was got \(sender.view?.tag)")
+                }
+            } else {
+                print("no current blogger was set \(currentBloggerId)")
+            }
+            
+        }
+    }
 }
 
 extension PostAggregateViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return PostAggregateTableHeaderViewBuilder.build(self.post)
+        return PostAggregateTableHeaderViewBuilder.build(
+            self.post,
+            likeTapGesture: UITapGestureRecognizer(target: self, action: #selector(likeTap)),
+            favoriteTapGesture: UITapGestureRecognizer(target: self, action: #selector(favoriteTap))
+        )
     }
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return PostAggregateTableHeaderViewBuilder.headerHeight
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let index = Int(indexPath.row)
+        if postCommentsTableViewDataSource.postComments.endIndex-1 == index {
+            if self.couldGetNextPage {
+                print("load new data..")
+                var afterCommentedAtFilter: Date? = nil
+                if let lastComment = postCommentsTableViewDataSource.postComments.last {
+                    afterCommentedAtFilter = lastComment.postComment.commentedAt
+                }
+                
+                postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, afterCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
+                    print(postComments)
+                    print("hasMore \(hasMore)")
+                    self.postCommentsTableViewDataSource.addPostComments(postComments)
+                    self.couldGetNextPage = hasMore
+                    self.postCommentsTableView.reloadData()
+                }
+            }
+        }
     }
 }

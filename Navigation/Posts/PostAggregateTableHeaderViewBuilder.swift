@@ -3,7 +3,11 @@ import UIKit
 class PostAggregateTableHeaderViewBuilder {
     static let headerHeight = CGFloat(590)
     
-    static func build(_ post: PostAggregate) -> UIView {
+    static func build(
+        _ post: PostAggregate,
+        likeTapGesture: UITapGestureRecognizer,
+        favoriteTapGesture: UITapGestureRecognizer
+    ) -> UIView {
         let view = UIView()
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         var authorContentView: UIView = {
@@ -59,7 +63,7 @@ class PostAggregateTableHeaderViewBuilder {
         var postContentView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+            view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
             
            return view
         }()
@@ -84,7 +88,7 @@ class PostAggregateTableHeaderViewBuilder {
             let textView = UILabel()
             textView.textColor = UiKitFacade.shared.getPrimaryTextColor()
             textView.font = UiKitFacade.shared.getRegularTextFont()
-            textView.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+            textView.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.textAlignment = .left
             textView.lineBreakMode = .byWordWrapping
@@ -101,6 +105,7 @@ class PostAggregateTableHeaderViewBuilder {
             
            return view
         }()
+        likesCounterView.addGestureRecognizer(likeTapGesture)
         var likesCounterIcon: UIImageView = {
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -156,6 +161,7 @@ class PostAggregateTableHeaderViewBuilder {
             
            return view
         }()
+        favoriteView.addGestureRecognizer(favoriteTapGesture)
         var favoriteCounterIcon: UIImageView = {
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -17,7 +17,7 @@ final class ProfileCoordinator: Coordinatable {
         self.navigationController = navigationController
         self.profileFactory = profileFactory
         self.userService = userService
-        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController, userService: self.userService)
         self.postItemFormCoordinator = PostItemFormCoordinator(navigationController: navigationController)
         self.openProfile(nil)
     }

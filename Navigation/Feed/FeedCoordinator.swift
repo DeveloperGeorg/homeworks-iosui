@@ -10,7 +10,7 @@ final class FeedCoordinator: Coordinatable {
     init(navigationController: UINavigationController, userService: UserService) {
         self.navigationController = navigationController
         self.userService = userService
-        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController, userService: self.userService)
     }
     
     func start() {

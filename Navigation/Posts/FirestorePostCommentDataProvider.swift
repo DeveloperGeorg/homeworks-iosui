@@ -6,17 +6,21 @@ import FirebaseFirestoreSwift
 class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
     private let db = Firestore.firestore()
     
-    func getList(limit: Int?, postIdFilter: String, parentIdFilter: String? = nil, completionHandler: @escaping ([PostComment], Bool) -> Void) {
+    func getList(limit: Int?, postIdFilter: String, parentIdFilter: String? = nil, afterCommentedAtFilter: Date? = nil, completionHandler: @escaping ([PostComment], Bool) -> Void) {
         var postComments: [PostComment] = []
         
         var query = db.collection("post-comments")
             .whereField("post", isEqualTo: postIdFilter)
-            .order(by: "commentedAt", descending: true)
+            .order(by: "commentedAt", descending: false)
         
         if let parentIdFilter = parentIdFilter {
             query = query.whereField("parent", isEqualTo: parentIdFilter)
         } else {
             query = query.whereField("parent", isEqualTo: "")
+        }
+        if let afterCommentedAtFilter = afterCommentedAtFilter {
+            let afterCommentedAtFilterTimestamp: Timestamp = Timestamp(date: afterCommentedAtFilter)
+            query = query.whereField("commentedAt", isGreaterThan: afterCommentedAtFilterTimestamp)
         }
         
         if let limit = limit {
@@ -41,6 +45,7 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
                 if let limit = limit {
                     hasMore = postCommentsDocumentsCount >= limit
                 }
+                postComments = postComments.sorted(by: { $0.commentedAt <= $1.commentedAt })
                 completionHandler(postComments, hasMore)
             } else {
                 completionHandler(postComments, false)

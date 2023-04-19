@@ -13,7 +13,7 @@ final class FavoritesCoordinator: Coordinatable{
     ) {
         self.navigationController = navigationController
         self.userService = userService
-        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController)
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController, userService: self.userService)
         openFavorites()
     }
     
