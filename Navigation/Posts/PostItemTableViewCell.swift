@@ -6,7 +6,6 @@ class PostItemTableViewCell: UITableViewCell {
     private let textCutter: TextCutter = TextCutter()
     fileprivate let maxImageHeight = CGFloat(200)
     fileprivate let maxAvatarSize = CGFloat(50)
-        /** @todo blogger preview block */
     var authorContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -40,6 +40,10 @@
 		413EE07E29EC063E00744A16 /* CustomTextInputWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE07D29EC063E00744A16 /* CustomTextInputWithLabel.swift */; };
 		413EE08029ED116800744A16 /* CustomTextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE07F29ED116800744A16 /* CustomTextInput.swift */; };
 		413EE08229ED97B300744A16 /* TextCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08129ED97B300744A16 /* TextCutter.swift */; };
+		413EE08429EDA80A00744A16 /* PostAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08329EDA80A00744A16 /* PostAggregateView.swift */; };
+		413EE08629EE592700744A16 /* PostCommentsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08529EE592700744A16 /* PostCommentsTableViewDataSource.swift */; };
+		413EE08829EE5A5B00744A16 /* PostCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08729EE5A5B00744A16 /* PostCommentTableViewCell.swift */; };
+		413EE08A29EE6FE600744A16 /* PostAggregateTableHeaderViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413EE08929EE6FE600744A16 /* PostAggregateTableHeaderViewBuilder.swift */; };
 		4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93C27F4AB1F0030C223 /* Coordinatable.swift */; };
 		4149A94027F4AB820030C223 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A93F27F4AB820030C223 /* Presentable.swift */; };
 		4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */; };
@@ -60,7 +64,6 @@
 		414CEDDE29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */; };
 		414CEDE129E67E4F00D37933 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDE029E67E4F00D37933 /* FavoritesCoordinator.swift */; };
 		414CEDE329E6800900D37933 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414CEDE229E6800900D37933 /* FavoritesViewController.swift */; };
-		415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 415012BE275B98D900FF62BB /* PostTableViewCell.swift */; };
 		4194721627F9AF010075A056 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721127F9AF000075A056 /* FeedView.swift */; };
 		4194721927F9AF010075A056 /* PostAggregateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721427F9AF010075A056 /* PostAggregateViewController.swift */; };
 		4194722027F9AF170075A056 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194721C27F9AF170075A056 /* UserService.swift */; };
@@ -196,6 +199,10 @@
 		413EE07D29EC063E00744A16 /* CustomTextInputWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextInputWithLabel.swift; sourceTree = "<group>"; };
 		413EE07F29ED116800744A16 /* CustomTextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextInput.swift; sourceTree = "<group>"; };
 		413EE08129ED97B300744A16 /* TextCutter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCutter.swift; sourceTree = "<group>"; };
+		413EE08329EDA80A00744A16 /* PostAggregateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateView.swift; sourceTree = "<group>"; };
+		413EE08529EE592700744A16 /* PostCommentsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsTableViewDataSource.swift; sourceTree = "<group>"; };
+		413EE08729EE5A5B00744A16 /* PostCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentTableViewCell.swift; sourceTree = "<group>"; };
+		413EE08929EE6FE600744A16 /* PostAggregateTableHeaderViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAggregateTableHeaderViewBuilder.swift; sourceTree = "<group>"; };
 		4149A93C27F4AB1F0030C223 /* Coordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatable.swift; sourceTree = "<group>"; };
 		4149A93F27F4AB820030C223 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		4149A94227F4ADC50030C223 /* CoordinatorOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorOutputProtocol.swift; sourceTree = "<group>"; };
@@ -216,7 +223,6 @@
 		414CEDDD29E5CE3D00D37933 /* FirestorePostFavoritesDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestorePostFavoritesDataStorage.swift; sourceTree = "<group>"; };
 		414CEDE029E67E4F00D37933 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
 		414CEDE229E6800900D37933 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
-		415012BE275B98D900FF62BB /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		4194721127F9AF000075A056 /* FeedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		4194721427F9AF010075A056 /* PostAggregateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAggregateViewController.swift; sourceTree = "<group>"; };
 		4194721C27F9AF170075A056 /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -349,6 +355,10 @@
 				414CEDD129E52FD300D37933 /* PostLikeDataStorageProtocol.swift */,
 				41038DE929C8B95600CE8195 /* PostListTableViewDataSource.swift */,
 				41C270D629D15DCE00B40F43 /* UploadcareFileUploader.swift */,
+				413EE08329EDA80A00744A16 /* PostAggregateView.swift */,
+				413EE08529EE592700744A16 /* PostCommentsTableViewDataSource.swift */,
+				413EE08729EE5A5B00744A16 /* PostCommentTableViewCell.swift */,
+				413EE08929EE6FE600744A16 /* PostAggregateTableHeaderViewBuilder.swift */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -395,7 +405,6 @@
 				41A384E1273B938600B2B76C /* LogInViewController.swift */,
 				411F73E127E5C0E200555D97 /* LoginViewControllerDelegateProtocol.swift */,
 				41F0BF7E29AB787F00A21B4F /* LogInViewControllerProtocol.swift */,
-				415012BE275B98D900FF62BB /* PostTableViewCell.swift */,
 				4149A94D27F577900030C223 /* ProfileCoordinator.swift */,
 				413EE07B29EBF1DA00744A16 /* ProfileEditViewController.swift */,
 				413CA01F29A23FB600005D7F /* ProfileFactory.swift */,
@@ -783,7 +792,6 @@
 				41C3FD7029698C4B009D3920 /* RealmStoredAuthUser.swift in Sources */,
 				41C270CB29D05ECF00B40F43 /* CreatePostViewController.swift in Sources */,
 				41F0BF7F29AB787F00A21B4F /* LogInViewControllerProtocol.swift in Sources */,
-				415012BF275B98D900FF62BB /* PostTableViewCell.swift in Sources */,
 				41038DF029C9746400CE8195 /* PostItemTableViewCell.swift in Sources */,
 				41C3FD6C29698B67009D3920 /* StoredAuthUserProtocol.swift in Sources */,
 				414CEDDA29E5C0AE00D37933 /* FirestorePostFavoritesDataProvider.swift in Sources */,
@@ -798,6 +806,8 @@
 				411F73DF27E5BCC400555D97 /* CredentialsCheckerService.swift in Sources */,
 				4149A94327F4ADC50030C223 /* CoordinatorOutputProtocol.swift in Sources */,
 				41F37E71283FE81C00514E0A /* SignUpViewControllerDelegateProtocol.swift in Sources */,
+				413EE08A29EE6FE600744A16 /* PostAggregateTableHeaderViewBuilder.swift in Sources */,
+				413EE08629EE592700744A16 /* PostCommentsTableViewDataSource.swift in Sources */,
 				411A848B29AD09C2002AA549 /* LocalAuthorizationService.swift in Sources */,
 				413CA02029A23FB600005D7F /* ProfileFactory.swift in Sources */,
 				41C270D729D15DCE00B40F43 /* UploadcareFileUploader.swift in Sources */,
@@ -806,6 +816,7 @@
 				4149A93D27F4AB1F0030C223 /* Coordinatable.swift in Sources */,
 				41C270D529D15D5400B40F43 /* FileUploaderProtocol.swift in Sources */,
 				41C270E129D4A33200B40F43 /* FirestoreBloggerDataStorage.swift in Sources */,
+				413EE08829EE5A5B00744A16 /* PostCommentTableViewCell.swift in Sources */,
 				41C270C129D00E7C00B40F43 /* PostCommentDataProviderProtocol.swift in Sources */,
 				41038DEE29C9719600CE8195 /* BloggerPreview.swift in Sources */,
 				41C270CD29D0614900B40F43 /* PostItemFormCoordinator.swift in Sources */,
@@ -828,6 +839,7 @@
 				41C270DF29D4A29900B40F43 /* BloggerDataStorageProtocol.swift in Sources */,
 				41C270B729CACC4A00B40F43 /* FirestorePostAggregateService.swift in Sources */,
 				41E6CD2927213DF00030EF9A /* ProfileViewController.swift in Sources */,
+				413EE08429EDA80A00744A16 /* PostAggregateView.swift in Sources */,
 				411F73EC27E616DE00555D97 /* LoginFactory.swift in Sources */,
 				41C270BF29D00D0D00B40F43 /* PostComment.swift in Sources */,
 				4149A94E27F577900030C223 /* ProfileCoordinator.swift in Sources */,
