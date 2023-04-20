@@ -11,6 +11,8 @@ class PostListTableViewDataSource: NSObject {
     var doShowRemoveFunctionality: Bool = false
     var onBeforePostRemove: (() -> Void)?
     var onAfterPostRemove: ((Bool) -> Void)?
+    var onAfterPostWasLiked: ((Int) -> Void)?
+    var onAfterPostWasFavorite: ((Int) -> Void)?
     
     override init() {
         self.posts = []
@@ -97,6 +99,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                         postAggregate.isLiked = true
                                         postAggregate.likesAmount += 1
                                         postAggregate.like = postLike
+                                        self.onAfterPostWasLiked?(index)
                                     } else {
                                         print("post was not liked")
                                     }
@@ -109,11 +112,11 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                             if let postLike = postAggregate.like {
                                 postLikeDataStorage.remove(postLike) { wasRemoved in
                                     print("Remove result \(wasRemoved)")
+                                    postAggregate.isLiked = false
+                                    postAggregate.likesAmount -= 1
+                                    postAggregate.like = nil
+                                    self.onAfterPostWasLiked?(index)
                                 }
-                                postAggregate.isLiked = false
-                                postAggregate.likesAmount -= 1
-                                postAggregate.like = nil
-                                /** @todo set postLike nil */
                             }
                         }
                     } else {
@@ -142,6 +145,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                         print(postFavorites)
                                         postAggregate.isFavorite = true
                                         postAggregate.favorite = postFavorites
+                                        self.onAfterPostWasFavorite?(index)
                                     } else {
                                         print("post was not added in favorite")
                                     }
@@ -156,8 +160,8 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                     print("Remove result \(wasRemoved)")
                                     postAggregate.isFavorite = false
                                     postAggregate.favorite = nil
+                                    self.onAfterPostWasFavorite?(index)
                                 }
-                                /** @todo set favorite nil */
                             }
                         }
                     } else {

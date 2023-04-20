@@ -55,6 +55,16 @@ class FeedViewController: UIViewController {
                 self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
                 self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
                 self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
+                
+                self.postListTableViewDataSource.onAfterPostWasLiked = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                self.postListTableViewDataSource.onAfterPostWasFavorite = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                
                 if let bloggerId = blogger.id {
                     self.spinnerView.show()
                     self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in

@@ -20,7 +20,7 @@ class FirestorePostCommentDataProvider: PostCommentDataProviderProtocol {
         }
         if let beforeCommentedAtFilter = beforeCommentedAtFilter {
             let beforeCommentedAtFilterTimestamp: Timestamp = Timestamp(date: beforeCommentedAtFilter)
-            query = query.whereField("commentedAt", isGreaterThan: beforeCommentedAtFilterTimestamp)
+            query = query.whereField("commentedAt", isLessThan: beforeCommentedAtFilterTimestamp)
         }
         
         if let limit = limit {

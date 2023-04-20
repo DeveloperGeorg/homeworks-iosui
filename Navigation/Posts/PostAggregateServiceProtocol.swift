@@ -195,7 +195,6 @@ extension PostAggregateServiceProtocol {
     func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, beforeCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void) {
         var postCommentAggregateList: [PostCommentAggregate] = []
         self.postCommentDataProvider.getList(limit: limit, postIdFilter: postIdFilter, parentIdFilter: parentIdFilter, beforeCommentedAtFilter: beforeCommentedAtFilter) { postComments, hasMore in
-            print(postComments)
             if postComments.count > 0 {
                 var bloggerIds: [String] = []
                 for postComment in postComments {

@@ -12,7 +12,7 @@ class PostAggregateViewController: UIViewController {
     let post: PostAggregate
     var currentBlogger: BloggerPreview?
     var currentBloggerId: String?
-    let commentsPaginationLimit = 20
+    let commentsPaginationLimit = 5
     var couldGetNextPage = true
     let postCommentsTableView: UITableView = {
         let postCommentsTableView = UITableView.init(frame: .zero, style: .grouped)
@@ -146,6 +146,7 @@ class PostAggregateViewController: UIViewController {
                                 self.post.isLiked = true
                                 self.post.likesAmount += 1
                                 self.post.like = postLike
+                                self.updateTableHeader()
                             } else {
                                 print("post was not liked")
                             }
@@ -162,12 +163,18 @@ class PostAggregateViewController: UIViewController {
                         post.isLiked = false
                         post.likesAmount -= 1
                         post.like = nil
-                        /** @todo set postLike nil */
+                        self.updateTableHeader()
                     }
                 }
             }
         }
     }
+    fileprivate func updateTableHeader() {
+        self.postCommentsTableView.beginUpdates()
+        self.postCommentsTableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: UITableView.RowAnimation.none)
+        self.postCommentsTableView.endUpdates()
+    }
+    
     @objc func favoriteTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
@@ -180,6 +187,7 @@ class PostAggregateViewController: UIViewController {
                                     print(postFavorites)
                                     self.post.isFavorite = true
                                     self.post.favorite = postFavorites
+                                    self.updateTableHeader()
                                 } else {
                                     print("post was not added in favorite")
                                 }
@@ -195,6 +203,7 @@ class PostAggregateViewController: UIViewController {
                                 print("Remove result \(wasRemoved)")
                                 self.post.isFavorite = false
                                 self.post.favorite = nil
+                                self.updateTableHeader()
                             }
                         }
                     }
@@ -226,12 +235,12 @@ extension PostAggregateViewController: UITableViewDelegate {
         if postCommentsTableViewDataSource.postComments.endIndex-1 == index {
             if self.couldGetNextPage {
                 print("load new data..")
-                var afterCommentedAtFilter: Date? = nil
+                var beforeCommentedAtFilter: Date? = nil
                 if let lastComment = postCommentsTableViewDataSource.postComments.last {
-                    afterCommentedAtFilter = lastComment.postComment.commentedAt
+                    beforeCommentedAtFilter = lastComment.postComment.commentedAt
                 }
                 
-                postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, beforeCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
+                postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, beforeCommentedAtFilter: beforeCommentedAtFilter) { postComments, hasMore in
                     print(postComments)
                     print("hasMore \(hasMore)")
                     self.postCommentsTableViewDataSource.addPostComments(postComments)

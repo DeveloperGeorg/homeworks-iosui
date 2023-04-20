@@ -59,6 +59,16 @@ class FavoritesViewController: UIViewController {
                 self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
                 self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
                 self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
+                
+                self.postListTableViewDataSource.onAfterPostWasLiked = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                self.postListTableViewDataSource.onAfterPostWasFavorite = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                
                 if let bloggerId = self.blogger?.id {
                     self.postFavoritesDataProvider.getListByBlogger(limit: self.paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
                         var postIds: [String] = []

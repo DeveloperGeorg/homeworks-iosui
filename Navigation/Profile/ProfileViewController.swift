@@ -62,6 +62,14 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 }
                 self.spinnerView.hide()
             }
+            self.postListTableViewDataSource.onAfterPostWasLiked = { index in
+                let indexPath = IndexPath(row: index, section: 0)
+                self.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            self.postListTableViewDataSource.onAfterPostWasFavorite = { index in
+                let indexPath = IndexPath(row: index, section: 0)
+                self.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+            }
         } else {
             /** @todo throw and go back */
             throw ValidationError.notFound
