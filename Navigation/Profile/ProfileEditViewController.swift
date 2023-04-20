@@ -66,6 +66,10 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
         
         return button
     }()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
     
     init(user: User, coordinator: ProfileCoordinator) {
         self.user = user
@@ -106,10 +110,12 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
             }
         }
         updateBloggerButton.setButtonTappedCallback({ sender in
+            self.spinnerView.show()
             self.blogger?.name = self.nameTextInput.text ?? (self.blogger?.name ?? "")
             self.blogger?.shortDescription = self.shortDescriptionTextInput.text ?? (self.blogger?.shortDescription ?? "")
             if let blogger = self.blogger {
                 self.bloggerDataStorage.update(blogger) { wasUpdated in
+                    self.spinnerView.hide()
                     if !wasUpdated {
                         self.coordinator.showError(
                             title: String(localized: "Something went wrong"),
@@ -118,6 +124,7 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
                     }
                 }
             } else {
+                self.spinnerView.hide()
                 self.coordinator.showError(
                     title: String(localized: "Something went wrong"),
                     message: String(localized: "No blogger was found")
@@ -134,12 +141,14 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
             if let data = pickedImage.pngData() {
                 fileSize = data.count
                 if (fileSize <= self.fileUploader.getMaxFileSize()) {
+                    self.spinnerView.show()
                     self.fileUploader.uploadFile(data) {fileName, errorMessage in
                         DispatchQueue.main.async {
                             if let fileName = fileName {
                                 self.blogger?.imageLink = fileName
                                 if let blogger = self.blogger {
                                     self.bloggerDataStorage.update(blogger) { wasUpdated in
+                                        self.spinnerView.hide()
                                         if wasUpdated {
                                             self.imageService.getUIImageByUrlString(fileName) { uiImage in
                                                 print("file \(fileName) was cached")
@@ -152,11 +161,14 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
                                         }
                                     }
                                 } else {
+                                    self.spinnerView.hide()
                                     self.coordinator.showError(
                                         title: String(localized: "Something went wrong"),
                                         message: String(localized: "No blogger was found")
                                     )
                                 }
+                            } else {
+                                self.spinnerView.hide()
                             }
                         }
                     }
@@ -181,6 +193,7 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
             shortDescriptionTextInput,
             updateBloggerButton
         ])
+        view.addSubview(spinnerView)
         NSLayoutConstraint.activate([
             choosePictureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             choosePictureButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -197,7 +210,12 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
             updateBloggerButton.topAnchor.constraint(equalTo: shortDescriptionTextInput.bottomAnchor, constant: 8),
             updateBloggerButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             updateBloggerButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            updateBloggerButton.heightAnchor.constraint(equalToConstant: 40)
+            updateBloggerButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            spinnerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            spinnerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            spinnerView.topAnchor.constraint(equalTo: view.topAnchor),
+            spinnerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }

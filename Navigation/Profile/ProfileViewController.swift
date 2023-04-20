@@ -29,6 +29,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     ]
     
     let refreshControl = UIRefreshControl()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
     let postsTableView: UITableView = {
         let postsTableView = UITableView.init(frame: .zero, style: .plain)
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +69,10 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             postsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             postsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             postsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            spinnerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            spinnerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            spinnerView.topAnchor.constraint(equalTo: view.topAnchor),
+            spinnerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -81,6 +89,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         postsTableView.addSubview(refreshControl)
+        view.addSubview(spinnerView)
         
         postsTableView.dataSource = postListTableViewDataSource
         postsTableView.delegate = self
@@ -91,6 +100,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         
         view.setNeedsLayout()
         view.layoutIfNeeded()
+        self.spinnerView.show()
         bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
                 self.blogger = blogger
@@ -100,6 +110,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                     self.couldGetNextPage = hasMore
                     self.postListTableViewDataSource.addPosts(posts)
                     self.postsTableView.reloadData()
+                    self.spinnerView.hide()
                 }
             }
         }
@@ -107,6 +118,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        self.spinnerView.show()
         
         bloggerDataProvider.getByUserId(self.user.userId) { blogger in
             if let blogger = blogger {
@@ -122,6 +134,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 self.postsTableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                self.spinnerView.hide()
             }
         } else {
             bloggerDataProvider.getByUserId(self.user.userId) { blogger in
@@ -134,6 +147,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                         self.postsTableView.reloadData()
                         self.refreshControl.endRefreshing()
                         self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                        self.spinnerView.hide()
                     }
                 }
             }
@@ -143,7 +157,6 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = ProfileTableHederView.init(profile: self.blogger, frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 290), profileCoordinator: self.profileCoordinator)
         headerView.profileHeaderView.editProfileButton.setButtonTappedCallback({ sender in
-            print("button tapped")
             self.profileCoordinator.openProfileEdit(self.user)
         })
             return headerView

@@ -67,6 +67,10 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         
         return button
     }()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
 
     init(postItemFormCoordinator: PostItemFormCoordinator, blogger: BloggerPreview) {
         self.postItemDataStorage = FirestorePostItemDataStorage()
@@ -92,11 +96,13 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
         view.addSubview(choosePictureButton)
         view.addSubview(contentTextField)
         view.addSubview(createPostButton)
+        view.addSubview(spinnerView)
         initConstraints()
         choosePictureButton.setButtonTappedCallback({ sender in
             self.present(self.imagePickerController, animated: true)
         })
         createPostButton.setButtonTappedCallback({sender in
+            self.spinnerView.show()
             let content = self.contentTextField.text ?? ""
             if let fileDataToUpload = self.fileDataToUpload, let bloggerId = self.blogger.id {
                 self.fileUploader.uploadFile(fileDataToUpload) {fileName, errorMessage in
@@ -114,6 +120,7 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
                                 print("post item was created")
                                 self.postItemFormCoordinator.goBack()
                             }
+                            self.spinnerView.hide()
                         }
                     }
                 }
@@ -134,7 +141,12 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
             createPostButton.topAnchor.constraint(equalTo: contentTextField.bottomAnchor, constant: 8),
             createPostButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             createPostButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            createPostButton.heightAnchor.constraint(equalToConstant: 100)
+            createPostButton.heightAnchor.constraint(equalToConstant: 100),
+            
+            spinnerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            spinnerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            spinnerView.topAnchor.constraint(equalTo: view.topAnchor),
+            spinnerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
     

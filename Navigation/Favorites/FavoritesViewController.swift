@@ -16,6 +16,10 @@ class FavoritesViewController: UIViewController {
     let paginationLimit = 5;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
     let user: User
     var blogger: BloggerPreview? = nil
     
@@ -49,6 +53,7 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         self.bloggerDataProvider.getByUserId(user.userId) { blogger in
             if let blogger = blogger {
+                self.spinnerView.show()
                 self.blogger = blogger
                 self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
                 self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
@@ -64,6 +69,7 @@ class FavoritesViewController: UIViewController {
                             self.couldGetNextPage = hasMoreFavorite
                             self.postListTableViewDataSource.addPosts(posts)
                             self.feedView?.postsTableView.reloadData()
+                            self.spinnerView.hide()
                         }
                     }
                 }
@@ -83,6 +89,14 @@ class FavoritesViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         feedView?.postsTableView.addSubview(refreshControl)
         
+        feedView?.addSubview(spinnerView)
+        if let feedView = feedView {
+            spinnerView.leadingAnchor.constraint(equalTo: feedView.leadingAnchor).isActive = true
+            spinnerView.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
+            spinnerView.topAnchor.constraint(equalTo: feedView.topAnchor).isActive = true
+            spinnerView.bottomAnchor.constraint(equalTo: feedView.bottomAnchor).isActive = true
+        }
+        
         self.view = feedView
     }
     
@@ -90,6 +104,7 @@ class FavoritesViewController: UIViewController {
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
         if let bloggerId = self.blogger?.id {
+            self.spinnerView.show()
             self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: nil) { postFavoriteList, hasMoreFavorite in
                 var postIds: [String] = []
                 for postFavorite in postFavoriteList {
@@ -103,12 +118,14 @@ class FavoritesViewController: UIViewController {
                         self.feedView?.postsTableView.reloadData()
                         self.refreshControl.endRefreshing()
                         self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                        self.spinnerView.hide()
                     }
                 } else {
                     self.postListTableViewDataSource.clearPosts()
                     self.feedView?.postsTableView.reloadData()
                     self.refreshControl.endRefreshing()
                     self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                    self.spinnerView.hide()
                 }
             }
         }
@@ -139,6 +156,7 @@ extension FavoritesViewController: UITableViewDelegate {
                     beforeAddedAtFilter = lastPost.favorite?.addedAt
                 }
                 if let bloggerId = self.blogger?.id {
+                    self.spinnerView.show()
                     self.postFavoritesDataProvider.getListByBlogger(limit: paginationLimit, bloggerIdFilter: bloggerId, beforeAddedAtFilter: beforeAddedAtFilter) { postFavoriteList, hasMoreFavorite in
                         var postIds: [String] = []
                         for postFavorite in postFavoriteList {
@@ -148,6 +166,7 @@ extension FavoritesViewController: UITableViewDelegate {
                             self.couldGetNextPage = hasMoreFavorite
                             self.postListTableViewDataSource.addPosts(posts)
                             self.feedView?.postsTableView.reloadData()
+                            self.spinnerView.hide()
                         }
                     }
                 }

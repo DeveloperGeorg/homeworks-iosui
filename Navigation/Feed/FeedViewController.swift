@@ -15,6 +15,10 @@ class FeedViewController: UIViewController {
     let paginationLimit = 5;
     var couldGetNextPage = true
     let refreshControl = UIRefreshControl()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
     
     var user: User
     var blogger: BloggerPreview? = nil
@@ -52,10 +56,12 @@ class FeedViewController: UIViewController {
                 self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
                 self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
                 if let bloggerId = blogger.id {
+                    self.spinnerView.show()
                     self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
                         self.couldGetNextPage = hasMore
                         self.postListTableViewDataSource.addPosts(posts)
                         self.feedView?.postsTableView.reloadData()
+                        self.spinnerView.hide()
                     }
                 }
             }
@@ -73,12 +79,21 @@ class FeedViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         feedView?.postsTableView.addSubview(refreshControl)
         
+        feedView?.addSubview(spinnerView)
+        if let feedView = feedView {
+            spinnerView.leadingAnchor.constraint(equalTo: feedView.leadingAnchor).isActive = true
+            spinnerView.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
+            spinnerView.topAnchor.constraint(equalTo: feedView.topAnchor).isActive = true
+            spinnerView.bottomAnchor.constraint(equalTo: feedView.bottomAnchor).isActive = true
+        }
+        
         self.view = feedView
     }
     
     
     @objc func refresh(_ sender: AnyObject) {
         refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        spinnerView.show()
         if let bloggerId = blogger?.id {
             postAggregateService.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
                 self.couldGetNextPage = hasMore
@@ -87,10 +102,12 @@ class FeedViewController: UIViewController {
                 self.feedView?.postsTableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                self.spinnerView.hide()
             }
         } else {
             self.refreshControl.endRefreshing()
             self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+            self.spinnerView.hide()
         }
     }
 }
@@ -121,10 +138,12 @@ extension FeedViewController: UITableViewDelegate {
                     beforePostedAtFilter = lastPost.post.postedAt
                 }
                 if let bloggerId = blogger?.id {
+                    self.spinnerView.show()
                     postAggregateService.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
                         self.couldGetNextPage = hasMore
                         self.postListTableViewDataSource.addPosts(posts)
                         self.feedView?.postsTableView.reloadData()
+                        self.spinnerView.hide()
                     }
                 }
             }
