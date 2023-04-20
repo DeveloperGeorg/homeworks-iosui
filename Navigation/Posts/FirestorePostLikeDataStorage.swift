@@ -22,7 +22,6 @@ class FirestorePostLikeDataStorage: PostLikeDataStorageProtocol {
                     print("Error removing post likes document: \(err)")
                     completionHandler(false)
                 } else {
-                    print("Document successfully removed!")
                     completionHandler(true)
                 }
             }

@@ -53,6 +53,15 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
             self.postListTableViewDataSource.doShowRemoveFunctionality = true
             
             super.init(nibName: nil, bundle: nil)
+            self.postListTableViewDataSource.onBeforePostRemove = {
+                self.spinnerView.show()
+            }
+            self.postListTableViewDataSource.onAfterPostRemove = { wasRemoved in
+                if wasRemoved {
+                    self.postsTableView.reloadData()
+                }
+                self.spinnerView.hide()
+            }
         } else {
             /** @todo throw and go back */
             throw ValidationError.notFound

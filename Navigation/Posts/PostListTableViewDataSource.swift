@@ -9,6 +9,8 @@ class PostListTableViewDataSource: NSObject {
     var postFavoritesDataStorage: PostFavoritesDataStorageProtocol?
     var postAggregateService: PostAggregateServiceProtocol?
     var doShowRemoveFunctionality: Bool = false
+    var onBeforePostRemove: (() -> Void)?
+    var onAfterPostRemove: ((Bool) -> Void)?
     
     override init() {
         self.posts = []
@@ -61,13 +63,17 @@ extension PostListTableViewDataSource: UITableViewDataSource {
         
         if doShowRemoveFunctionality {
             cell.removePostButton.setButtonTappedCallback({ sender in
+                self.onBeforePostRemove?()
                 if let postId = post.post.id {
                     self.postAggregateService?.remove(postId) { isPostRemoved in
-                        print("post was removed")
-                        /** @todo remove from self.posts[index] */
+                        if let postIndex = self.posts.firstIndex(where: {$0.post.id == postId}) {
+                            self.posts.remove(at: postIndex)
+                        }
+                        self.onAfterPostRemove?(true)
                     }
                 } else {
                     print("no post id #\(post.post.id)")
+                    self.onAfterPostRemove?(false)
                 }
             })
         } else {

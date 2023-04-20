@@ -45,17 +45,19 @@ class PostItemTableViewCell: UITableViewCell {
     }()
     var removePostButton: CustomButton = {
         let button = CustomButton(
-            title: String(localized: "Remove"),
+            title: "",
             titleColor: UiKitFacade.shared.getPrimaryTextColor(),
             titleFor: .normal,
             buttonTappedCallback: nil
         )
-        button.layer.cornerRadius = 4
-        button.backgroundColor = UiKitFacade.shared.getAccentColor()
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
-        button.layer.shadowRadius = CGFloat(4)
+        let image = UIImage(systemName: "trash.circle")?.maskWithColor(color: UiKitFacade.shared.getAccentColor())
+        button.setImage(image, for: .normal)
+//        button.backgroundColor = UiKitFacade.shared.getAccentColor()
+//        button.layer.cornerRadius = 4
+//        button.layer.shadowOpacity = 0.7
+//        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+//        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
+//        button.layer.shadowRadius = CGFloat(4)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -279,7 +281,6 @@ class PostItemTableViewCell: UITableViewCell {
             authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             removePostButton.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
             removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
-            removePostButton.heightAnchor.constraint(equalToConstant:  UiKitFacade.shared.getConstraintContant(1)),
             
             postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
