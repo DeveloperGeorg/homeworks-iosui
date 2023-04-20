@@ -114,10 +114,8 @@ class CreatePostViewController: UIViewController, UIImagePickerControllerDelegat
                                 content: content
                             )
                             self.imageService.getUIImageByUrlString(fileName) { uiImage in
-                                print("file \(fileName) was cached")
                             }
                             self.postItemDataStorage.create(post) { post in
-                                print("post item was created")
                                 self.postItemFormCoordinator.goBack()
                             }
                             self.spinnerView.hide()

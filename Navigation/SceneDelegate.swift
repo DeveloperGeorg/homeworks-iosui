@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         UITabBar.appearance().tintColor = UiKitFacade.shared.getAccentColor()
         UITabBar.appearance().unselectedItemTintColor = UiKitFacade.shared.getPrimaryTextColor()
+        UINavigationBar.appearance().tintColor = UiKitFacade.shared.getAccentColor()
         coordinator = ApplicationCoordinator(window: window)
         coordinator?.start()
     }

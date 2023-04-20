@@ -142,7 +142,6 @@ extension FeedViewController: UITableViewDelegate {
         let index = Int(indexPath.row)
         if postListTableViewDataSource.posts.endIndex-1 == index {
             if self.couldGetNextPage {
-                print("load new data..")
                 var beforePostedAtFilter: Date? = nil
                 if let lastPost = postListTableViewDataSource.posts.last {
                     beforePostedAtFilter = lastPost.post.postedAt

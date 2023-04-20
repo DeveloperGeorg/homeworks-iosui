@@ -8,7 +8,6 @@ class PostAggregateViewController: UIViewController {
     let postFavoritesDataStorage: PostFavoritesDataStorageProtocol = FirestorePostFavoritesDataStorage()
     let bloggerDataProvider: BloggerDataProviderProtocol = FirestoreBloggerDataProvider()
     let postAggregateService: PostAggregateServiceProtocol = FirestorePostAggregateService()
-    let postTitle: String
     let post: PostAggregate
     var currentBlogger: BloggerPreview?
     var currentBloggerId: String?
@@ -47,7 +46,6 @@ class PostAggregateViewController: UIViewController {
     public init(post: PostAggregate, userService: UserService) {
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
         self.postCommentStorage = FirestorePostCommentStorage()
-        self.postTitle = "Post \(post.post.content.count)"
         self.post = post
         super.init(nibName: nil, bundle: nil)
         if let user = userService.getUserIfAuthorized() {
@@ -83,7 +81,6 @@ class PostAggregateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = postTitle
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         
         view.addSubviews([
@@ -122,7 +119,6 @@ class PostAggregateViewController: UIViewController {
                                 commentedAt: Date()
                             )
                             self.postCommentStorage.add(postComment: postComment) { postComment in
-                                print(postComment)
                                 self.newCommentTextInput.text = ""
                                 self.postCommentsTableViewDataSource.addPostCommentInTheBeggining(PostCommentAggregate(postComment: postComment, blogger: blogger))
                                 self.post.commentsAmount += 1
@@ -141,11 +137,7 @@ class PostAggregateViewController: UIViewController {
                     if let postId = post.post.id {
                         postAggregateService.likePost(bloggerId: currentBloggerId, postId: postId) { postLike in
                             if let postLike = postLike {
-                                print("success like")
-                                print(postLike)
-                                self.post.isLiked = true
-                                self.post.likesAmount += 1
-                                self.post.like = postLike
+                                self.post.setLike(postLike)
                                 self.updateTableHeader()
                             } else {
                                 print("post was not liked")
@@ -155,15 +147,11 @@ class PostAggregateViewController: UIViewController {
                         print("no post id was got \(self.post.post.id)")
                     }
                 } else {
-                    print("Post has been liked already. Trying to remove")
                     if let postLike = post.like {
                         postLikeDataStorage.remove(postLike) { wasRemoved in
-                            print("Remove result \(wasRemoved)")
+                            self.post.setLike(nil)
+                            self.updateTableHeader()
                         }
-                        post.isLiked = false
-                        post.likesAmount -= 1
-                        post.like = nil
-                        self.updateTableHeader()
                     }
                 }
             }
@@ -183,10 +171,7 @@ class PostAggregateViewController: UIViewController {
                         if let postId = post.post.id {
                             postAggregateService.favoritePost(bloggerId: currentBloggerId, postId: postId) { postFavorites in
                                 if let postFavorites = postFavorites {
-                                    print("success favorite")
-                                    print(postFavorites)
-                                    self.post.isFavorite = true
-                                    self.post.favorite = postFavorites
+                                    self.post.setFavorite(postFavorites)
                                     self.updateTableHeader()
                                 } else {
                                     print("post was not added in favorite")
@@ -196,13 +181,9 @@ class PostAggregateViewController: UIViewController {
                             print("no post id was got \(self.post.post.id)")
                         }
                     } else {
-                        print("Post has been added in favorite already. Trying to remove")
                         if let postFavorite = self.post.favorite {
-                            print(postFavorite)
                             postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
-                                print("Remove result \(wasRemoved)")
-                                self.post.isFavorite = false
-                                self.post.favorite = nil
+                                self.post.setFavorite(nil)
                                 self.updateTableHeader()
                             }
                         }
@@ -234,15 +215,12 @@ extension PostAggregateViewController: UITableViewDelegate {
         let index = Int(indexPath.row)
         if postCommentsTableViewDataSource.postComments.endIndex-1 == index {
             if self.couldGetNextPage {
-                print("load new data..")
                 var beforeCommentedAtFilter: Date? = nil
                 if let lastComment = postCommentsTableViewDataSource.postComments.last {
                     beforeCommentedAtFilter = lastComment.postComment.commentedAt
                 }
                 
                 postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, beforeCommentedAtFilter: beforeCommentedAtFilter) { postComments, hasMore in
-                    print(postComments)
-                    print("hasMore \(hasMore)")
                     self.postCommentsTableViewDataSource.addPostComments(postComments)
                     self.couldGetNextPage = hasMore
                     self.postCommentsTableView.reloadData()

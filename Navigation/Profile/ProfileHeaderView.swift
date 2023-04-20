@@ -19,13 +19,15 @@ class ProfileHeaderView: UIView {
     
     var fullNameLabel: UILabel = {
         let fullNameLabel = UILabel()
-        fullNameLabel.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        fullNameLabel.textColor = UiKitFacade.shared.getPrimaryTextColor()
+        fullNameLabel.font = UiKitFacade.shared.getPrimaryTitleFont()
         return fullNameLabel
     }()
     
     var shortDescriptionLabel: UILabel = {
         let statusLabel = UILabel()
-        statusLabel.textColor = UIColor.createColor(lightMode: .gray, darkMode: .lightGray)
+        statusLabel.textColor = UiKitFacade.shared.getSecondaryTextColor()
+        statusLabel.font = UiKitFacade.shared.getQuaternaryTitleFont()
         
         return statusLabel
     }()
@@ -50,15 +52,12 @@ class ProfileHeaderView: UIView {
     var createPostButton: CustomButton = {
         let button = CustomButton(
             title: String(localized: "Create post"),
-            titleColor: UIColor.createColor(lightMode: .white, darkMode: .black),
+            titleColor: UiKitFacade.shared.getTextActionButtonColor(),
             titleFor: .normal,
             buttonTappedCallback: nil
         )
         button.layer.cornerRadius = 4
-        button.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(0.0/0.0), green: CGFloat(122.0/255.0), blue: CGFloat(254.0/255.0), alpha: CGFloat(1.0))
-        )
+        button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonAnabledColor()
         button.layer.shadowOpacity = 0.7
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
         button.layer.shadowColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
@@ -72,17 +71,14 @@ class ProfileHeaderView: UIView {
         self.profileCoordinator = profileCoordinator
         super.init(frame: frame)
         
-        /** @ todo set default */
         if let imageLink = profile?.imageLink {
             self.imageService.getUIImageByUrlString(imageLink) { uiImage in
                 self.avatarImageView.image = uiImage
             }
         }
         
-        fullNameLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTitleFontSize), weight: .bold)
         fullNameLabel.text = profile?.name
         
-        shortDescriptionLabel.font = UIFont.systemFont(ofSize: CGFloat(profileTextFieldFontSize), weight: .regular)
         shortDescriptionLabel.text = profile?.shortDescription
         
         addSubviews()
@@ -103,39 +99,39 @@ class ProfileHeaderView: UIView {
     private func activateConstraints() {
         avatarImageView.snp.makeConstraints { (make) -> Void in
             make.width.height.equalTo(CGFloat(imageSize))
-            make.top.leading.equalTo(self).inset(16)
+            make.top.leading.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
         }
         fullNameLabel.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(CGFloat(profileTitleFontSize))
-            make.trailing.equalTo(self).offset(16)
-            make.top.equalTo(self).inset(16)
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
+            make.trailing.equalTo(self).offset(UiKitFacade.shared.getConstraintContant(2))
+            make.top.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(UiKitFacade.shared.getConstraintContant(2))
         }
         shortDescriptionLabel.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(CGFloat(profileTextFieldFontSize))
-            make.trailing.equalTo(self).offset(16)
-            make.bottom.equalTo(avatarImageView).inset(18)
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
+            make.trailing.equalTo(self).offset(UiKitFacade.shared.getConstraintContant(2))
+            make.bottom.equalTo(avatarImageView).inset(UiKitFacade.shared.getConstraintContant(2))
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(UiKitFacade.shared.getConstraintContant(2))
         }
         editProfileButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(50)
-            make.trailing.equalTo(self).inset(16)
-            make.top.equalTo(avatarImageView.snp.bottom).offset(16)
-            make.leading.equalTo(self).inset(16)
+            make.height.equalTo(UiKitFacade.shared.getConstraintContant(6))
+            make.trailing.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
+            make.top.equalTo(avatarImageView.snp.bottom).offset(UiKitFacade.shared.getConstraintContant(2))
+            make.leading.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
         }
         createPostButton.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(50)
-            make.trailing.equalTo(self).inset(16)
-            make.top.equalTo(editProfileButton.snp.bottom).offset(16)
-            make.leading.equalTo(self).inset(16)
+            make.height.equalTo(UiKitFacade.shared.getConstraintContant(6))
+            make.trailing.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
+            make.top.equalTo(editProfileButton.snp.bottom).offset(UiKitFacade.shared.getConstraintContant(2))
+            make.leading.equalTo(self).inset(UiKitFacade.shared.getConstraintContant(2))
         }
     }
     
     private func drawLayer() {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = CGFloat(imageSize / 2)
-        avatarImageView.layer.borderWidth = 3
-        avatarImageView.layer.borderColor = UIColor.createColor(lightMode: .black, darkMode: .white).cgColor
+        avatarImageView.layer.borderWidth = 2
+        avatarImageView.layer.borderColor = UiKitFacade.shared.getAccentColor().cgColor
     }
     
     private func addTargets() {

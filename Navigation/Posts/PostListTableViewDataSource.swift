@@ -94,11 +94,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                             if let postId = postAggregate.post.id {
                                 postAggregateService?.likePost(bloggerId: currentBloggerId, postId: postId) { postLike in
                                     if let postLike = postLike {
-                                        print("success like")
-                                        print(postLike)
-                                        postAggregate.isLiked = true
-                                        postAggregate.likesAmount += 1
-                                        postAggregate.like = postLike
+                                        postAggregate.setLike(postLike)
                                         self.onAfterPostWasLiked?(index)
                                     } else {
                                         print("post was not liked")
@@ -108,13 +104,9 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                 print("no post id was got \(postAggregate.post.id)")
                             }
                         } else {
-                            print("Post has been liked already. Trying to remove")
                             if let postLike = postAggregate.like {
                                 postLikeDataStorage.remove(postLike) { wasRemoved in
-                                    print("Remove result \(wasRemoved)")
-                                    postAggregate.isLiked = false
-                                    postAggregate.likesAmount -= 1
-                                    postAggregate.like = nil
+                                    postAggregate.setLike(nil)
                                     self.onAfterPostWasLiked?(index)
                                 }
                             }
@@ -141,10 +133,7 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                             if let postId = postAggregate.post.id {
                                 postAggregateService?.favoritePost(bloggerId: currentBloggerId, postId: postId) { postFavorites in
                                     if let postFavorites = postFavorites {
-                                        print("success favorite")
-                                        print(postFavorites)
-                                        postAggregate.isFavorite = true
-                                        postAggregate.favorite = postFavorites
+                                        postAggregate.setFavorite(postFavorites)
                                         self.onAfterPostWasFavorite?(index)
                                     } else {
                                         print("post was not added in favorite")
@@ -154,12 +143,9 @@ extension PostListTableViewDataSource: UITableViewDataSource {
                                 print("no post id was got \(postAggregate.post.id)")
                             }
                         } else {
-                            print("Post has been added in favorite already. Trying to remove")
                             if let postFavorite = postAggregate.favorite {
                                 postFavoritesDataStorage.remove(postFavorite) { wasRemoved in
-                                    print("Remove result \(wasRemoved)")
-                                    postAggregate.isFavorite = false
-                                    postAggregate.favorite = nil
+                                    postAggregate.setFavorite(nil)
                                     self.onAfterPostWasFavorite?(index)
                                 }
                             }

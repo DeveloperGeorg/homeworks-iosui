@@ -25,8 +25,10 @@ class PostAggregate: NSObject {
         self.like = like
         if self.like == nil {
             self.isLiked = false
+            self.likesAmount -= 1
         } else {
             self.isLiked = true
+            self.likesAmount += 1
         }
     }
     

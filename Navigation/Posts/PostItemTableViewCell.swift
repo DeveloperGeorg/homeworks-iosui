@@ -52,12 +52,6 @@ class PostItemTableViewCell: UITableViewCell {
         )
         let image = UIImage(systemName: "trash.circle")?.maskWithColor(color: UiKitFacade.shared.getAccentColor())
         button.setImage(image, for: .normal)
-//        button.backgroundColor = UiKitFacade.shared.getAccentColor()
-//        button.layer.cornerRadius = 4
-//        button.layer.shadowOpacity = 0.7
-//        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-//        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
-//        button.layer.shadowRadius = CGFloat(4)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -66,7 +60,7 @@ class PostItemTableViewCell: UITableViewCell {
     var postContentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+        view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         
        return view
     }()
@@ -75,7 +69,7 @@ class PostItemTableViewCell: UITableViewCell {
         let textView = UILabel()
         textView.textColor = UiKitFacade.shared.getPrimaryTextColor()
         textView.font = UiKitFacade.shared.getRegularTextFont()
-        textView.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+        textView.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .left
         textView.lineBreakMode = .byWordWrapping
@@ -194,7 +188,7 @@ class PostItemTableViewCell: UITableViewCell {
             authorContentView,
             postContentView
         ])
-        contentView.backgroundColor = UiKitFacade.shared.getSecondaryBackgroundColor()
+        contentView.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         
         activateConstraints()
         
@@ -225,17 +219,6 @@ class PostItemTableViewCell: UITableViewCell {
         } else {
             likesCounterIcon.image = self.likesImage
         }
-        let observerLikes = postAggregate.observe(\.isLiked, options: [.new]) { postAggregate, change in
-            print("postAggregate was changed")
-            print("isLiked \(postAggregate.isLiked)")
-            if postAggregate.isLiked {
-                if let likeImage = self.likesCounterIcon.image?.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
-                    self.likesCounterIcon.image = likeImage
-                }
-            } else {
-                self.likesCounterIcon.image = self.likesImage
-            }
-        }
         commentsCounterLabel.text = "\(postAggregate.commentsAmount)"
         favoriteView.tag = index
         if postAggregate.isFavorite {
@@ -244,17 +227,6 @@ class PostItemTableViewCell: UITableViewCell {
             }
         } else {
             favoriteCounterIcon.image = self.favoriteImage
-        }
-        let observerfavorites = postAggregate.observe(\.isFavorite, options: [.new]) { postAggregate, change in
-            print("postAggregate was changed")
-            print("favorite \(postAggregate.isFavorite)")
-            if postAggregate.isFavorite {
-                if let favoriteImage = self.favoriteImage.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
-                    self.favoriteCounterIcon.image = favoriteImage
-                }
-            } else {
-                self.favoriteCounterIcon.image = self.favoriteImage
-            }
         }
     }
     private func activateConstraints() {
@@ -280,7 +252,7 @@ class PostItemTableViewCell: UITableViewCell {
             authorSubTitleLabel.topAnchor.constraint(equalTo: authorTitleLabel.bottomAnchor),
             authorSubTitleLabel.leadingAnchor.constraint(equalTo: authorImageBlockView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             removePostButton.topAnchor.constraint(equalTo: authorImageBlockView.topAnchor),
-            removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-1)),
+            removePostButton.trailingAnchor.constraint(equalTo: authorContentView.trailingAnchor, constant:  UiKitFacade.shared.getConstraintContant(-2)),
             
             postContentView.topAnchor.constraint(equalTo: authorContentView.bottomAnchor, constant:  UiKitFacade.shared.getConstraintContant(1)),
             postContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

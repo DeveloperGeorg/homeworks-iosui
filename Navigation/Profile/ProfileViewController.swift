@@ -19,22 +19,13 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     let paginationLimit = 10
     var couldGetNextPage = true
     
-    fileprivate let postsFilters: [ColorFilter] = [
-        .sepia(intensity: 0.5),
-        .monochrome(color: CIColor.init(red: 0/255, green: 0/255, blue: 0/255),
-                    intensity: 0.8),
-        .noir,
-        .posterize,
-        .bloom(intensity: 0.7)
-    ]
-    
     let refreshControl = UIRefreshControl()
     public lazy var spinnerView : PSOverlaySpinner = {
         let loadingView : PSOverlaySpinner = PSOverlaySpinner()
         return loadingView
     }()
     let postsTableView: UITableView = {
-        let postsTableView = UITableView.init(frame: .zero, style: .plain)
+        let postsTableView = UITableView.init(frame: .zero, style: .grouped)
         postsTableView.translatesAutoresizingMaskIntoConstraints = false
         return postsTableView
     }()
