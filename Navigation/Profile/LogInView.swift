@@ -21,62 +21,48 @@ class LogInView: UIView {
         return logoImageView
     }()
     
-    let loginInput: UITextField = {
-        let loginInput = UITextField()
-        loginInput.translatesAutoresizingMaskIntoConstraints = false
-        loginInput.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(242.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(247.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(42.0/255.0), green: CGFloat(42.0/255.0), blue: CGFloat(47.0/255.0), alpha: CGFloat(1.0))
-        )
-        loginInput.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
-        loginInput.layer.borderColor = UIColor.createColor(lightMode: UIColor.lightGray, darkMode: UIColor.white).cgColor
-        loginInput.layer.borderWidth = 0.5
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        loginInput.leftView = paddingView
-        loginInput.leftViewMode = .always
-        
+    let loginInput: CustomTextInput = {
+        let loginInput = CustomTextInput()
         loginInput.placeholder = String(localized: "Email or phone")
+        loginInput.layer.borderWidth = 0.5
         
         return loginInput
     }()
     
-    let passwordInput: UITextField = {
-        let passwordInput = UITextField()
-        passwordInput.translatesAutoresizingMaskIntoConstraints = false
-        passwordInput.backgroundColor = UIColor.createColor(
-            lightMode: UIColor(red: CGFloat(242.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(247.0/255.0), alpha: CGFloat(1.0)),
-            darkMode: UIColor(red: CGFloat(42.0/255.0), green: CGFloat(42.0/255.0), blue: CGFloat(47.0/255.0), alpha: CGFloat(1.0))
-        )
-        passwordInput.textColor = UIColor.createColor(lightMode: .gray, darkMode: .white)
-        passwordInput.layer.borderColor = UIColor.createColor(lightMode: UIColor.lightGray, darkMode: UIColor.white).cgColor
-        passwordInput.layer.borderWidth = 0.5
-        
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
-        passwordInput.leftView = paddingView
-        passwordInput.leftViewMode = .always
-        
+    let passwordInput: CustomTextInput = {
+        let passwordInput = CustomTextInput()
         passwordInput.placeholder = String(localized: "Password")
         passwordInput.isSecureTextEntry = true
+        passwordInput.layer.borderWidth = 0.5
         
         return passwordInput
     }()
     
     
     let logInButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Log In"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Log In"),
+            titleColor: UiKitFacade.shared.getTextActionButtonColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.createColor(lightMode: UIColor(ciColor: .gray), darkMode: UIColor.lightGray)
+        button.layer.cornerRadius = UiKitFacade.shared.getConstraintContant(1.5)
+        button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonDisabledColor()
 
         return button
     }()
     
     let signUpButton: CustomButton = {
-        let button = CustomButton(title: String(localized: "Sign up"), titleColor: .white, titleFor: .normal, buttonTappedCallback: nil)
+        let button = CustomButton(
+            title: String(localized: "Sign up"),
+            titleColor: UiKitFacade.shared.getTextActionButtonColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.createColor(lightMode: UIColor(ciColor: .gray), darkMode: UIColor.lightGray)
+        button.layer.cornerRadius = UiKitFacade.shared.getConstraintContant(1.5)
+        button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonDisabledColor()
 
         return button
     }()
@@ -113,8 +99,8 @@ class LogInView: UIView {
     
     private func activateConstraints() {
         let heightConstraint = contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-        heightConstraint.priority = UILayoutPriority(rawValue: 250)
-        let logoImageSize = 100
+        heightConstraint.priority = UILayoutPriority(rawValue: Float(UiKitFacade.shared.getConstraintContant(31)))
+        let logoImageSize = UiKitFacade.shared.getConstraintContant(37)
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
@@ -131,27 +117,27 @@ class LogInView: UIView {
             logoImageView.widthAnchor.constraint(equalToConstant: CGFloat(logoImageSize)),
             logoImageView.heightAnchor.constraint(equalToConstant: CGFloat(logoImageSize)),
             logoImageView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
+            logoImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: UiKitFacade.shared.getConstraintContant(15)),
             
-            loginInput.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
-            loginInput.heightAnchor.constraint(equalToConstant: 50),
-            loginInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            loginInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginInput.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: UiKitFacade.shared.getConstraintContant(5)),
+            loginInput.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(6)),
+            loginInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            loginInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: UiKitFacade.shared.getConstraintContant(-2)),
             
             passwordInput.topAnchor.constraint(equalTo: loginInput.bottomAnchor, constant: 0),
-            passwordInput.heightAnchor.constraint(equalToConstant: 50),
-            passwordInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            passwordInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            passwordInput.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(6)),
+            passwordInput.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            passwordInput.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: UiKitFacade.shared.getConstraintContant(-2)),
             
-            logInButton.heightAnchor.constraint(equalToConstant: 50),
-            logInButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: 16),
-            logInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            logInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            logInButton.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(6)),
+            logInButton.topAnchor.constraint(equalTo: passwordInput.bottomAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            logInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            logInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: UiKitFacade.shared.getConstraintContant(-2)),
             
-            signUpButton.heightAnchor.constraint(equalToConstant: 50),
-            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 16),
-            signUpButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            signUpButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            signUpButton.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(6)),
+            signUpButton.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            signUpButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(2)),
+            signUpButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: UiKitFacade.shared.getConstraintContant(-2)),
             
         ])
         
@@ -177,9 +163,9 @@ class LogInView: UIView {
     func enabledButton(isEnabled: Bool, button: UIButton) -> Void {
         button.isEnabled = isEnabled
         if isEnabled == true {
-            button.backgroundColor = UIColor.createColor(lightMode: UIColor(named: "VkBlue")!, darkMode: UIColor(named: "VkBlue")!)
+            button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonAnabledColor()
         } else {
-            button.backgroundColor = UIColor.createColor(lightMode: UIColor(ciColor: .gray), darkMode: UIColor.lightGray)
+            button.backgroundColor = UiKitFacade.shared.getBackgroundActionButtonDisabledColor()
         }
     }
 }

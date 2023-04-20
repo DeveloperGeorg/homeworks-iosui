@@ -1,10 +1,13 @@
 import UIKit
 
 class UiKitFacade {
+    /** @todo refactor:this is temporary solusion */
+    static let shared = UiKitFacade(colorPalette: LightColorPalette(), typography: Typography())
+    
     private let colorPalette: ColorPaletteProtocol
     private let typography: TypographyProtocol
 
-    init(colorPalette: LightColorPalette, typography: Typography) {
+    private init(colorPalette: ColorPaletteProtocol, typography: TypographyProtocol) {
         self.colorPalette = colorPalette
         self.typography = typography
     }
@@ -63,5 +66,13 @@ class UiKitFacade {
 
     func getSmallTextFont() -> UIFont {
         return typography.getSmallText()
+    }
+    
+    func getDefaultPaddingSize() -> Float {
+        return typography.getDefaultPaddingSize()
+    }
+    
+    func getConstraintContant(_ multiplier: Float) -> CGFloat {
+        return CGFloat(multiplier * self.getDefaultPaddingSize())
     }
 }

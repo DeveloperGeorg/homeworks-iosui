@@ -1,59 +1,161 @@
 import UIKit
 
-class FeedViewController: UIViewController, FeedViewDelegate {
-    var feedPresenter: FeedPresenter
+class FeedViewController: UIViewController {
+    enum ValidationError: Error {
+            case notFound
+        }
+    var feedCoordinator: FeedCoordinator
     var feedView: FeedView?
-    var newPostValidator: NewPostValidator = NewPostValidator()
+    let userService: UserService
+    var postListTableViewDataSource = PostListTableViewDataSource()
+    let postAggregateService: PostAggregateServiceProtocol
+    let postLikeDataProvider: PostLikeDataProviderProtocol
+    let postCommentDataProvider: PostCommentDataProviderProtocol
+    private let bloggerDataProvider: BloggerDataProviderProtocol
+    let paginationLimit = 5;
+    var couldGetNextPage = true
+    let refreshControl = UIRefreshControl()
+    public lazy var spinnerView : PSOverlaySpinner = {
+        let loadingView : PSOverlaySpinner = PSOverlaySpinner()
+        return loadingView
+    }()
     
-    public init(feedPresenter: FeedPresenter) {
-        self.feedPresenter = feedPresenter
-        super.init(nibName: nil, bundle: nil)
-        self.feedPresenter.setFeedViewDelegate(self)
-        NotificationCenter.default.addObserver(self, selector: #selector(validateNewPost(notification:)), name: NSNotification.Name(rawValue: "NewPostTitleWasUpdated"), object: nil)
+    var user: User
+    var blogger: BloggerPreview? = nil
+    
+    public init(feedCoordinator: FeedCoordinator, userService: UserService) throws {
+        self.feedCoordinator = feedCoordinator
+        self.userService = userService
+        if let user = self.userService.getUserIfAuthorized() {
+            self.user = user
+            self.postAggregateService = FirestorePostAggregateService()
+            self.postLikeDataProvider = FirestorePostLikeDataProvider()
+            self.postCommentDataProvider = FirestorePostCommentDataProvider()
+            self.bloggerDataProvider = FirestoreBloggerDataProvider()
+            super.init(nibName: nil, bundle: nil)
+        } else {
+            /** @todo throw and go back */
+            throw ValidationError.notFound
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        bloggerDataProvider.getByUserId(self.user.userId) { blogger in
+            if let blogger = blogger {
+                self.blogger = blogger
+                self.postListTableViewDataSource.setCurrentBloggerId(blogger.id)
+                self.postListTableViewDataSource.setPostLikeDataStorage(FirestorePostLikeDataStorage())
+                self.postListTableViewDataSource.setPostFavoritesDataStorage(FirestorePostFavoritesDataStorage())
+                self.postListTableViewDataSource.setPostAggregateService(self.postAggregateService)
+                
+                self.postListTableViewDataSource.onAfterPostWasLiked = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                self.postListTableViewDataSource.onAfterPostWasFavorite = { index in
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.feedView?.postsTableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+                
+                if let bloggerId = blogger.id {
+                    self.spinnerView.show()
+                    self.postAggregateService.getList(limit: self.paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
+                        self.couldGetNextPage = hasMore
+                        self.postListTableViewDataSource.addPosts(posts)
+                        self.feedView?.postsTableView.reloadData()
+                        self.spinnerView.hide()
+                    }
+                }
+            }
+        }
     }
     
     override func loadView() {
         feedView = FeedView(frame: CGRect())
-        self.feedPresenter.render()
+        feedView?.postsTableView.dataSource = postListTableViewDataSource
+        feedView?.postsTableView.delegate = self
+        feedView?.postsTableView.rowHeight = UITableView.automaticDimension
+        feedView?.postsTableView.register(PostItemTableViewCell.self, forCellReuseIdentifier: postListTableViewDataSource.forCellReuseIdentifier)
         
-        feedView?.validatePostButton.setButtonTappedCallback({ sender in
-            self.newPostValidator.title = self.feedView?.newPostTitleField.text ?? ""
-        })
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        feedView?.postsTableView.addSubview(refreshControl)
+        
+        feedView?.addSubview(spinnerView)
+        if let feedView = feedView {
+            spinnerView.leadingAnchor.constraint(equalTo: feedView.leadingAnchor).isActive = true
+            spinnerView.trailingAnchor.constraint(equalTo: feedView.trailingAnchor).isActive = true
+            spinnerView.topAnchor.constraint(equalTo: feedView.topAnchor).isActive = true
+            spinnerView.bottomAnchor.constraint(equalTo: feedView.bottomAnchor).isActive = true
+        }
+        
         self.view = feedView
     }
     
-    @objc private func openPost(_ sender: UIButton) {
-        let buttonTitle = sender.currentTitle!
-        feedPresenter.openPost(postTitle: buttonTitle)
-    }
     
-    func addPostToFeed(title: String) -> Void {
-        let button = feedView?.getButtonWithText(title)
-        guard let postButton = button else {
-            return
-        }
-        postButton.addTarget(self, action: #selector(openPost(_:)), for: .touchUpInside)
-        feedView?.postsStackView.addArrangedSubview(postButton)
-    }
-    
-    func setOverworkAlertTimerCounter(_ seconds: Int) -> Void {
-        feedView?.setOverworkAlertTimerCounter(seconds)
-    }
-
-    @objc func validateNewPost(notification: NSNotification) {
-        if let newPostData = notification.userInfo?["newPostData"] as? NewPostValidator {
-            if newPostData.check(title: newPostData.title) {
-                self.feedView?.setNewPostTitleLabelIsValid()
-            } else {
-                self.feedView?.setNewPostTitleLabelIsNotValid()
+    @objc func refresh(_ sender: AnyObject) {
+        refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Start refreshing"))
+        spinnerView.show()
+        if let bloggerId = blogger?.id {
+            postAggregateService.getList(limit: paginationLimit, beforePostedAtFilter: nil, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
+                self.couldGetNextPage = hasMore
+                self.postListTableViewDataSource.clearPosts()
+                self.postListTableViewDataSource.addPosts(posts)
+                self.feedView?.postsTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+                self.spinnerView.hide()
             }
-          }
+        } else {
+            self.refreshControl.endRefreshing()
+            self.refreshControl.attributedTitle = NSAttributedString(string: String(localized: "Pull to refresh"))
+            self.spinnerView.hide()
+        }
+    }
+}
+
+/** @todo move to the common place */
+extension FeedViewController: UITableViewDelegate {
+    func selectedCell(row: Int) {
+        /** @todo create and use posts coordinator */
+        let post = self.postListTableViewDataSource.posts[row]
+        feedCoordinator.openPost(post: post)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedCell(row: indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let index = Int(indexPath.row)
+        if postListTableViewDataSource.posts.endIndex-1 == index {
+            if self.couldGetNextPage {
+                var beforePostedAtFilter: Date? = nil
+                if let lastPost = postListTableViewDataSource.posts.last {
+                    beforePostedAtFilter = lastPost.post.postedAt
+                }
+                if let bloggerId = blogger?.id {
+                    self.spinnerView.show()
+                    postAggregateService.getList(limit: paginationLimit, beforePostedAtFilter: beforePostedAtFilter, bloggerIdFilter: nil, currentBloggerId: bloggerId) { posts, hasMore in
+                        self.couldGetNextPage = hasMore
+                        self.postListTableViewDataSource.addPosts(posts)
+                        self.feedView?.postsTableView.reloadData()
+                        self.spinnerView.hide()
+                    }
+                }
+            }
+        }
     }
 }

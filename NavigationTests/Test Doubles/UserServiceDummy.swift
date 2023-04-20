@@ -8,4 +8,12 @@ class UserServiceDummy: UserService {
     func getUserByFullName(_ fullName: String) -> User? {
         return returnUser
     }
+    
+    func getUserIfAuthorized() -> User? {
+        return returnUser
+    }
+    
+    func storeCurrentUser(_ user: User) {
+        returnUser = user
+    }
 }

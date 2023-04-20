@@ -7,27 +7,15 @@ class LoginFactory: LoginFactoryProtocol {
     func getSignUpDelegate() -> SignUpViewControllerDelegateProtocol {
         return LoginInspector()
     }
-    func createLogInViewController(coordinator: ProfileCoordinator) -> LogInViewControllerProtocol {
+    func createLogInViewController(
+        coordinator: Coordinatable,
+        loginCompletionHandler: @escaping (User) -> Void
+    ) -> LogInViewControllerProtocol {
         return LogInViewController(
             loginViewControllerDelegate: self.getLognCredentialsValidator(),
             signUpViewControllerDelegate: self.getSignUpDelegate(),
-            coordinator: coordinator
+            coordinator: coordinator,
+            loginCompletionHandler: loginCompletionHandler
         )
-    }
-    func createLoginError(title: String, message: String) -> UIAlertController {
-        var alertMessage = String(localized: "Invalid login or password.")
-        if message != "" {
-            alertMessage = message
-        }
-        var alertTitle = String(localized: "Error")
-        if title != "" {
-            alertTitle = title
-        }
-        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
-            UIAlertAction in
-        }
-        alert.addAction(okAction)
-        return alert
     }
 }
