@@ -10,6 +10,7 @@ class PostAggregateViewController: UIViewController {
     let postAggregateService: PostAggregateServiceProtocol = FirestorePostAggregateService()
     let postTitle: String
     let post: PostAggregate
+    var currentBlogger: BloggerPreview?
     var currentBloggerId: String?
     let commentsPaginationLimit = 3
     var couldGetNextPage = true
@@ -19,30 +20,29 @@ class PostAggregateViewController: UIViewController {
         return postCommentsTableView
     }()
     
-//    var newCommentTextInput: CustomTextInputWithLabel = {
-//        let textInput = CustomTextInputWithLabel()
-//        textInput.placeholder = String(localized: "Awesome comment")
-//        textInput.label.text = String(localized: "Add comment")
-//        
-//        return textInput
-//    }()
-//    var addPostCommentButton: CustomButton = {
-//        let button = CustomButton(
-//            title: String(localized: "Add comment"),
-//            titleColor: UiKitFacade.shared.getPrimaryTextColor(),
-//            titleFor: .normal,
-//            buttonTappedCallback: nil
-//        )
-//        button.layer.cornerRadius = 4
-//        button.backgroundColor = UiKitFacade.shared.getAccentColor()
-//        button.layer.shadowOpacity = 0.7
-//        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-//        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
-//        button.layer.shadowRadius = CGFloat(4)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return button
-//    }()
+    var newCommentTextInput: CustomTextInput = {
+        let textInput = CustomTextInput()
+        textInput.placeholder = String(localized: "Add comment")
+        
+        return textInput
+    }()
+    var addPostCommentButton: CustomButton = {
+        let button = CustomButton(
+            title: String(localized: "Add comment"),
+            titleColor: UiKitFacade.shared.getPrimaryTextColor(),
+            titleFor: .normal,
+            buttonTappedCallback: nil
+        )
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UiKitFacade.shared.getAccentColor()
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowColor = UiKitFacade.shared.getAccentColor().cgColor
+        button.layer.shadowRadius = CGFloat(4)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     public init(post: PostAggregate, userService: UserService) {
         self.postCommentDataProvider = FirestorePostCommentDataProvider()
@@ -53,8 +53,8 @@ class PostAggregateViewController: UIViewController {
         if let user = userService.getUserIfAuthorized() {
             self.bloggerDataProvider.getByUserId(user.userId) { blogger in
                 if let blogger = blogger {
+                    self.currentBlogger = blogger
                     self.currentBloggerId = blogger.id
-                    print("currentBloggerId \(self.currentBloggerId)")
                 }
             }
         }
@@ -69,7 +69,16 @@ class PostAggregateViewController: UIViewController {
             postCommentsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             postCommentsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             postCommentsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            postCommentsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            postCommentsTableView.bottomAnchor.constraint(equalTo: newCommentTextInput.topAnchor, constant: -8),
+            newCommentTextInput.topAnchor.constraint(equalTo: postCommentsTableView.bottomAnchor, constant: 8),
+            newCommentTextInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            newCommentTextInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            newCommentTextInput.heightAnchor.constraint(equalToConstant: 40),
+            addPostCommentButton.topAnchor.constraint(equalTo: newCommentTextInput.bottomAnchor, constant: 8),
+            addPostCommentButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40),
+            addPostCommentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -78,7 +87,11 @@ class PostAggregateViewController: UIViewController {
         self.title = postTitle
         view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
         
-        view.addSubview(postCommentsTableView)
+        view.addSubviews([
+            postCommentsTableView,
+            newCommentTextInput,
+            addPostCommentButton
+        ])
         
         postCommentsTableView.dataSource = postCommentsTableViewDataSource
         postCommentsTableView.delegate = self
@@ -111,36 +124,48 @@ class PostAggregateViewController: UIViewController {
 //            addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
 //            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40)
 //        ])
-//        addPostCommentButton.setButtonTappedCallback({sender in
-//            if let content = self.newCommentTextInput.text {
-//                if let postId = self.post.post.id {
-//                    let postComment = PostComment(
-//                        blogger: self.post.blogger.userId,
-//                        post: postId,
-//                        comment: content,
-//                        commentedAt: Date()
-//                    )
-//                    self.postCommentStorage.add(postComment: postComment) { postComment in
-//                        print(postComment)
-//                        self.newCommentTextInput.text = ""
-//                    }
-//                }
-//            }
-//        })
+        addPostCommentButton.setButtonTappedCallback({sender in
+            if let content = self.newCommentTextInput.text {
+                if let blogger = self.currentBlogger {
+                    if let currentBloggerId = blogger.id {
+                        if let postId = self.post.post.id {
+                            let postComment = PostComment(
+                                blogger: currentBloggerId,
+                                post: postId,
+                                comment: content,
+                                commentedAt: Date()
+                            )
+                            self.postCommentStorage.add(postComment: postComment) { postComment in
+                                print(postComment)
+                                self.newCommentTextInput.text = ""
+                                if !self.couldGetNextPage {
+                                    self.postCommentsTableViewDataSource.addPostComments([
+                                        PostCommentAggregate(postComment: postComment, blogger: blogger)
+                                    ])
+                                }
+                                self.postCommentsTableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
     @objc func likeTap(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             if let currentBloggerId = currentBloggerId {
                 if !post.isLiked {
                     if let postId = post.post.id {
-                        let postLike = PostLike(blogger: currentBloggerId, post: postId)
-                        postLikeDataStorage.create(postLike) { postLike in
-                            print("success like")
-                            print(postLike)
-                            self.post.isLiked = true
-                            self.post.likesAmount += 1
-                            self.post.like = postLike
-                            /** @todo set postLike */
+                        postAggregateService.likePost(bloggerId: currentBloggerId, postId: postId) { postLike in
+                            if let postLike = postLike {
+                                print("success like")
+                                print(postLike)
+                                self.post.isLiked = true
+                                self.post.likesAmount += 1
+                                self.post.like = postLike
+                            } else {
+                                print("post was not liked")
+                            }
                         }
                     } else {
                         print("no post id was got \(self.post.post.id)")
@@ -166,12 +191,15 @@ class PostAggregateViewController: UIViewController {
                 if let index = sender.view?.tag {
                     if !post.isFavorite {
                         if let postId = post.post.id {
-                            let postFavorites = PostFavorites(blogger: currentBloggerId, post: postId)
-                            postFavoritesDataStorage.create(postFavorites) { postFavorites in
-                                print("success favorite")
-                                print(postFavorites)
-                                self.post.isFavorite = true
-                                self.post.favorite = postFavorites
+                            postAggregateService.favoritePost(bloggerId: currentBloggerId, postId: postId) { postFavorites in
+                                if let postFavorites = postFavorites {
+                                    print("success favorite")
+                                    print(postFavorites)
+                                    self.post.isFavorite = true
+                                    self.post.favorite = postFavorites
+                                } else {
+                                    print("post was not added in favorite")
+                                }
                             }
                         } else {
                             print("no post id was got \(self.post.post.id)")
@@ -199,7 +227,6 @@ class PostAggregateViewController: UIViewController {
 }
 
 extension PostAggregateViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return PostAggregateTableHeaderViewBuilder.build(
             self.post,
@@ -210,6 +237,23 @@ extension PostAggregateViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return PostAggregateTableHeaderViewBuilder.headerHeight
     }
+    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let vw = UIView()
+//        vw.backgroundColor = UIColor.clear
+//        let titleLabel = UILabel(frame: CGRect(x:10,y: 5 ,width:350,height:150))
+//        titleLabel.numberOfLines = 0;
+//        titleLabel.lineBreakMode = .byWordWrapping
+//        titleLabel.backgroundColor = UIColor.clear
+//        titleLabel.font = UIFont(name: "Montserrat-Regular", size: 12)
+//        titleLabel.text  = "Footer text here"
+//        vw.addSubview(titleLabel)
+//        return vw
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 150
+//    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let index = Int(indexPath.row)

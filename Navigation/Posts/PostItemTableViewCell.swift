@@ -110,6 +110,7 @@ class PostItemTableViewCell: UITableViewCell {
         
         return label
     }()
+    let likesImage = UIImage(named: "like-heart")!
     var likesCounterIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -147,6 +148,7 @@ class PostItemTableViewCell: UITableViewCell {
         
        return view
     }()
+    let favoriteImage = UIImage(named: "favorite")!
     var favoriteCounterIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -214,8 +216,44 @@ class PostItemTableViewCell: UITableViewCell {
         }
         likesCounterLabel.text = "\(postAggregate.likesAmount)"
         likesCounterView.tag = index
+        if postAggregate.isLiked {
+            if let likeImage = self.likesImage.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                likesCounterIcon.image = likeImage
+            }
+        } else {
+            likesCounterIcon.image = self.likesImage
+        }
+        let observerLikes = postAggregate.observe(\.isLiked, options: [.new]) { postAggregate, change in
+            print("postAggregate was changed")
+            print("isLiked \(postAggregate.isLiked)")
+            if postAggregate.isLiked {
+                if let likeImage = self.likesCounterIcon.image?.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                    self.likesCounterIcon.image = likeImage
+                }
+            } else {
+                self.likesCounterIcon.image = self.likesImage
+            }
+        }
         commentsCounterLabel.text = "\(postAggregate.commentsAmount)"
         favoriteView.tag = index
+        if postAggregate.isFavorite {
+            if let favoriteImage = favoriteCounterIcon.image?.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                favoriteCounterIcon.image = favoriteImage
+            }
+        } else {
+            favoriteCounterIcon.image = self.favoriteImage
+        }
+        let observerfavorites = postAggregate.observe(\.isFavorite, options: [.new]) { postAggregate, change in
+            print("postAggregate was changed")
+            print("favorite \(postAggregate.isFavorite)")
+            if postAggregate.isFavorite {
+                if let favoriteImage = self.favoriteImage.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                    self.favoriteCounterIcon.image = favoriteImage
+                }
+            } else {
+                self.favoriteCounterIcon.image = self.favoriteImage
+            }
+        }
     }
     private func activateConstraints() {
         

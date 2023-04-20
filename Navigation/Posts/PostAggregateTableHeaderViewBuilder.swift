@@ -111,8 +111,14 @@ class PostAggregateTableHeaderViewBuilder {
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.contentMode = .scaleAspectFit
             imageView.image = UIImage(named: "like-heart")!
+            
             return imageView
         }()
+        if post.isLiked {
+            if let likeImage = likesCounterIcon.image?.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                likesCounterIcon.image = likeImage
+            }
+        }
         var likesCounterLabel: UILabel = {
             let label = UILabel()
             label.textColor = UiKitFacade.shared.getPrimaryTextColor()
@@ -169,6 +175,11 @@ class PostAggregateTableHeaderViewBuilder {
             imageView.image = UIImage(named: "favorite")!
             return imageView
         }()
+        if post.isFavorite {
+            if let favoriteImage = favoriteCounterIcon.image?.maskWithColor(color: UiKitFacade.shared.getAccentColor()) {
+                favoriteCounterIcon.image = favoriteImage
+            }
+        }
         favoriteView.addSubviews([favoriteCounterIcon])
         
         postContentView.addSubviews([

@@ -11,7 +11,6 @@ class FirestorePostCommentStorage: PostCommentStorageProtocol {
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-                print("blogger was created")
                 completionHandler(postComment)
             }
         }

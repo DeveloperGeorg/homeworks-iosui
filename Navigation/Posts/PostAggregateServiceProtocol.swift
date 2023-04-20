@@ -26,6 +26,8 @@ protocol PostAggregateServiceProtocol {
     )
     func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void)
     func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, afterCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void)
+    func likePost(bloggerId: String, postId: String, completionHandler: @escaping (PostLike?) -> Void)
+    func favoritePost(bloggerId: String, postId: String, completionHandler: @escaping (PostFavorites?) -> Void)
 }
 
 extension PostAggregateServiceProtocol {
@@ -205,10 +207,7 @@ extension PostAggregateServiceProtocol {
                 for postComment in postComments {
                     bloggerIds.append(postComment.blogger)
                 }
-                print("BLOGGERS")
-                print(bloggerIds)
                 self.bloggerDataProvider.getByIds(bloggerIds) { bloggers in
-                    print(bloggers)
                     var bloggerIdToBlogger: [String:BloggerPreview] = [:]
                     for blogger in bloggers {
                         if let bloggerId = blogger.id {
@@ -227,6 +226,31 @@ extension PostAggregateServiceProtocol {
                 }
             } else {
                 completionHandler([], false)
+            }
+        }
+    }
+    func likePost(bloggerId: String, postId: String, completionHandler: @escaping (PostLike?) -> Void) {
+        let postLikeToCreate = PostLike(blogger: bloggerId, post: postId)
+        self.postLikeDataStorage.create(postLikeToCreate) { postLike in
+            
+            self.postLikeDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: bloggerId) { postLikesList in
+                var postLikeCreated: PostLike? = nil
+                if let postLikes = postLikesList[postId] {
+                    postLikeCreated = postLikes.first
+                }
+                completionHandler(postLikeCreated)
+            }
+        }
+    }
+    func favoritePost(bloggerId: String, postId: String, completionHandler: @escaping (PostFavorites?) -> Void) {
+        let postFavorites = PostFavorites(blogger: bloggerId, post: postId)
+        postFavoritesDataStorage.create(postFavorites) { postFavorites in
+            self.postFavoritesDataProvider.getListByBloggerPost(postIdsFilter: [postId], bloggerIdFilter: bloggerId) { postFavoritesList in
+                var postFavoriteCreated: PostFavorites? = nil
+                if let postFavorites = postFavoritesList[postId] {
+                    postFavoriteCreated = postFavorites.first
+                }
+                completionHandler(postFavoriteCreated)
             }
         }
     }

@@ -1,11 +1,11 @@
 import Foundation
 
-class PostAggregate {
+class PostAggregate: NSObject {
     let blogger: BloggerPreview
     let post: PostItem
-    var isLiked: Bool
+    @objc dynamic var isLiked: Bool
     var like: PostLike? = nil
-    var isFavorite: Bool
+    @objc dynamic var isFavorite: Bool
     var favorite: PostFavorites? = nil
     var commentsAmount: Int
     var likesAmount: Int
