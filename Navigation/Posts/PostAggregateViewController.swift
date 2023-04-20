@@ -12,7 +12,7 @@ class PostAggregateViewController: UIViewController {
     let post: PostAggregate
     var currentBlogger: BloggerPreview?
     var currentBloggerId: String?
-    let commentsPaginationLimit = 3
+    let commentsPaginationLimit = 20
     var couldGetNextPage = true
     let postCommentsTableView: UITableView = {
         let postCommentsTableView = UITableView.init(frame: .zero, style: .grouped)
@@ -69,15 +69,14 @@ class PostAggregateViewController: UIViewController {
             postCommentsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             postCommentsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             postCommentsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-//            postCommentsTableView.bottomAnchor.constraint(equalTo: newCommentTextInput.topAnchor, constant: -8),
-            newCommentTextInput.topAnchor.constraint(equalTo: postCommentsTableView.bottomAnchor, constant: 8),
-            newCommentTextInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            newCommentTextInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            newCommentTextInput.heightAnchor.constraint(equalToConstant: 40),
-            addPostCommentButton.topAnchor.constraint(equalTo: newCommentTextInput.bottomAnchor, constant: 8),
-            addPostCommentButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            newCommentTextInput.topAnchor.constraint(equalTo: postCommentsTableView.bottomAnchor, constant: UiKitFacade.shared.getConstraintContant(1)),
+            newCommentTextInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(1)),
+            newCommentTextInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: UiKitFacade.shared.getConstraintContant(-1)),
+            newCommentTextInput.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(5)),
+            addPostCommentButton.topAnchor.constraint(equalTo: newCommentTextInput.bottomAnchor, constant: UiKitFacade.shared.getConstraintContant(1)),
+            addPostCommentButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: UiKitFacade.shared.getConstraintContant(1)),
             addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40),
+            addPostCommentButton.heightAnchor.constraint(equalToConstant: UiKitFacade.shared.getConstraintContant(5)),
             addPostCommentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -100,7 +99,7 @@ class PostAggregateViewController: UIViewController {
         postCommentsTableView.sectionHeaderHeight = UITableView.automaticDimension
         postCommentsTableView.sectionFooterHeight = UITableView.automaticDimension
         
-        postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, afterCommentedAtFilter: nil) { postComments, hasMore in
+        postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, beforeCommentedAtFilter: nil) { postComments, hasMore in
             self.postCommentsTableViewDataSource.addPostComments(postComments)
             self.couldGetNextPage = hasMore
             self.postCommentsTableView.reloadData()
@@ -111,19 +110,6 @@ class PostAggregateViewController: UIViewController {
         view.setNeedsLayout()
         view.layoutIfNeeded()
         
-//        view.backgroundColor = UiKitFacade.shared.getPrimaryBackgroundColor()
-//        view.addSubview(newCommentTextInput)
-//        view.addSubview(addPostCommentButton)
-//        NSLayoutConstraint.activate([
-//            newCommentTextInput.topAnchor.constraint(equalTo: postCommentsTableView.bottomAnchor, constant: 8),
-//            newCommentTextInput.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-//            newCommentTextInput.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            newCommentTextInput.heightAnchor.constraint(equalToConstant: 40),
-//            addPostCommentButton.topAnchor.constraint(equalTo: newCommentTextInput.bottomAnchor, constant: 8),
-//            addPostCommentButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-//            addPostCommentButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            addPostCommentButton.heightAnchor.constraint(equalToConstant: 40)
-//        ])
         addPostCommentButton.setButtonTappedCallback({sender in
             if let content = self.newCommentTextInput.text {
                 if let blogger = self.currentBlogger {
@@ -138,11 +124,8 @@ class PostAggregateViewController: UIViewController {
                             self.postCommentStorage.add(postComment: postComment) { postComment in
                                 print(postComment)
                                 self.newCommentTextInput.text = ""
-                                if !self.couldGetNextPage {
-                                    self.postCommentsTableViewDataSource.addPostComments([
-                                        PostCommentAggregate(postComment: postComment, blogger: blogger)
-                                    ])
-                                }
+                                self.postCommentsTableViewDataSource.addPostCommentInTheBeggining(PostCommentAggregate(postComment: postComment, blogger: blogger))
+                                self.post.commentsAmount += 1
                                 self.postCommentsTableView.reloadData()
                             }
                         }
@@ -238,23 +221,6 @@ extension PostAggregateViewController: UITableViewDelegate {
         return PostAggregateTableHeaderViewBuilder.headerHeight
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let vw = UIView()
-//        vw.backgroundColor = UIColor.clear
-//        let titleLabel = UILabel(frame: CGRect(x:10,y: 5 ,width:350,height:150))
-//        titleLabel.numberOfLines = 0;
-//        titleLabel.lineBreakMode = .byWordWrapping
-//        titleLabel.backgroundColor = UIColor.clear
-//        titleLabel.font = UIFont(name: "Montserrat-Regular", size: 12)
-//        titleLabel.text  = "Footer text here"
-//        vw.addSubview(titleLabel)
-//        return vw
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 150
-//    }
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let index = Int(indexPath.row)
         if postCommentsTableViewDataSource.postComments.endIndex-1 == index {
@@ -265,7 +231,7 @@ extension PostAggregateViewController: UITableViewDelegate {
                     afterCommentedAtFilter = lastComment.postComment.commentedAt
                 }
                 
-                postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, afterCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
+                postAggregateService.getPostCommentAggregateList(limit: commentsPaginationLimit, postIdFilter: post.post.id!, parentIdFilter: nil, beforeCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
                     print(postComments)
                     print("hasMore \(hasMore)")
                     self.postCommentsTableViewDataSource.addPostComments(postComments)

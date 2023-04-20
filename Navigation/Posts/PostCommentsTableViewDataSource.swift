@@ -19,6 +19,10 @@ class PostCommentsTableViewDataSource: NSObject {
     func addPostComments(_ postComments: [PostCommentAggregate]) {
         self.postComments.append(contentsOf: postComments)
     }
+    
+    func addPostCommentInTheBeggining(_ postComment: PostCommentAggregate) {
+        self.postComments.insert(postComment, at: 0)
+    }
 }
 
 extension PostCommentsTableViewDataSource: UITableViewDataSource {

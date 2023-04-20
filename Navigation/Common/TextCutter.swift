@@ -1,8 +1,8 @@
 import Foundation
 
 class TextCutter {
-    func cut(_ text: String, charsAmount:Int = 100, postFixText: String = String(localized: "read full article...")) -> String {
-        let listItems = text.components(separatedBy: ", ")
+    func cut(_ text: String, charsAmount:Int = 150, postFixText: String = String(localized: "read full article...")) -> String {
+        let listItems = text.components(separatedBy: " ")
         var returnString = ""
         for item in listItems {
             returnString += item
@@ -10,7 +10,7 @@ class TextCutter {
                 break
             }
         }
-        if returnString.count != text.count {
+        if returnString.count < text.count {
             returnString += " \(postFixText)"
         }
         return returnString

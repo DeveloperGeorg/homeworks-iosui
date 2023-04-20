@@ -25,7 +25,7 @@ protocol PostAggregateServiceProtocol {
         completionHandler: @escaping ([PostAggregate], _ hasMore: Bool) -> Void
     )
     func remove(_ postId: String, completionHandler: @escaping (Bool) -> Void)
-    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, afterCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void)
+    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, beforeCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void)
     func likePost(bloggerId: String, postId: String, completionHandler: @escaping (PostLike?) -> Void)
     func favoritePost(bloggerId: String, postId: String, completionHandler: @escaping (PostFavorites?) -> Void)
 }
@@ -76,7 +76,7 @@ extension PostAggregateServiceProtocol {
                         }
                     }
                 }
-                self.postCommentDataProvider.getList(limit: nil, postIdFilter: postId, parentIdFilter: nil, afterCommentedAtFilter: nil) { postComments, hasMoreComments in
+                self.postCommentDataProvider.getList(limit: nil, postIdFilter: postId, parentIdFilter: nil, beforeCommentedAtFilter: nil) { postComments, hasMoreComments in
                     for postComment in postComments {
                         if let postCommentId = postComment.id {
                             self.postCommentStorage.remove(postCommentId) { isPostCommentRemoved in
@@ -192,9 +192,9 @@ extension PostAggregateServiceProtocol {
         completionHandler(postsAggregates, hasMore)
     }
     
-    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, afterCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void) {
+    func getPostCommentAggregateList(limit: Int?, postIdFilter: String, parentIdFilter: String?, beforeCommentedAtFilter: Date?, completionHandler: @escaping ([PostCommentAggregate], Bool) -> Void) {
         var postCommentAggregateList: [PostCommentAggregate] = []
-        self.postCommentDataProvider.getList(limit: limit, postIdFilter: postIdFilter, parentIdFilter: parentIdFilter, afterCommentedAtFilter: afterCommentedAtFilter) { postComments, hasMore in
+        self.postCommentDataProvider.getList(limit: limit, postIdFilter: postIdFilter, parentIdFilter: parentIdFilter, beforeCommentedAtFilter: beforeCommentedAtFilter) { postComments, hasMore in
             print(postComments)
             if postComments.count > 0 {
                 var bloggerIds: [String] = []
