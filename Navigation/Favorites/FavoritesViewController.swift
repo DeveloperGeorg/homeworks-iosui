@@ -75,10 +75,14 @@ class FavoritesViewController: UIViewController {
                         for postFavorite in postFavoriteList {
                             postIds.append(postFavorite.post)
                         }
-                        self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: bloggerId) { posts, hasMore in
-                            self.couldGetNextPage = hasMoreFavorite
-                            self.postListTableViewDataSource.addPosts(posts)
-                            self.feedView?.postsTableView.reloadData()
+                        if postFavoriteList.count > 0 {
+                            self.postAggregateService.getListByIds(postIds: postIds, currentBloggerId: bloggerId) { posts, hasMore in
+                                self.couldGetNextPage = hasMoreFavorite
+                                self.postListTableViewDataSource.addPosts(posts)
+                                self.feedView?.postsTableView.reloadData()
+                                self.spinnerView.hide()
+                            }
+                        } else {
                             self.spinnerView.hide()
                         }
                     }

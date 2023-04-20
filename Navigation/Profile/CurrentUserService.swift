@@ -14,7 +14,6 @@ class CurrentUserService: UserService {
         return storedUser
     }
     func storeCurrentUser(_ user: User) {
-        print("user was stored")
         storedUser = user
     }
 }

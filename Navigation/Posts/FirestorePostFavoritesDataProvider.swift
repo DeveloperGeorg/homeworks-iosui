@@ -19,6 +19,7 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
         query.getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
+                completionHandler(postFavorites)
             } else if let snapshot = snapshot {
                 for postDocument in snapshot.documents {
                     if var postFavoritesItem = try? postDocument.data(as: PostFavorites.self) {
@@ -51,6 +52,7 @@ class FirestorePostFavoritesDataProvider: PostFavoritesDataProviderProtocol {
         query.getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error getting posts: \(error)")
+                completionHandler([], false)
             } else if let snapshot = snapshot {
                 let postDocumentsCount = snapshot.documents.count
                 for postDocument in snapshot.documents {
