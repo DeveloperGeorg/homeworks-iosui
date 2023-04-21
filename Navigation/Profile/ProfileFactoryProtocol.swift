@@ -1,5 +1,5 @@
 import UIKit
 
 protocol ProfileFactoryProtocol {
-    func createProfileViewController(userService: UserService, loginInput: String) -> ProfileViewControllerProtocol
+    func createProfileViewController(userService: UserService, coordinator: ProfileCoordinator) throws -> ProfileViewControllerProtocol 
 }

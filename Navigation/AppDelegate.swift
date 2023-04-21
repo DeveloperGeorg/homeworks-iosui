@@ -13,22 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.realmMigrate()
         FirebaseApp.configure()
         
-        // register user notifications
-        let localNotificationsService = LocalNotificationsService()
-        localNotificationsService.registeForLatestUpdatesIfPossible()
-        
-        let url = AppConfiguration.allCases.randomElement()!.description
-        NetworkService.run(url: url, query: "") { data, response, error in
-            if let error = error {
-                print("DataTask error: \(error.localizedDescription)\n")
-            } else if
-                let data = data,
-                let response = response as? HTTPURLResponse {
-                if let responseData = String(data: data, encoding: .utf8) {
-                }
-            }
-
-        }
         return true
     }
     

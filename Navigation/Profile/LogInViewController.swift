@@ -9,17 +9,27 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         }
 
     private let loginView = LogInView()
-    weak var coordinator: ProfileCoordinator?
+    weak var coordinator: Coordinatable?
     private let loginViewControllerDelegate: LoginViewControllerDelegateProtocol
     private let signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol
     private let authUserStorage: AuthUserStorageProtocol
     private let localAuthorizationService = LocalAuthorizationService()
+    private let bloggerDataStorage: BloggerDataStorageProtocol
+    
+    private let loginCompletionHandler: (User) -> Void
 
-    public init(loginViewControllerDelegate: LoginViewControllerDelegateProtocol, signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol, coordinator: ProfileCoordinator?) {
+    public init(
+        loginViewControllerDelegate: LoginViewControllerDelegateProtocol,
+        signUpViewControllerDelegate: SignUpViewControllerDelegateProtocol,
+        coordinator: Coordinatable?,
+        loginCompletionHandler: @escaping (User) -> Void
+    ) {
         self.loginViewControllerDelegate = loginViewControllerDelegate
         self.signUpViewControllerDelegate = signUpViewControllerDelegate
         self.coordinator = coordinator
         self.authUserStorage = RealmAuthUserStorage()
+        self.bloggerDataStorage = FirestoreBloggerDataStorage()
+        self.loginCompletionHandler = loginCompletionHandler
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,61 +51,58 @@ class LogInViewController: UIViewController, LogInViewControllerProtocol, LoginV
         if let lastAuthorizedUser = lastAuthorized {
             self.localAuthorizationService.authorizeIfPossible { (success, errorMessage) in
                 guard success else {
-                    self.coordinator?.showLoginError(
+                    self.coordinator?.showError(
                         title: String(localized: "Auto-login Error"),
                         message: errorMessage ?? String(localized: "Face ID/Touch ID may not be configured")
                     )
                     return
                 }
-                self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({
+                self.checkCredentials(login: lastAuthorizedUser.login, password: lastAuthorizedUser.password, ({ user in
                     self.authUserStorage.save(lastAuthorizedUser)
-                    self.coordinator?.openProfile(sender: nil, loginInput: lastAuthorizedUser.login)
+                    self.loginCompletionHandler(user)
                 }), ({
-                    self.coordinator?.showLoginError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
+                    self.coordinator?.showError(title: String(localized: "Auto-login Error"), message: String(localized: "Invalid auto-saved login or password."))
                 }))
             }
             
         }
         loginView.logInButton.setButtonTappedCallback({ sender in
-            do {
-                let enteredPassword = self.loginView.passwordInput.text ?? "";
-                let enteredLogin = self.loginView.loginInput.text ?? "";
-                self.checkCredentials(login: enteredLogin, password: enteredPassword, ({
-                    self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                    self.coordinator?.openProfile(sender: sender, loginInput: enteredLogin)
-                }), ({
-                    self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
-                }))
-            } catch ValidationError.invalidCredentials {
-                self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
-            } catch {
-                self.coordinator?.showLoginError(title: String(localized: "Something went wrong"), message: String(localized: "Try again later."))
-            }
+            let enteredPassword = self.loginView.passwordInput.text ?? "";
+            let enteredLogin = self.loginView.loginInput.text ?? "";
+            self.checkCredentials(login: enteredLogin, password: enteredPassword, ({ user in
+                self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
+                self.loginCompletionHandler(user)
+            }), ({
+                self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
+            }))
         })
         loginView.signUpButton.setButtonTappedCallback({sender in
-            do {
-                let enteredPassword = self.loginView.passwordInput.text ?? "";
-                let enteredLogin = self.loginView.loginInput.text ?? "";
-                self.sugnUp(login: enteredLogin, password: enteredPassword, ({
+            let enteredPassword = self.loginView.passwordInput.text ?? "";
+            let enteredLogin = self.loginView.loginInput.text ?? "";
+            self.sugnUp(login: enteredLogin, password: enteredPassword, ({ user in
+                /** @todo create blogger in particular way */
+                self.bloggerDataStorage.create(
+                    BloggerPreview(
+                        userId: user.userId,
+                        name: enteredLogin,
+                        imageLink: "https://ucarecdn.com/ee19c14b-0d56-45fe-9e83-0f1af1a1d340/"
+                    )
+                ) { blogger in
                     self.authUserStorage.save(RealmStoredAuthUser(login: enteredLogin, password: enteredPassword))
-                    self.coordinator?.openProfile(sender: sender, loginInput: self.loginView.loginInput.text ?? "")
-                }), ({
-                    self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
-                }))
-            } catch ValidationError.invalidCredentials {
-                self.coordinator?.showLoginError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
-            } catch {
-                self.coordinator?.showLoginError(title: "Something went wrong", message: String(localized: "Try again later."))
-            }
+                    self.loginCompletionHandler(user)
+                }
+            }), ({
+                self.coordinator?.showError(title: String(localized: "Error"), message: String(localized: "Invalid login or password."))
+            }))
         })
         view = loginView
     }
     
-    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func checkCredentials(login: String, password: String, _ completion: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         loginViewControllerDelegate.checkCredentials(login: login, password: password, completion, errorHandler)
     }
     
-    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         signUpViewControllerDelegate.sugnUp(login: login, password: password, completionHandler, errorHandler)
     }
                                                       

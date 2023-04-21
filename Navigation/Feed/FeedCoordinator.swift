@@ -4,35 +4,22 @@ final class FeedCoordinator: Coordinatable {
     var childCoordinators: [Coordinatable] = []
     
     var navigationController: UINavigationController
+    var postAggregateDetailViewCoordinator: PostAggregateDetailViewCoordinator
+    let userService: UserService
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, userService: UserService) {
         self.navigationController = navigationController
+        self.userService = userService
+        self.postAggregateDetailViewCoordinator = PostAggregateDetailViewCoordinator(navigationController: navigationController, userService: self.userService)
     }
     
     func start() {
-        let feedViewController = FeedViewController(feedPresenter: FeedPresenter(coordinator: self))
-        navigationController.pushViewController(feedViewController, animated: false)
+        let feedViewController = try! FeedViewController(feedCoordinator: self, userService: userService)
+        navigationController.setViewControllers([feedViewController], animated: false)
     }
     
-    func openPost(postTitle: String) {
-        navigationController.pushViewController(PostViewController(postTitle: postTitle, coordinator: self), animated: true)
-    }
-    
-    func showInfo() {
-        let infoModal = InfoViewController(coordinator: self)
-        navigationController.present(infoModal, animated: true, completion: nil)
-    }
-    
-    func showAlert() {
-        let alert = UIAlertController(title: String(localized: "My Alert"), message: String(localized: "This is an alert."), preferredStyle: .alert)
-        let okAction = UIAlertAction(title: String(localized: "OK"), style: .default) {
-            UIAlertAction in
-        }
-        alert.addAction(okAction)
-        let cancelAction = UIAlertAction(title: String(localized: "Cancel"), style: .default) {
-            UIAlertAction in
-        }
-        alert.addAction(cancelAction)
-        navigationController.present(alert, animated: true, completion: nil)
+    func openPost(post: PostAggregate) {
+        self.postAggregateDetailViewCoordinator.post = post
+        self.postAggregateDetailViewCoordinator.start()
     }
 }

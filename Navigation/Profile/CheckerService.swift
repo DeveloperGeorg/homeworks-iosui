@@ -3,12 +3,13 @@ import FirebaseCore
 import FirebaseAuth
 
 class CheckerService: CheckerServiceProtocol {
-    func checkCredentials(login: String, password: String, _ completion: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func checkCredentials(login: String, password: String, _ completion: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         Task {
             
             FirebaseAuth.Auth.auth().signIn(withEmail: login, password: password, completion: { authDataResult, error in
-                if authDataResult?.user != nil {
-                    completion()
+                if let firebaseUser = authDataResult?.user {
+                    let user = User(userId: firebaseUser.uid, fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
+                    completion(user)
                 } else {
                     errorHandler()
                 }
@@ -16,11 +17,12 @@ class CheckerService: CheckerServiceProtocol {
         }
     }
     
-    func sugnUp(login: String, password: String, _ completionHandler: @escaping () -> Void, _ errorHandler: @escaping () -> Void) -> Void {
+    func sugnUp(login: String, password: String, _ completionHandler: @escaping (User) -> Void, _ errorHandler: @escaping () -> Void) -> Void {
         
         FirebaseAuth.Auth.auth().createUser(withEmail: login, password: password, completion: {response, error in
-            if response?.user != nil {
-                completionHandler()
+            if let firebaseUser = response?.user  {
+                let user = User(userId: firebaseUser.uid, fullName: firebaseUser.displayName ?? "", avatarImageSrc: "", status: "")
+                completionHandler(user)
             } else {
                 errorHandler()
             }

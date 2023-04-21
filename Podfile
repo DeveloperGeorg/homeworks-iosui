@@ -8,9 +8,12 @@ target 'Navigation' do
   # Pods for Navigation
   pod 'SnapKit', '~> 5.0.0'
   
-  pod 'FirebaseAuth'
-  pod 'FirebaseAuth'
+  pod 'FirebaseAuth', '~> 10.0'
   pod 'RealmSwift'
+  pod 'FirebaseCore', '~> 10.0'
+  pod 'FirebaseFirestore', '~> 10.0'
+  pod 'FirebaseFirestoreSwift', '~> 10.0'
+  pod 'Uploadcare', git: 'https://github.com/uploadcare/uploadcare-swift'
 end
 
 

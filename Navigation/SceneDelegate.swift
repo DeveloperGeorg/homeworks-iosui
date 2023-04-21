@@ -11,10 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: scene)
         self.window = window
         
+        UITabBar.appearance().tintColor = UiKitFacade.shared.getAccentColor()
+        UITabBar.appearance().unselectedItemTintColor = UiKitFacade.shared.getPrimaryTextColor()
+        UINavigationBar.appearance().tintColor = UiKitFacade.shared.getAccentColor()
         coordinator = ApplicationCoordinator(window: window)
         coordinator?.start()
-        OverworkAlertTimer.shared.setApplicationCoordinator(coordinator!)
-        OverworkAlertTimer.shared.startTimer(withInterval: 5)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -24,3 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+
+extension UIView {
+    func toAutoLayout() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    func addSubviews(_ views: [UIView]) {
+        views.forEach{ addSubview($0) }
+    }
+}
